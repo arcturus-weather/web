@@ -1,0 +1,460 @@
+:root {
+    --nav-height: 3em;
+    --title-margin-left: .5em;
+    --title-font-size: 1.5em;
+    --btn-a-margin-left: 1em;
+    --nav-z-index: 9;
+    --under-line-color: salmon;
+    --nav-item-right-padding: 1em;
+    --pop-z-index: 11;
+    --search-box-width: 40%;
+    --search-box-min-width: 20em;
+    --search-box-height: 25em;
+    --search-box-border-radius: .5em;
+    --search-box-bg-color: rgb(255, 255, 255);
+    --search-box-padding: 2em;
+    --search-bg-color: #F9F9F9;
+    --search-btn-border-radius: .5em;
+    --search-history-btn-bg-color: salmon;
+    --search-history-btn-font-color: white;
+    --close-btn-color: #8a8a8a;
+    --close-btn-hover-color: salmon;
+    --setting-btn-z-index: 8;
+    --setting-btn-bg-color: rgb(255, 255, 255);
+    --line-height: 2.5em;
+    --mask-z-index: 10;
+    /* 响应式布局 */
+    --nav-item-a-width: 9em;
+    --nav-mask-z-index: 1;
+    --nav-item-z-index: 2;
+}
+
+/* 导航栏 */
+#nav {
+    background: rgba(255, 255, 255, .8);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 6px #e6e6e6;
+    z-index: var(--nav-z-index);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: var(--nav-height);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+/* 网站标题 */
+#nav>span {
+    font-size: var(--title-font-size);
+    margin: 0 0 0 var(--title-margin-left);
+}
+
+
+#nav button,
+#nav a {
+    position: relative; /* ::after 的绝对定位*/
+    margin: 0 0 0 var(--btn-a-margin-left);
+    display: flex;
+    align-items: center;
+}
+
+/* 鼠标悬浮下划线 */
+#nav button::after,
+#nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -.2em;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: var(--under-line-color);
+    border-radius: 1.5px;
+    transition: width .5s ease;
+}
+
+#nav button:hover::after,
+#nav a:hover::after {
+    width: 100%;
+}
+
+/* 导航栏选项栏目 */
+#nav-item {
+    padding: 0 var(--nav-item-right-padding) 0 0;
+}
+
+/* 默认不显示展开按钮 */
+#unfold-btn {
+    display: none;
+}
+
+/* 遮罩 */
+.mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    transition: opacity .5s ease;
+    z-index: var(--mask-z-index);
+    pointer-events: none;
+}
+
+#nav-mask {
+    height: 100vh;
+}
+
+/* 搜索框 */
+.box {
+    z-index: var(--pop-z-index);
+    width: var(--search-box-width);
+    min-width: var(--search-box-min-width);
+    height: var(--search-box-height);
+    border-radius: var(--search-box-border-radius);
+    background-color: var(--search-box-bg-color);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity .5s ease, transform .5s ease;
+    padding: var(--search-box-padding);
+}
+
+/* 关闭按钮 */
+.close {
+    transition: fill .05s ease;
+    position: absolute;
+    fill: var(--close-btn-color);
+    margin: 0;
+    top: .2em;
+    right: .2em;
+}
+
+.close:hover {
+    fill: var(--close-btn-hover-color);
+}
+
+/* 图标 + 输入框 */
+#search-input-item {
+    flex: 2;
+    background-color: var(--search-bg-color);
+    border-radius: .5em;
+    padding: 0 .5em;
+}
+
+/* 输入框 */
+#search-input-item input {
+    width: 100%;
+}
+
+/* 地图选点按钮 */
+#search-input button {
+    flex: 1;
+    margin-left: .5em;
+    background-color: var(--search-bg-color);
+}
+
+/* 地图选点及当前位置按钮  */
+#search-box button {
+    border-radius: var(--search-btn-border-radius);
+    padding: 0 .5em;
+}
+
+/* 搜索记录 */
+#search-history {
+    margin-top: .5em;
+}
+
+/* 当前位置按钮 */
+#search-history button {
+    background-color:var(--search-history-btn-bg-color);
+    color: var(--search-history-btn-font-color);
+    margin: 0 .5em .5em 0;
+}
+
+/* 当前位置图标颜色 */
+#search-history svg {
+    fill: var(--search-history-btn-font-color);
+}
+
+/* 设置按钮 */
+#setting-btn {
+    z-index: var(--setting-btn-z-index);
+    position: fixed;
+    bottom: 2em;
+    right: 2em;
+    background: var(--setting-btn-bg-color);
+    border-radius: 50%;
+    padding: .5em;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+/* 设置按钮图标 */
+#setting-btn>svg {
+    margin: 0;
+    fill: rgba(234, 84, 19);
+}
+
+.check-item {
+    margin: 0 0.5em 0.5em 0;
+    line-height: var(--line-height);
+    background-color: var(--search-bg-color);
+    border-radius: var(--search-btn-border-radius);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 .5em;
+    cursor: pointer;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/* 展开按钮 */
+#unfold-btn {
+    display: none;
+}
+
+#unfold-btn>button>svg {
+    margin: 0;
+}
+
+#nav-mask {
+    z-index: var(--nav-mask-z-index);
+    backdrop-filter: none;
+}
+
+/* 导航栏部分的响应式布局 */
+@media (max-width: 600px) {
+    /* 去掉“搜索”而留下图标 */
+    #nav-item>button>div {
+        display: none;
+    }
+
+    /* 需要响应的选项 */
+    #nav-item-a {
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 1em;
+        background: rgba(255, 255, 255);
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: var(--nav-item-a-width);
+        height: 100vh;
+        transform: translateX(100%);
+        transform-origin: right;
+        transition: none;
+        z-index: var(--nav-item-z-index);
+    }
+
+    #nav-item-a>a {
+        margin: .5em 0;
+        transition: color .5s ease;
+        width: 100%;
+    }
+
+    #nav-item-a>a:hover {
+        color: salmon;
+    }
+
+    #nav-item-a>a::after {
+        display: none;
+    }
+
+    #nav-item-a>a>svg {
+        margin-right: 2em;
+    }
+
+    #unfold-btn {
+        display: block;
+    }
+}
+
+.display_animation {
+    animation: display_animation .5s ease;
+}
+
+@keyframes display_animation {
+    from {
+        transform: translateX(100%)
+    }
+
+    to {
+        transform: translateX(0)
+    }
+}
+
+.hidden_animation {
+    animation: hidden_animation .5s ease;
+}
+
+@keyframes hidden_animation {
+    from {
+        transform: translateX(0)
+    }
+
+    to {
+        transform: translateX(100%)
+    }
+}
+
+#today,
+#week {
+    display: inline-block;
+    margin: 1em .5em 1em 0;
+    font-size: 1.2em;
+    cursor: pointer;
+    position: relative;
+}
+
+.selected_date_mode::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: salmon;
+    border-radius: .05em;
+    height: .1em;
+    animation: line .5s ease;
+    width: 80%;
+}
+
+@keyframes line {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 80%;
+    }
+}
+
+#calendar {
+    float: right;
+    background-color: #707070;
+    width: 16em;
+    height: calc(100vh - 3.5em);
+    margin: 3.5em 0 0 0;
+}
+
+#content {
+    float: left;
+    width: calc(100vw - 19em);
+    margin: 3.5em .5em 0 .5em;
+}
+
+@media only screen and (max-width: 600px) {
+    #calendar {
+        display: none;
+    }
+
+    #content {
+        width: 100vw;
+    }
+}
+
+#weather-pannel {
+    width: 100%;
+    height: 10em;
+    background-color: salmon;
+    border-radius: .5em;
+}
+
+#C,
+#F {
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    margin-left: .5em;
+    text-align: center;
+    border-radius: 50%;
+    border: solid 1px #e6e6e6;
+    cursor: pointer;
+}
+
+#swiper {
+    width: 100%;
+    display: flex;
+}
+
+#swiper-today,
+#swiper-week {
+    width: 100%;
+    flex-shrink: 0;
+}
+
+#weather-btn,
+#temp-mode {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.weather-item, .today-indicator {
+    background-color: rgb(255, 255, 255);
+    border-radius: .5em;
+    border: solid 2px sandybrown;
+}
+
+
+.weekend,
+.weather,
+.windspeed,
+.humidity {
+    font-size: 1em;
+}
+
+.weather {
+    color: #b4b3b3;
+}
+
+
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    grid-gap: .5em;
+}
+
+.grid-1 {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-gap: .5em;
+}
+
+.padding {
+    padding: .5em;
+}
+
+.winddir {
+    display: flex;
+}
+
+.winddir-icon {
+    border-radius: 50%;
+    border: solid 1px #b8b8b8;
+    width: 1.5em;
+    height: 1.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: .5em;
+}
+
+.indicator-item {
+    font-size: 2.5em;
+}
+
+.today-indicator {
+    padding: .5em;
+}

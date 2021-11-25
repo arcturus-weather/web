@@ -1,0 +1,47 @@
+/* 全局样式 */
+@font-face {
+    font-family: 'ZhuZiAWan';
+    src: url('https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/font/ZhuZiAWan.woff2');
+}
+
+@font-face {
+    font-family: 'ClearGothic';
+    src: url('https://cdn.jsdelivr.net/gh/lxgw/LxgwClearGothic/TTF/LXGWClearGothic-Regular.ttf');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 1em;
+    font-family: 'ZhuZiAWan';
+    color: #404040;
+    transition: all .5s ease;
+    box-sizing: border-box;
+}
+
+body {
+    height: auto;
+    overflow-x: hidden;
+    background: linear-gradient(to right, #FEF3EB, #EFF8F3);
+}
+
+button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+}
+
+input {
+    background: transparent;
+    border: none;
+    padding: .5em;
+    outline: none;
+}
+
+svg {
+    margin: 0 .5em 0 0;
+}
