@@ -12,87 +12,26 @@
     <v-container class="pa-3">
       <!-- 设置主题 -->
       <strong class="px-1">{{ $t("theme") }}</strong>
-      <v-item-group v-model="mode">
+      <v-item-group v-model="selected" @change="changeTheme">
         <v-row no-gutters>
-          <!-- 浅色模式 -->
-          <v-col class="pa-1">
-            <v-item v-slot="{ active, toggle }">
+          <v-col
+            v-for="item in mode"
+            :key="item.mode"
+            cols="12"
+            md="6"
+            class="pa-1"
+          >
+            <v-item v-slot="{ active, toggle }" :value="item.mode">
               <v-btn
                 block
                 rounded-md
                 large
                 depressed
-                @click="
-                  light();
-                  toggle();
-                "
-                value="light"
+                @click="toggle"
                 :color="active ? 'primary' : ''"
               >
-                {{ $t("light-mode") }}
-                <v-icon right>mdi-white-balance-sunny</v-icon>
-              </v-btn>
-            </v-item>
-          </v-col>
-          <!-- 暗黑模式 -->
-          <v-col class="pa-1">
-            <v-item v-slot="{ active, toggle }">
-              <v-btn
-                block
-                depressed
-                rounded-md
-                large
-                @click="
-                  dark();
-                  toggle();
-                "
-                value="dark"
-                :color="active ? 'primary' : ''"
-              >
-                {{ $t("dark-mode") }}
-                <v-icon right>mdi-weather-night</v-icon>
-              </v-btn>
-            </v-item>
-          </v-col>
-        </v-row>
-        <v-row no-gutters>
-          <!-- 跟随系统 -->
-          <v-col class="pa-1">
-            <v-item v-slot="{ active, toggle }">
-              <v-btn
-                block
-                rounded-md
-                large
-                depressed
-                @click="
-                  system();
-                  toggle();
-                "
-                value="system"
-                :color="active ? 'primary' : ''"
-              >
-                {{ $t("system-mode") }}
-                <v-icon right>mdi-desktop-tower-monitor</v-icon>
-              </v-btn>
-            </v-item>
-          </v-col>
-          <!-- 混合模式 -->
-          <v-col class="pa-1">
-            <v-item v-slot="{ active, toggle }">
-              <v-btn
-                block
-                depressed
-                rounded-md
-                large
-                @click="
-                  mixed();
-                  toggle();
-                "
-                value="mixed"
-                :color="active ? 'primary' : ''"
-              >
-                {{ $t("mixed-mode") }}
-                <v-icon right>mdi-theme-light-dark</v-icon>
+                {{ $t(item.mode) }}
+                <v-icon right>{{ item.icon }}</v-icon>
               </v-btn>
             </v-item>
           </v-col>
@@ -107,11 +46,47 @@ export default {
   data: () => {
     return {
       drawer: false, // 默认关闭设置抽屉
-      mode: null,
+      selected: null,
+      mode: [
+        {
+          // 亮色模式
+          mode: "light-mode",
+          icon: "mdi-white-balance-sunny",
+        },
+        {
+          // 暗黑模式
+          mode: "dark-mode",
+          icon: "mdi-weather-night",
+        },
+        {
+          // 跟随系统
+          mode: "system-mode",
+          icon: "mdi-desktop-tower-monitor",
+        },
+        {
+          // 混合模式
+          mode: "mixed-mode",
+          icon: "mdi-theme-light-dark",
+        },
+      ],
     };
   },
-  computed: {},
   methods: {
+    changeTheme(value) {
+      if (value === "light-mode") {
+        // 浅色主题
+        this.$vuetify.theme.dark = false;
+        localStorage.setItem("theme", "light-mode");
+      } else if (value === "dark-mode") {
+        // 暗色主题
+        this.$vuetify.theme.dark = true;
+        localStorage.setItem("theme", "dark-mode");
+      } else if (value === "system-mode") {
+        // 跟随系统
+      } else if (value === "mixed-mode") {
+        // 混合模式
+      }
+    },
     drawerHandle(e) {
       this.drawer = e;
     },
@@ -119,32 +94,16 @@ export default {
       // 关闭设置栏
       this.drawer = false;
     },
-    light() {
-      // 浅色主题
-      this.$vuetify.theme.dark = false;
-      localStorage.setItem("theme", "light");
-    },
-    dark() {
-      // 暗色主题
-      this.$vuetify.theme.dark = true;
-      localStorage.setItem("theme", "dark");
-    },
-    system() {
-      // 跟随系统
-    },
-    mixed() {
-      // 混合模式
-    },
   },
   mounted() {
     // 绑定打开设置栏事件
     this.$bus.$on("open", this.drawerHandle);
     // 设置主题
     let t = localStorage.getItem("theme");
-    this.mode = t || "light"; // 获取主题模式, 默认亮色模式
-    if (t === "light") {
+    this.selected = t || "light-mode"; // 获取主题模式, 默认亮色模式
+    if (t === "light-mode") {
       this.$vuetify.theme.dark = false;
-    } else if (t === "dark") {
+    } else if (t === "dark-mode") {
       this.$vuetify.theme.dark = true;
     }
   },
