@@ -8,7 +8,9 @@
         <v-icon>mdi-window-close</v-icon>
       </v-btn>
     </v-toolbar>
+
     <v-divider />
+
     <v-container class="pa-3">
       <!-- 设置主题 -->
       <strong class="px-1">{{ $t("theme") }}</strong>
@@ -17,8 +19,8 @@
           <v-col
             v-for="item in mode"
             :key="item.mode"
-            cols=12
-            md=6
+            cols="12"
+            md="6"
             class="pa-1"
           >
             <v-item v-slot="{ active, toggle }" :value="item.mode">
@@ -38,6 +40,8 @@
         </v-row>
       </v-item-group>
     </v-container>
+
+    <p class="text-center">© {{ new Date().getFullYear() }} — Arcturus</p>
   </v-navigation-drawer>
 </template>
 <script>
