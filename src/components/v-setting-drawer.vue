@@ -17,8 +17,8 @@
           <v-col
             v-for="item in mode"
             :key="item.mode"
-            cols="12"
-            md="6"
+            cols=12
+            md=6
             class="pa-1"
           >
             <v-item v-slot="{ active, toggle }" :value="item.mode">
