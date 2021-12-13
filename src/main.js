@@ -1,12 +1,17 @@
 import Vue from 'vue'
 import App from './App.vue'
 // 引入插件
-import vuetify from './plugins/vuetify'
-import i18n from './plugins/i18n'
+import vuetify from '@/plugins/vuetify'
+import i18n from '@/plugins/i18n'
+// 引入 echarts
+import echarts from "@/plugins/echarts"
+Vue.prototype.$echarts = echarts
+
 // 引入 mockServer.js
 import "@/mock/mockServer";
 // 引入 vuex
 import store from '@/store'
+
 
 Vue.config.productionTip = false
 

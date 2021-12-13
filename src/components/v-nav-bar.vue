@@ -1,12 +1,12 @@
 <template>
   <!-- 导航栏 -->
-  <v-app-bar flat app>
+  <v-app-bar flat app dense>
     <v-toolbar-title>{{ $t("appName") }}</v-toolbar-title>
 
     <v-spacer></v-spacer>
 
     <!-- 搜索框 -->
-    <div style="max-width: 15em">
+    <!-- <div style="max-width: 15em">
       <v-text-field
         class="shrink rounded-lg"
         :placeholder="search"
@@ -18,11 +18,11 @@
       >
         <v-icon slot="prepend-inner" class="mx-1">mdi-magnify</v-icon>
       </v-text-field>
-    </div>
+    </div> -->
 
     <!-- 设置按钮 -->
-    <v-btn icon class="mx-1" @click="setting">
-      <v-icon>mdi-cog-outline</v-icon>
+    <v-btn icon class="mx-1" @click="setting" small>
+      <v-icon small>mdi-cog-outline</v-icon>
     </v-btn>
 
     <!-- 切换语言 -->
@@ -34,8 +34,8 @@
       class="mx-1"
     >
       <template v-slot:activator="{ on }">
-        <v-btn text v-on="on">
-          <v-icon>mdi-translate</v-icon>
+        <v-btn text v-on="on" small>
+          <v-icon small>mdi-translate</v-icon>
           <v-icon small>mdi-chevron-down</v-icon>
         </v-btn>
       </template>
@@ -49,42 +49,42 @@
             :value="item.value"
             class="my-1"
           >
-            <v-list-item-title v-text="item.text"/>
+            <v-list-item-title v-text="item.text" />
           </v-list-item>
         </v-list-item-group>
       </v-card>
     </v-menu>
 
     <!-- 个人信息 -->
-    <v-menu
+    <!-- <v-menu
       bottom
       min-width="200px"
       rounded
       offset-y
       open-on-hover
       transition="scroll-y-transition"
-    >
+    > -->
       <!-- 头像 -->
-      <template v-slot:activator="{ on }">
-        <v-btn icon v-on="on" class="mx-1">
+      <!-- <template v-slot:activator="{ on }">
+        <v-btn icon v-on="on" class="mx-1" small>
           <v-avatar>
-            <v-icon> mdi-account-circle </v-icon>
+            <v-icon small> mdi-account-circle </v-icon>
           </v-avatar>
         </v-btn>
-      </template>
+      </template> -->
       <!-- 资料卡片 -->
-      <v-card class="text-center">
-        <v-avatar size="100px">
+      <!-- <v-card class="text-center">
+        <v-avatar size="100px" class="my-1">
           <v-icon size="100px"> mdi-account-circle </v-icon>
         </v-avatar>
-        <h3>{{ user.name }}</h3>
+        <h3>{{ user.name }}</h3> -->
         <!-- 账号管理 -->
-        <v-btn rounded text outlined class="my-3">{{ $t("account") }}</v-btn>
-        <v-divider></v-divider>
+        <!-- <v-btn rounded text outlined class="my-3">{{ $t("account") }}</v-btn>
+        <v-divider></v-divider> -->
         <!-- 退出登录 -->
-        <v-btn rounded text class="my-3">{{ $t("loginout") }}</v-btn>
+        <!-- <v-btn rounded text class="my-3">{{ $t("loginout") }}</v-btn>
       </v-card>
-    </v-menu>
+    </v-menu> -->
   </v-app-bar>
 </template>
 

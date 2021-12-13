@@ -1,6 +1,6 @@
 <template>
   <!-- 当前天气 -->
-  <v-card flat outlined>
+  <v-card flat outlined class="mb-1">
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title class="text-h3 mb-1">
@@ -16,7 +16,7 @@
 
       <i class="text-h1" :class="`qi-` + icon"></i>
     </v-list-item>
-    <div class="py-2 px-1 d-flex justify-space-around">
+    <div class="py-2 px-3 d-flex justify-space-between">
       <v-chip
         x-large
         v-for="item in statusList"
@@ -25,6 +25,7 @@
         style="border-radius: 0.5em"
         outlined
         :color="item.color"
+        class="mx-1  flex-grow-1 justify-center"
       >
         <div class="text-center">
           <v-icon small> {{ item.icon }}</v-icon>
@@ -34,20 +35,6 @@
       </v-chip>
     </div>
   </v-card>
-  <!-- <v-card flat outlined class="ma-1">
-      <v-carousel :show-arrows="false"> -->
-  <!-- 今日 AQI -->
-  <!-- <v-carousel-item>
-          
-        </v-carousel-item> -->
-  <!-- 生活指数 -->
-  <!-- <v-carousel-item
-          v-for="(item, i) in items"
-          :key="i"
-          :src="item.src"
-        ></v-carousel-item> -->
-  <!-- </v-carousel>
-    </v-card> -->
 </template>
 <script>
 export default {

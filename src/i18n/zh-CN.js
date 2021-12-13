@@ -11,5 +11,18 @@ export default {
     'dark-mode': '暗黑模式',
     'mixed-mode': '混合模式',
     'system-mode': '跟随系统',
-    'airqulity': '空气质量指数'
+    'sun-moon': '日月升落',
+    'feelsLike': '体感',
+    'updateTime': '更新时间',
+    'humidity': '湿度',
+    'windDir': '风向',
+    'windSpeed': '风速',
+    'pressure': '气压',
+    'vis': '能见度',
+    'AQI': 'AQI',
+    'now': '现在',
+    'rainChart': '2小时内降水',
+    'hours': '小时概况',
+    'week': '7天',
+    'precip': '降雨量\n(10min/mL)'
 }

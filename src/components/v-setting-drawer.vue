@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer v-model="drawer" absolute right temporary width="300">
+  <v-navigation-drawer v-model="drawer" fixed right temporary width="300">
     <!-- 设置顶栏 -->
     <v-toolbar flat>
       <div class="text-h6">{{ $t("setting") }}</div>
@@ -47,34 +47,32 @@
 <script>
 export default {
   name: "setting-drawer",
-  data: () => {
-    return {
-      drawer: false, // 默认关闭设置抽屉
-      selected: null,
-      mode: [
-        {
-          // 亮色模式
-          mode: "light-mode",
-          icon: "mdi-white-balance-sunny",
-        },
-        {
-          // 暗黑模式
-          mode: "dark-mode",
-          icon: "mdi-weather-night",
-        },
-        {
-          // 跟随系统
-          mode: "system-mode",
-          icon: "mdi-desktop-tower-monitor",
-        },
-        {
-          // 混合模式
-          mode: "mixed-mode",
-          icon: "mdi-theme-light-dark",
-        },
-      ],
-    };
-  },
+  data: () => ({
+    drawer: false, // 默认关闭设置抽屉
+    selected: null,
+    mode: [
+      {
+        // 亮色模式
+        mode: "light-mode",
+        icon: "mdi-white-balance-sunny",
+      },
+      {
+        // 暗黑模式
+        mode: "dark-mode",
+        icon: "mdi-weather-night",
+      },
+      {
+        // 跟随系统
+        mode: "system-mode",
+        icon: "mdi-desktop-tower-monitor",
+      },
+      {
+        // 混合模式
+        mode: "mixed-mode",
+        icon: "mdi-theme-light-dark",
+      },
+    ],
+  }),
   methods: {
     changeTheme(value) {
       if (value === "light-mode") {

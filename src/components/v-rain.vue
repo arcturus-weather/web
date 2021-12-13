@@ -4,9 +4,12 @@
   </v-card>
 </template>
 <script>
+import { darkMode, common } from "@/mixin";
+
 export default {
   name: "v-rain",
   data: () => ({}),
+  mixins: [darkMode, common],
   watch: {
     // 切换主题模式后重新绘制降水图
     darkMode(n) {
@@ -18,9 +21,6 @@ export default {
     // 绘制降水图
     drawRainChart(mode) {
       this.myChart = this.$echarts.init(this.$refs.rainChart, mode);
-      window.onresize = ()=> {
-        this.myChart.resize();
-      };
       let option = {
         backgroundColor: "transparent",
         title: {
@@ -68,6 +68,7 @@ export default {
           {
             name: this.$t("precip"),
             type: "value",
+            max: 0.42,
           },
         ],
         series: [
@@ -92,6 +93,10 @@ export default {
 
       option && this.myChart.setOption(option);
     },
+    // 重绘图
+    reDraw() {
+      this.myChart.resize();
+    },
   },
   computed: {
     value() {
@@ -107,12 +112,11 @@ export default {
       }
       return array;
     },
-    darkMode() {
-      return this.$vuetify.theme.dark;
-    },
   },
   mounted() {
     this.drawRainChart(this.darkMode ? "dark" : "light");
-  },
+    let rd = this.Timer(this.reDraw, 100);
+    window.addEventListener("resize", () => rd(), false);
+  }
 };
 </script>
