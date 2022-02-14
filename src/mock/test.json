@@ -1,0 +1,19 @@
+{
+    "data": {
+        "code": "200",
+        "updateTime": "2022-02-04T22:00+08:00",
+        "fxLink": "http://hfx.link/1u2r1",
+        "sunrise": "2022-02-04T07:12+08:00",
+        "sunset": "2022-02-04T18:32+08:00",
+        "refer": {
+            "sources": [
+                "QWeather"
+            ],
+            "license": [
+                "no commercial use"
+            ]
+        }
+    },
+    "statusCode": "",
+    "header": ""
+}

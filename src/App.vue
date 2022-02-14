@@ -68,6 +68,7 @@ import navBar from "./components/v-nav-bar.vue";
 import settingDrawer from "./components/v-setting-drawer.vue";
 import VRain from "./components/v-rain.vue";
 import VChart from "./components/v-chart.vue";
+import { common } from "@/mixin";
 
 export default {
   name: "App",
@@ -80,6 +81,7 @@ export default {
     VRain,
     VChart,
   },
+  mixins: [common],
   computed: {
     showPrecip() {
       if (this.$store.state.rain) {
@@ -106,6 +108,10 @@ export default {
     this.$store.dispatch("getLifeIndex");
     // 请求小时降雨量
     this.$store.dispatch("getHours");
+
+    // 设置主题, 默认亮色模式
+    let theme = localStorage.getItem("theme") || "lightMode";
+    this.setTheme(theme);
   },
 };
 </script>

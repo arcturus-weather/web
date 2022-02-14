@@ -1,4 +1,11 @@
 export default {
+    theme: {
+        theme: '主题',
+        auto: '自动',
+        lightMode: '浅色模式',
+        darkMode: '暗黑模式',
+        followSystem: '跟随系统',
+    },
     'label': '简体中文',
     'loginout': '退出',
     'account': '账号',
@@ -6,11 +13,6 @@ export default {
     'search': '搜索',
     'appName': '小天气',
     'setting': '设置',
-    'theme': '主题',
-    'light-mode': '浅色模式',
-    'dark-mode': '暗黑模式',
-    'mixed-mode': '混合模式',
-    'system-mode': '跟随系统',
     'sun-moon': '日月升落',
     'feelsLike': '体感',
     'updateTime': '更新时间',

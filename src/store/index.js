@@ -89,6 +89,9 @@ const mutations = {
 	},
 	GETHOURS(state, value) {
 		state.hours = value;
+	},
+	openDrawer(state, bool) {
+		state.drawer = bool;
 	}
 }
 
@@ -100,6 +103,7 @@ const state = {
 	rain: null, // 降水情况
 	lifeIndex: null, // 生活指数
 	hours: null, // 小时概况
+	drawer: false, // 是否打开设置栏
 }
 
 export default new Vuex.Store({

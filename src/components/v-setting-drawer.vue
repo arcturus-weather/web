@@ -2,9 +2,9 @@
   <v-navigation-drawer v-model="drawer" fixed right temporary width="300">
     <!-- 设置顶栏 -->
     <v-toolbar flat>
-      <div class="text-h6">{{ $t("setting") }}</div>
+      <v-toolbar-title class="text-h6">{{ $t("setting") }}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon @click="close">
+      <v-btn icon @click="closeDrawer">
         <v-icon>mdi-window-close</v-icon>
       </v-btn>
     </v-toolbar>
@@ -12,16 +12,21 @@
     <v-divider />
 
     <v-container class="pa-3">
-      <!-- 设置主题 -->
-      <strong class="px-1">{{ $t("theme") }}</strong>
+      <!-- 主题(标题) -->
+      <div class="font-weight-bold text-caption pa-1">
+        {{ $t("theme.theme") }}
+      </div>
+      <!-- 设置主题按钮 -->
       <v-item-group v-model="selected" @change="changeTheme">
         <v-row no-gutters>
           <v-col
             v-for="item in mode"
             :key="item.mode"
+            class="pa-1"
             cols="12"
             md="6"
-            class="pa-1"
+            lg="6"
+            xl="6"
           >
             <v-item v-slot="{ active, toggle }" :value="item.mode">
               <v-btn
@@ -32,7 +37,7 @@
                 @click="toggle"
                 :color="active ? 'primary' : ''"
               >
-                {{ $t(item.mode) }}
+                {{ $t(`theme.${item.mode}`) }}
                 <v-icon right>{{ item.icon }}</v-icon>
               </v-btn>
             </v-item>
@@ -45,73 +50,60 @@
   </v-navigation-drawer>
 </template>
 <script>
+import { common } from "@/mixin";
+
 export default {
   name: "setting-drawer",
   data: () => ({
-    drawer: false, // 默认关闭设置抽屉
     selected: null,
     mode: [
       {
         // 亮色模式
-        mode: "light-mode",
+        mode: "lightMode",
         icon: "mdi-white-balance-sunny",
       },
       {
         // 暗黑模式
-        mode: "dark-mode",
+        mode: "darkMode",
         icon: "mdi-weather-night",
       },
       {
         // 跟随系统
-        mode: "system-mode",
+        mode: "followSystem",
         icon: "mdi-desktop-tower-monitor",
       },
       {
-        // 混合模式
-        mode: "mixed-mode",
+        // 自动模式
+        mode: "auto",
         icon: "mdi-theme-light-dark",
       },
     ],
   }),
+  mixins: [common],
   methods: {
     changeTheme(value) {
-      if (value === "light-mode") {
-        // 浅色主题
-        this.$vuetify.theme.dark = false;
-        localStorage.setItem("theme", "light-mode");
-      } else if (value === "dark-mode") {
-        // 暗色主题
-        this.$vuetify.theme.dark = true;
-        localStorage.setItem("theme", "dark-mode");
-      } else if (value === "system-mode") {
-        // 跟随系统
-      } else if (value === "mixed-mode") {
-        // 混合模式
-      }
+      this.setTheme(value);
+      localStorage.setItem("theme", value);
     },
-    drawerHandle(e) {
-      this.drawer = e;
-    },
-    close() {
+    closeDrawer() {
       // 关闭设置栏
-      this.drawer = false;
+      this.$store.commit("openDrawer", false);
+    },
+  },
+  computed: {
+    drawer: {
+      // 读取设置栏开启/关闭状态
+      get() {
+        return this.$store.state.drawer;
+      },
+      set(status) {
+        this.$store.commit("openDrawer", status);
+      },
     },
   },
   mounted() {
-    // 绑定打开设置栏事件
-    this.$bus.$on("open", this.drawerHandle);
-    // 设置主题
-    let t = localStorage.getItem("theme");
-    this.selected = t || "light-mode"; // 获取主题模式, 默认亮色模式
-    if (t === "light-mode") {
-      this.$vuetify.theme.dark = false;
-    } else if (t === "dark-mode") {
-      this.$vuetify.theme.dark = true;
-    }
-  },
-  beforeDestroy() {
-    // 解绑设置栏事件
-    this.$bus.off("open");
+    let theme = localStorage.getItem("theme") || "lightMode";
+    this.selected = theme;
   },
 };
 </script>

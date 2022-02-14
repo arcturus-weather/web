@@ -23,6 +23,7 @@ export const darkMode = {
     }
 }
 
+// 一些公共方法
 export const common = {
     methods: {
         Timer(fn, wait) {
@@ -33,6 +34,31 @@ export const common = {
                 timer = setTimeout(() => {
                     fn();
                 }, wait);
+            }
+        },
+        setTheme(theme) {
+            if (theme === "lightMode") {
+                // 浅色模式
+                this.$vuetify.theme.dark = false;
+            } else if (theme === "darkMode") {
+                // 暗黑模式
+                this.$vuetify.theme.dark = true;
+            } else if (theme === "followSystem") {
+                // 跟随系统
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches){
+                    // 浏览器处于暗黑模式
+                    this.$vuetify.theme.dark = true;
+                } else {
+                    this.$vuetify.theme.dark = false;
+                }
+            } else if (theme === "auto") {
+                let nowTime = new Date();
+                if (nowTime.getHours() < 6 || nowTime.getHours() > 18) {
+                    // 0~6点和18~24点自动开启暗黑模式
+                    this.$vuetify.theme.dark = true;
+                } else {
+                    this.$vuetify.theme.dark = false;
+                }
             }
         }
     }
