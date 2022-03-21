@@ -13,7 +13,7 @@
 
 #### 步骤
 
-1. 在根目录下创建 key.js 文件
+1. 在根目录下创建 appKey.js 文件
 
     ```js
     export const appKey = {
