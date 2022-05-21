@@ -1,11 +1,17 @@
-# Vue 3 + Typescript + Vite
+<div align="center">
 
-This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+<h1>小冰天气</h1>
 
-## Recommended IDE Setup
+<div style="display: flex;justify-content: center;align-items: center;">
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+<a href="https://github.com/ICE99125/iweather-vue/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/ICE99125/iweather-vue?style=for-the-badge"></a>
 
-## Type Support For `.vue` Imports in TS
+<a href="https://github.com/ICE99125/iweather-vue/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/ICE99125/iweather-vue?style=for-the-badge"></a>
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
+<a href="https://github.com/ICE99125/iweather-vue/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/ICE99125/iweather-vue?style=for-the-badge"></a>
+
+<img alt="GitHub all releases" src="https://img.shields.io/github/downloads/ICE99125/iweather-vue/total?style=for-the-badge"/>
+
+</div>
+
+</div>
