@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import vuetify from '@vuetify/vite-plugin'
 
+const vuetify = require('@vuetify/vite-plugin')
+// If there is an error here, you might need to `npm install @types/node -D`
 const path = require('path')
 
 // https://vitejs.dev/config/
@@ -17,19 +18,11 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
+      i18n: path.resolve(__dirname, 'src/i18n'),
+      components: path.resolve(__dirname, 'src/components'),
+      plugins: path.resolve(__dirname, 'src/plugins'),
     },
+    // https://vitejs.dev/config/#resolve-extensions
+    extensions: ['.js', '.json', '.jsx', '.mjs', '.ts', '.tsx' /*'.vue'*/],
   },
-  /* remove the need to specify .vue files https://vitejs.dev/config/#resolve-extensions
-  resolve: {
-    extensions: [
-      '.js',
-      '.json',
-      '.jsx',
-      '.mjs',
-      '.ts',
-      '.tsx',
-      '.vue',
-    ]
-  },
-  */
 })

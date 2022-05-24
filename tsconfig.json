@@ -2,14 +2,22 @@
   "compilerOptions": {
     "target": "esnext",
     "useDefineForClassFields": true,
+    "allowSyntheticDefaultImports": true, // https://www.typescriptlang.org/tsconfig/#allowSyntheticDefaultImports
+    "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
     "strict": true,
     "jsx": "preserve",
     "sourceMap": true,
     "resolveJsonModule": true,
-    "esModuleInterop": true,
     "lib": ["esnext", "dom"]
+  },
+  "baseUrl": ".",
+  "paths": {
+    "@/*": ["src/*"],
+    "i18n/*": ["src/i18n/*"],
+    "components/*": ["src/components/*"],
+    "plugins/*": ["src/plugins/*"],
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]
