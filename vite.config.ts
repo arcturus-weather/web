@@ -21,6 +21,8 @@ export default defineConfig({
       i18n: path.resolve(__dirname, 'src/i18n'),
       components: path.resolve(__dirname, 'src/components'),
       plugins: path.resolve(__dirname, 'src/plugins'),
+      utils: path.resolve(__dirname, 'src/utils'),
+      weather: path.resolve(__dirname, 'src/utils/weather')
     },
     // https://vitejs.dev/config/#resolve-extensions
     extensions: ['.js', '.json', '.jsx', '.mjs', '.ts', '.tsx' /*'.vue'*/],

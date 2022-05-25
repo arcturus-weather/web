@@ -18,6 +18,8 @@
     "i18n/*": ["src/i18n/*"],
     "components/*": ["src/components/*"],
     "plugins/*": ["src/plugins/*"],
+    "utils/*": ["src/utils/*"],
+    "weather/*": ["src/utils/weather/*"]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]
