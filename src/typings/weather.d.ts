@@ -1,6 +1,6 @@
 interface IComponent {
   co: number
-  no: number
+  no?: number
   no2: number
   o3: number
   so2: number
