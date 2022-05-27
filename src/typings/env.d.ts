@@ -6,3 +6,14 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>
   export default component
 }
+
+declare module 'i18n'
+declare module 'utils/*'
+declare module 'weather/*'
+declare module 'plugins/*'
+declare module '*.json'
+declare module 'vue-i18n/*'
+declare module '@appKey'
+
+declare const qq: any
+declare const TMap: any
