@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "esnext",
+    "suppressImplicitAnyIndexErrors": true, // 允许以 obj[变量] 的形式访问对象属性
     "useDefineForClassFields": true,
     "allowSyntheticDefaultImports": true, // https://www.typescriptlang.org/tsconfig/#allowSyntheticDefaultImports
     "esModuleInterop": true,
@@ -19,7 +20,8 @@
     "components/*": ["src/components/*"],
     "plugins/*": ["src/plugins/*"],
     "utils/*": ["src/utils/*"],
-    "weather/*": ["src/utils/weather/*"]
+    "weather/*": ["src/utils/weather/*"],
+    "mock/*": ["src/mock/*"]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]
