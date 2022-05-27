@@ -6,4 +6,4 @@ import i18n from 'i18n'
 
 loadFonts()
 
-const app = createApp(PcApp).use(i18n).use(vuetify).mount('#app')
+createApp(PcApp).use(i18n).use(vuetify).mount('#app')

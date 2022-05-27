@@ -1,13 +1,13 @@
 <template>
   <v-app>
     <v-main>
-      <HelloWorld/>
+      <HelloWorld />
     </v-main>
   </v-app>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, getCurrentInstance } from 'vue'
 import HelloWorld from 'components/HelloWorld.vue'
 
 export default defineComponent({
@@ -15,12 +15,6 @@ export default defineComponent({
 
   components: {
     HelloWorld,
-  },
-
-  data () {
-    return {
-      //
-    }
   },
 })
 </script>
