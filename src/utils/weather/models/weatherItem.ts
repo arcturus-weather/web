@@ -36,14 +36,6 @@ export class WeatherItem implements IWeatherItem {
     this.pop = pop
     this.precip = precip
   }
-
-  get datetime(): string {
-    return this.dateTime.format('yyyy-MM-dd hh:mm:ss')
-  }
-
-  get time(): string {
-    return this.dateTime.format('hh:mm')
-  }
 }
 
 export class DailyItem implements IDailyItem {
@@ -101,13 +93,5 @@ export class DailyItem implements IDailyItem {
     this.visibility = visibility
     this.clouds = clouds
     this.uvIndex = uvIndex
-  }
-
-  get datetime(): string {
-    return this.dateTime.format('yyyy-MM-dd hh:mm:ss')
-  }
-
-  get time(): string {
-    return this.dateTime.format('hh:mm')
   }
 }

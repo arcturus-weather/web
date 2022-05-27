@@ -8,8 +8,4 @@ export default class Precipitation implements IPrecip {
     this.precip = precip
     this.type = type
   }
-
-  get time(): string {
-    return this.dateTime.format('HH:mm')
-  }
 }

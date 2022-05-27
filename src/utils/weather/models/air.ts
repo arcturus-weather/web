@@ -12,8 +12,4 @@ export default class Air implements IAir {
     this.category = category
     this.component = component
   }
-
-  get datetime(): string {
-    return this.dateTime.format('yyyy-MM-dd hh:mm:ss')
-  }
 }
