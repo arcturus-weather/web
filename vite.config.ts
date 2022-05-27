@@ -22,9 +22,19 @@ export default defineConfig({
       components: path.resolve(__dirname, 'src/components'),
       plugins: path.resolve(__dirname, 'src/plugins'),
       utils: path.resolve(__dirname, 'src/utils'),
-      weather: path.resolve(__dirname, 'src/utils/weather')
+      weather: path.resolve(__dirname, 'src/utils/weather'),
+      mock: path.resolve(__dirname, 'src/mock'),
     },
     // https://vitejs.dev/config/#resolve-extensions
     extensions: ['.js', '.json', '.jsx', '.mjs', '.ts', '.tsx' /*'.vue'*/],
+  },
+  server: {
+    proxy: { // cross-origin
+      '/qqmap': {
+        target: 'https://apis.map.qq.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/qqmap/, ''),
+      },
+    },
   },
 })
