@@ -4,10 +4,9 @@ import Warning from 'weather/models/warnings'
 import LivingIndex from 'weather/models/livingIndex'
 import Precipitation from 'weather/models/precipitation'
 import { WeatherItem, DailyItem } from 'weather/models/weatherItem'
-import uuid from 'utils/uuid'
+import { v4 as uuidv4 } from 'uuid'
 
-
-class Weather implements IWeather {
+class WeatherInfo implements IWeather {
   readonly uuid: string
   location: Location
   air: IAir
@@ -32,7 +31,7 @@ class Weather implements IWeather {
     next7days,
     now,
   }: IWeather) {
-    this.uuid = uuid()
+    this.uuid = uuidv4()
     this.location = location
     this.air = air
     this.sun = sun
@@ -56,5 +55,5 @@ export {
   Precipitation,
   WeatherItem,
   DailyItem,
-  Weather,
+  WeatherInfo,
 }
