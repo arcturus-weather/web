@@ -3,7 +3,7 @@
  *************************/
 
 // 和风天气
-export const qweather: Record<string, string> = {
+export const qWeatherCode = {
   204: '所在地区暂无天气数据',
   404: '查询的数据或地区不存在',
   400: '参数错误',
@@ -11,16 +11,16 @@ export const qweather: Record<string, string> = {
   403: '无权访问',
   429: '超过限定的 QPM',
   500: '接口异常',
-}
+};
 
 // openWeather
-export const openWeather: Record<string, string> = {
+export const openWeatherCode = {
   400: '无效参数',
   401: '无效 key',
-}
+};
 
 // 腾讯地图
-export const qqMap: Record<string, string> = {
+export const qqMapCode = {
   110: '请求来源未被授权',
   111: '签名验证失败',
   112: 'IP 未被授权',
@@ -85,4 +85,4 @@ export const qqMap: Record<string, string> = {
   530: '后端服务返回数据解析失败',
   531: '后端服务报错',
   600: '其他',
-}
+};
