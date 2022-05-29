@@ -9,7 +9,7 @@ import Location from 'utils/location/location';
 const qw = new QWeatherStrategies(qWeatherKey);
 const ow = new OpenWeatherStrategies(openWeatherKey);
 
-const w = new Weather(qw);
+const w = new Weather(qw, 'qweather');
 
 const loc = new Location({
   latitude: 21,
@@ -18,6 +18,7 @@ const loc = new Location({
 
 w.getAllweather(loc).then((res) => console.log(res));
 
-w.strategy = ow; // 切换策略
+w.addStrategy(ow, 'openweather');
+w.changeStrategy('openweather'); // 切换策略
 
 w.getAllweather(loc).then((res) => console.log(res));
