@@ -276,7 +276,7 @@ export default class QWeatherStrategies extends Strategies {
     return this.request({
       url: 'indices/1d',
       data: {
-        location: loc.toString,
+        location: loc.toString(),
         type,
       },
     }).then((res) => {
