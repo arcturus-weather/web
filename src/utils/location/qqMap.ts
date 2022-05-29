@@ -2,7 +2,6 @@
  *       腾讯地图         *
  *************************/
 import Http from 'utils/http';
-import { qqMapKey } from 'src/appKey';
 
 declare const qq: { maps: { Geolocation: any } };
 
@@ -19,7 +18,7 @@ interface geoResult {
   accuracy: number; //误差范围, 以米为单位
 }
 
-class QQMap {
+export class QQMap {
   private baseUrl: string;
   private http: Http;
   private geolocation;
@@ -71,9 +70,6 @@ class QQMap {
     });
   }
 }
-
-// 导出地图实例
-export const qqMap = new QQMap(qqMapKey);
 
 /*************************
  *      腾讯地图绘制      *
