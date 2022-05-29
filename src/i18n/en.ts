@@ -1,5 +1,7 @@
-import { en } from 'vuetify/locale'
+// This is just an example,
+// so you can safely delete all default props below
 
 export default {
-  ...en,
-}
+  failed: 'Action failed',
+  success: 'Action was successful'
+};

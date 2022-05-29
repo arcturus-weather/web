@@ -1,28 +1,28 @@
 {
+  "extends": "@quasar/app-vite/tsconfig-preset",
   "compilerOptions": {
-    "target": "esnext",
     "suppressImplicitAnyIndexErrors": true, // 允许以 obj[变量] 的形式访问对象属性
-    "useDefineForClassFields": true,
     "allowSyntheticDefaultImports": true, // https://www.typescriptlang.org/tsconfig/#allowSyntheticDefaultImports
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "strict": true,
-    "jsx": "preserve",
-    "sourceMap": true,
-    "resolveJsonModule": true,
-    "lib": ["esnext", "dom"]
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["src/*"],
+      "app/*": ["*"],
+      "components/*": ["src/components/*"],
+      "layouts/*": ["src/layouts/*"],
+      "pages/*": ["src/pages/*"],
+      "assets/*": ["src/assets/*"],
+      "boot/*": ["src/boot/*"],
+      "stores/*": ["src/stores/*"],
+      "utils/*": ["src/utils/*"]
+    }
   },
-  "baseUrl": ".",
-  "paths": {
-    "@/*": ["src/*"],
-    "i18n/*": ["src/i18n/*"],
-    "components/*": ["src/components/*"],
-    "plugins/*": ["src/plugins/*"],
-    "utils/*": ["src/utils/*"],
-    "weather/*": ["src/utils/weather/*"],
-    "mock/*": ["src/mock/*"]
-  },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "src-pwa/*.d.ts",
+    "src-bex/*.d.ts",
+    "src-ssr/*.d.ts"
+  ]
 }
