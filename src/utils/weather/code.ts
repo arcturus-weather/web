@@ -1,4 +1,4 @@
-export const qWeatherType: Record<string, string> = {
+export const qWeatherType = {
   100: 'sun', // 晴
   101: 'cloudy', // 多云
   102: 'cloudy', // 少云
@@ -59,4 +59,4 @@ export const qWeatherType: Record<string, string> = {
   513: 'fog', // 严重霾
   514: 'fog', // 大雾
   515: 'fog', // 特强浓雾
-}
+};
