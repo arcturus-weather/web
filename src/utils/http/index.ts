@@ -1,35 +1,38 @@
-import { openWeather, qweather, qqMap } from './code'
-import axios, { AxiosInstance } from 'axios'
+import { openWeatherCode, qWeatherCode, qqMapCode } from './code';
+import { useQuasar } from 'quasar';
+import axios, { AxiosInstance, Method } from 'axios';
+
+const $q = useQuasar();
 
 export default class Http {
-  ax: AxiosInstance
+  ax: AxiosInstance;
 
-  constructor(private options: { baseUrl: string; timeout: number }) {
+  constructor(private options: { baseUrl: string; timeout?: number }) {
     this.ax = Http.createAxios({
       baseUrl: this.options.baseUrl,
-      timeout: this.options.timeout,
-    })
+      timeout: this.options.timeout ?? 3000,
+    });
   }
 
   static createAxios(options: { baseUrl: string; timeout: number }) {
     const ax = axios.create({
       timeout: options.timeout,
       baseURL: options.baseUrl,
-    })
+    });
 
-    return ax
+    return ax;
   }
 
   request(options: {
-    url: string
-    method: string
-    data: Record<string, string>
+    url: string;
+    method: Method;
+    data: Record<string, string>;
   }) {
-    let p: any
+    let p: object;
     if (options.method === 'GET') {
-      p = { params: options.data }
+      p = { params: options.data };
     } else if (options.method === 'POST') {
-      p = { data: options.data }
+      p = { data: options.data };
     }
 
     return new Promise((resolve, reject) => {
@@ -39,12 +42,12 @@ export default class Http {
         ...p,
       })
         .then((res) => {
-          resolve(res)
+          resolve(res);
         })
         .catch((err) => {
-          reject(err)
-        })
-    })
+          reject(err);
+        });
+    });
   }
 
   /*************************
@@ -54,35 +57,44 @@ export default class Http {
   // qWeather
   static setQweatherInterceptors(ax: AxiosInstance) {
     ax.interceptors.response.use((resp) => {
-      const res = resp.data
+      const res = resp.data;
       if (res.code === '200') {
-        return res
+        return res;
       } else {
-        //Message.error(qweather[res.code])
+        $q.notify({
+          type: 'negative',
+          message: qWeatherCode[res.code],
+        });
       }
-    })
+    });
   }
 
   // openWeather
   static setOpenWeatherInterceptors(ax: AxiosInstance) {
     ax.interceptors.response.use((resp) => {
       if (resp.status === 200) {
-        return resp.data
+        return resp.data;
       } else {
-        //Message.error(openWeather[resp.status])
+        $q.notify({
+          type: 'negative',
+          message: openWeatherCode[resp.status],
+        });
       }
-    })
+    });
   }
 
   // 腾讯地图
   static setQQMapInterceptors(ax: AxiosInstance) {
     ax.interceptors.response.use((resp) => {
-      let res = resp.data
+      const res = resp.data;
       if (res.status === 0) {
-        return res.data
+        return res.data;
       } else {
-        //Message.error(qqMap[res.status])
+        $q.notify({
+          type: 'negative',
+          message: qqMapCode[res.status],
+        });
       }
-    })
+    });
   }
 }
