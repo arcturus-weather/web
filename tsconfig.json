@@ -1,5 +1,5 @@
 {
-  "extends": "@quasar/app-vite/tsconfig-preset",
+  "extends": "@quasar/app-vite/tsconfig-preset.json",
   "compilerOptions": {
     "suppressImplicitAnyIndexErrors": true, // 允许以 obj[变量] 的形式访问对象属性
     "allowSyntheticDefaultImports": true, // https://www.typescriptlang.org/tsconfig/#allowSyntheticDefaultImports
