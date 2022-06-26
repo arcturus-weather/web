@@ -1,8 +1,7 @@
 {
   "name": "iweather",
   "version": "0.0.1",
-  "description": "小冰天气",
-  "productName": "iweather",
+  "productName": "小冰天气",
   "author": "ARCTURUS <1638330246@qq>",
   "private": true,
   "scripts": {
@@ -29,6 +28,7 @@
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "@typescript-eslint/parser": "^5.29.0",
     "autoprefixer": "^10.4.7",
+    "dotenv": "^16.0.1",
     "eslint": "^8.18.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-vue": "^8.7.1",
