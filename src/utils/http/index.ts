@@ -70,7 +70,7 @@ export default class Http {
   static setResponseInterceptors(ax: AxiosInstance, func: (arg: any) => any) {
     ax.interceptors.response.use(
       (resp) => {
-        func(resp);
+        return func(resp);
       },
       (err) => {
         if (typeof err === 'string') {
