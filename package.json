@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.14.1",
+    "@vue/runtime-core": "^3.2.37",
     "@vueuse/core": "^8.7.5",
     "axios": "^0.21.4",
     "mockjs": "^1.1.0",
