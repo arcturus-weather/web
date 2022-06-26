@@ -208,8 +208,10 @@ export default class QWeatherStrategies extends Strategies {
       baseUrl: this.baseUrl,
     });
 
+    // 添加请求拦截器
+    Http.setRequestInterceptors(this.http.ax, 'qWeather');
     // 添加响应拦截器
-    Http.setQweatherInterceptors(this.http.ax);
+    Http.setQweatherResponseInterceptors(this.http.ax);
   }
 
   request(options: { url: string; data: object }): Promise<any> {
@@ -325,7 +327,7 @@ export default class QWeatherStrategies extends Strategies {
   }
 
   // 一键获取全部天气数据
-  getAllweather(loc: Location): Promise<IWeather> {
+  getAllweather(loc: Location): Promise<IWeather | void> {
     return Promise.all([
       this.getAir(loc),
       this.getSunTime(loc),
@@ -336,19 +338,21 @@ export default class QWeatherStrategies extends Strategies {
       this.getWeatherByHours(loc),
       this.getWeatherByDays(loc),
       this.getNowWeather(loc),
-    ]).then((values): IWeather => {
-      return {
-        location: loc,
-        air: values[0],
-        sun: values[1],
-        moon: values[2],
-        waring: values[3],
-        livingIndices: values[4],
-        precip: values[5],
-        hourly: values[6],
-        daily: values[7],
-        now: values[8],
-      };
-    });
+    ])
+      .then((values): IWeather => {
+        return {
+          location: loc,
+          air: values[0],
+          sun: values[1],
+          moon: values[2],
+          waring: values[3],
+          livingIndices: values[4],
+          precip: values[5],
+          hourly: values[6],
+          daily: values[7],
+          now: values[8],
+        };
+      })
+      .catch(() => {});
   }
 }

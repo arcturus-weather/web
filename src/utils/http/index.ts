@@ -1,8 +1,7 @@
 import { openWeatherCode, qWeatherCode, qqMapCode } from './code';
-import { useQuasar } from 'quasar';
 import axios, { AxiosInstance, Method } from 'axios';
-
-const $q = useQuasar();
+import { Notify } from 'quasar';
+import { i18n } from 'src/boot/i18n';
 
 export default class Http {
   ax: AxiosInstance;
@@ -28,72 +27,94 @@ export default class Http {
     method: Method;
     data: Record<string, string>;
   }) {
-    let p: object;
+    const p: { [key: string]: object } = {};
+
     if (options.method === 'GET') {
-      p = { params: options.data };
+      p.params = options.data;
     } else if (options.method === 'POST') {
-      p = { data: options.data };
+      p.data = options.data;
     }
 
-    return new Promise((resolve, reject) => {
-      this.ax({
-        url: options.url,
-        method: options.method,
-        ...p,
-      })
-        .then((res) => {
-          resolve(res);
-        })
-        .catch((err) => {
-          reject(err);
-        });
+    return this.ax({
+      url: options.url,
+      method: options.method,
+      ...p,
     });
+  }
+
+  /*************************
+   *       请求拦截器        *
+   *************************/
+
+  static setRequestInterceptors(ax: AxiosInstance, type: string) {
+    ax.interceptors.request.use(
+      (config) => {
+        if (typeof config.params.key === 'undefined') {
+          // 这个 reject 会被抛给响应拦截器
+          return Promise.reject(`${type} ${i18n.global.t('waring.key')}`);
+        }
+
+        return config;
+      },
+      () => {
+        // 请求失败, 如网络错误等
+        return Promise.reject();
+      }
+    );
   }
 
   /*************************
    *       响应拦截器        *
    *************************/
 
+  static setResponseInterceptors(ax: AxiosInstance, func: (arg: any) => any) {
+    ax.interceptors.response.use(
+      (resp) => {
+        func(resp);
+      },
+      (err) => {
+        if (typeof err === 'string') {
+          Notify.create({
+            type: 'negative',
+            message: err,
+          });
+        }
+
+        return Promise.reject(err);
+      }
+    );
+  }
+
   // qWeather
-  static setQweatherInterceptors(ax: AxiosInstance) {
-    ax.interceptors.response.use((resp) => {
+  static setQweatherResponseInterceptors(ax: AxiosInstance) {
+    Http.setResponseInterceptors(ax, function (resp) {
       const res = resp.data;
       if (res.code === '200') {
         return res;
       } else {
-        $q.notify({
-          type: 'negative',
-          message: qWeatherCode[res.code],
-        });
+        return Promise.reject(qWeatherCode[res.code]);
       }
     });
   }
 
   // openWeather
-  static setOpenWeatherInterceptors(ax: AxiosInstance) {
-    ax.interceptors.response.use((resp) => {
+  static setOpenWeatherResponseInterceptors(ax: AxiosInstance) {
+    Http.setResponseInterceptors(ax, function (resp) {
       if (resp.status === 200) {
         return resp.data;
       } else {
-        $q.notify({
-          type: 'negative',
-          message: openWeatherCode[resp.status],
-        });
+        return Promise.reject(openWeatherCode[resp.status]);
       }
     });
   }
 
   // 腾讯地图
-  static setQQMapInterceptors(ax: AxiosInstance) {
-    ax.interceptors.response.use((resp) => {
-      const res = resp.data;
-      if (res.status === 0) {
-        return res.data;
+  static setQQMapResponseInterceptors(ax: AxiosInstance) {
+    Http.setResponseInterceptors(ax, function (resp) {
+      if (resp.data.status === 0) {
+        return resp.data;
       } else {
-        $q.notify({
-          type: 'negative',
-          message: qqMapCode[res.status],
-        });
+        return Promise.reject(qqMapCode[resp.data.status]);
       }
     });
   }

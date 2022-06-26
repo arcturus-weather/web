@@ -186,7 +186,7 @@ export default class OpenWeatherStrategies extends Strategies {
     this.unit = 'metric'; // 单位
 
     // 添加响应拦截器
-    Http.setOpenWeatherInterceptors(this.http.ax);
+    Http.setOpenWeatherResponseInterceptors(this.http.ax);
   }
 
   request(options: { url: string; data: object }): Promise<any> {

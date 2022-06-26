@@ -30,7 +30,7 @@ export class QQMap {
       baseUrl: this.baseUrl,
     });
 
-    Http.setQQMapInterceptors(this.http.ax);
+    Http.setQQMapResponseInterceptors(this.http.ax);
 
     // 获取定位
     this.geolocation = new qq.maps.Geolocation(this.key, '小冰天气');
