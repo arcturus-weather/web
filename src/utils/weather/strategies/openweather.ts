@@ -1,7 +1,7 @@
 import Http from 'utils/http';
 import Location from 'utils/location/location';
 import { Strategies } from './base';
-import { aqiLevel } from '../utils';
+import { aqiLevel } from '../tools';
 
 // 处理请求结果
 class OpenWeatherHandler {
