@@ -29,4 +29,5 @@ export default {
   waring: {
     key: 'key 缺失',
   },
+  notFound: '这儿啥也没有丫ˋ( ° ▽  ° )',
 };

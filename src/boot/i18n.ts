@@ -6,6 +6,7 @@ import messages from 'src/i18n';
 const i18n = createI18n({
   locale: 'zhHans',
   messages,
+  globalInjection: true,
 });
 
 export default boot(({ app }) => {
