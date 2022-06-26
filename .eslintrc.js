@@ -88,6 +88,9 @@ module.exports = {
     // allow empty function body
     '@typescript-eslint/no-empty-function': 'off',
 
+    // cancels the benefits of the strict null-checking mode
+    '@typescript-eslint/no-non-null-assertion': 'off',
+
     // allow debugger during development only
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
   },
