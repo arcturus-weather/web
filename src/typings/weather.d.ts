@@ -1,3 +1,6 @@
+/* eslint-disable */
+interface ILocation {}
+
 interface IComponents {
   co: number;
   no?: number;
