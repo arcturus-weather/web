@@ -1,29 +1,29 @@
-import Mock from 'mockjs'
+import Mock from 'mockjs';
 
 /***********************
  *   和风天气模拟数据   *
  **********************/
-import now from 'mock/qweather/nows.json'
-import sevenDays from 'mock/qweather/sevendays.json'
-import hours from 'mock/qweather/hours.json'
-import moonPhase from 'mock/qweather/moon.json'
-import lifeindex from 'mock/qweather/lifeIndex.json'
-import warning from 'mock/qweather/warning.json'
-import air from 'mock/qweather/air.json'
-import rain from 'mock/qweather/rain.json'
+import now from 'mock/qweather/nows.json';
+import sevenDays from 'mock/qweather/sevendays.json';
+import hours from 'mock/qweather/hours.json';
+import moonPhase from 'mock/qweather/moon.json';
+import lifeindex from 'mock/qweather/lifeIndex.json';
+import warning from 'mock/qweather/warning.json';
+import air from 'mock/qweather/air.json';
+import rain from 'mock/qweather/rain.json';
 
 /***********************
  * openWeather 模拟数据 *
  **********************/
-import oneCall from 'mock/openWeather/onecall.json'
-import weather from 'mock/openWeather/weather.json'
-import air_ from 'mock/openWeather/air.json'
-import airForcast from 'mock/openWeather/airForcast.json'
-import forcast from 'mock/openWeather/forcast.json'
+import oneCall from 'mock/openWeather/onecall.json';
+import weather from 'mock/openWeather/weather.json';
+import air_ from 'mock/openWeather/air.json';
+import airForcast from 'mock/openWeather/airForcast.json';
+import forcast from 'mock/openWeather/forcast.json';
 
 Mock.setup({
   timeout: '0',
-})
+});
 
 // 实时天气
 Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/weather\/now.*/, {
@@ -35,7 +35,7 @@ Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/weather\/now.*/, {
     sources: ['Weather China'],
     license: ['commercial license'],
   },
-})
+});
 
 // 未来7天
 Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/weather\/7d.*/g, {
@@ -47,7 +47,7 @@ Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/weather\/7d.*/g, {
     sources: ['QWeather', 'NMC', 'ECMWF'],
     license: ['commercial license'],
   },
-})
+});
 
 // 未来24小时
 Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/weather\/24h/g, {
@@ -59,7 +59,7 @@ Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/weather\/24h/g, {
     sources: ['Weather China'],
     license: ['commercial license'],
   },
-})
+});
 
 // 生活指数
 Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/indices\/1d/g, {
@@ -71,7 +71,7 @@ Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/indices\/1d/g, {
     sources: ['Weather China'],
     license: ['commercial license'],
   },
-})
+});
 
 // 气象灾害
 Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/warning\/now.*/g, {
@@ -83,7 +83,7 @@ Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/warning\/now.*/g, {
     sources: ['12379'],
     license: ['commercial license'],
   },
-})
+});
 
 // AQI 指数
 Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/air\/now.*/g, {
@@ -96,7 +96,7 @@ Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/air\/now.*/g, {
     sources: ['cnemc'],
     license: ['commercial license'],
   },
-})
+});
 
 // 日出日落
 Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/astronomy\/sun,*/g, {
@@ -109,7 +109,7 @@ Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/astronomy\/sun,*/g, {
     sources: ['qweather.com'],
     license: ['commercial license'],
   },
-})
+});
 
 // 月升月落
 Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/astronomy\/moon.*/g, {
@@ -123,7 +123,7 @@ Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/astronomy\/moon.*/g, {
     sources: ['QWeather'],
     license: ['commercial license'],
   },
-})
+});
 
 // 两小时内降水
 Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/minutely\/5m.*/g, {
@@ -136,25 +136,31 @@ Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/minutely\/5m.*/g, {
     sources: ['Weather China'],
     license: ['commercial license'],
   },
-})
+});
 
 // 一次调用
-Mock.mock(/http:\/\/api\.openweathermap\.org\/data\/2\.5\/onecall.*/g, oneCall)
+Mock.mock(/http:\/\/api\.openweathermap\.org\/data\/2\.5\/onecall.*/g, oneCall);
 
 // 当前天气
-Mock.mock(/http:\/\/api\.openweathermap\.org\/data\/2\.5\/\weather.*/g, weather)
+Mock.mock(
+  /http:\/\/api\.openweathermap\.org\/data\/2\.5\/\weather.*/g,
+  weather
+);
 
 // 5 天 3 小时预测
-Mock.mock(/http:\/\/api\.openweathermap\.org\/data\/2\.5\/forecast.*/g, forcast)
+Mock.mock(
+  /http:\/\/api\.openweathermap\.org\/data\/2\.5\/forecast.*/g,
+  forcast
+);
 
 // 空气污染
 Mock.mock(
   /http:\/\/api\.openweathermap\.org\/data\/2\.5\/air_pollution.*/g,
   air_
-)
+);
 
 // 空气污染预测
 Mock.mock(
   /http:\/\/api\.openweathermap\.org\/data\/2\.5\/air_pollution\/forecast.*/g,
   airForcast
-)
+);

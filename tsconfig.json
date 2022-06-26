@@ -13,7 +13,8 @@
       "assets/*": ["src/assets/*"],
       "boot/*": ["src/boot/*"],
       "stores/*": ["src/stores/*"],
-      "utils/*": ["src/utils/*"]
+      "utils/*": ["src/utils/*"],
+      "mock/*": ["src/mock/*"]
     }
   },
   "include": [
