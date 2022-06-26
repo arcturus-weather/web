@@ -2,12 +2,11 @@
 
 import QWeatherStrategies from '../strategies/qweather';
 import Weather from '../strategies/weather';
-import { qWeatherKey, openWeatherKey } from 'src/appKey';
 import OpenWeatherStrategies from '../strategies/openweather';
 import Location from 'utils/location/location';
 
-const qw = new QWeatherStrategies(qWeatherKey);
-const ow = new OpenWeatherStrategies(openWeatherKey);
+const qw = new QWeatherStrategies(process.env.qWeatherKey ?? '');
+const ow = new OpenWeatherStrategies(process.env.openWeatherKey ?? '');
 
 const w = new Weather(qw, 'qweather');
 

@@ -55,7 +55,7 @@ module.exports = configure(function (/* ctx */) {
       },
       alias: {
         // path alias: https://quasar.dev/quasar-cli-vite/handling-vite#folder-aliases
-        utils: path.join(__dirname, './src/utils')
+        utils: path.join(__dirname, './src/utils'),
       },
 
       vueRouterMode: 'hash', // available values: 'hash', 'history'
@@ -67,7 +67,7 @@ module.exports = configure(function (/* ctx */) {
 
       // publicPath: '/',
       // analyze: true,
-      // env: {},
+      env: require('dotenv').config().parsed,
       // rawDefine: {}
       // ignorePublicFolder: true,
       // minify: false,
