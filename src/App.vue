@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, onMounted } from 'vue';
 
 if (process.env.NODE_ENV === 'development') {
   import('utils/mock');
@@ -11,5 +11,8 @@ if (process.env.NODE_ENV === 'development') {
 
 export default defineComponent({
   name: 'App',
+  setup() {
+    onMounted(() => {});
+  },
 });
 </script>

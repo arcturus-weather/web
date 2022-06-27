@@ -1,25 +1,29 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <!-- 侧边栏 -->
-    <div class="sidebar">
-      <div class="row items-center justify-center q-mb-lg" style="height: 64px">
-        <q-avatar size="56px" class="q-mr-sm">
-          <img :src="logo" alt="logo" />
-        </q-avatar>
-        <div class="text-weight-bold">{{ $t('project') }}</div>
+  <q-layout>
+    <q-drawer v-model="drawer" show-if-above :width="160" :breakpoint="400">
+      <!-- 侧边栏 -->
+      <div class="sidebar">
+        <!-- 路由 -->
+        <q-tabs v-model="tab" vertical class="text-primary tabs">
+          <q-route-tab
+            v-for="(item, idx) in _getTab()"
+            :key="idx"
+            :name="item.name"
+            :icon="item.icon"
+            :label="$t(`${item.name}`)"
+            :to="item.url"
+          />
+        </q-tabs>
+
+        <!-- logo -->
+        <div class="row items-center justify-center absolute-top logo">
+          <q-avatar size="56px" class="q-mr-sm">
+            <img :src="logo" alt="logo" />
+          </q-avatar>
+          <div class="text-weight-bold">{{ project }}</div>
+        </div>
       </div>
-
-      <q-tabs v-model="tab" vertical class="text-primary">
-        <q-route-tab
-          v-for="(item, idx) in _getTab()"
-          :key="idx"
-          :name="item.name"
-          :icon="item.icon"
-          :label="$t(`${item.name}`)"
-        />
-      </q-tabs>
-    </div>
-
+    </q-drawer>
     <q-page-container>
       <router-view></router-view>
     </q-page-container>
@@ -28,6 +32,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+import { useAppInfoStore } from 'stores/stores';
 
 export default defineComponent({
   name: 'MainLayout',
@@ -65,24 +70,32 @@ export default defineComponent({
   },
 
   setup() {
-    const leftDrawerOpen = ref(false);
+    const AppInfo = useAppInfoStore();
 
     return {
       tab: ref('dashBoard'),
-      leftDrawerOpen: ref(false),
-      toggleLeftDrawer() {
-        leftDrawerOpen.value = !leftDrawerOpen.value;
-      },
-      logo: ref('https://s2.loli.net/2022/06/27/x2E1DslO8Ka3h7c.png'),
-      projectName: ref('IWEATHER'),
+      drawer: ref(true),
+      logo: AppInfo.logo,
+      project: AppInfo.project,
     };
   },
 });
 </script>
 
 <style lang="scss">
+$logo-height: 64px;
+$logo-margin-bottom: 20px;
+
 .sidebar {
-  max-width: 150px;
   height: 100%;
+
+  .logo {
+    height: $logo-height;
+    margin-bottom: $logo-margin-bottom;
+  }
+
+  .tabs {
+    padding-top: $logo-margin-bottom + $logo-height;
+  }
 }
 </style>
