@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import Location from 'utils/location/location';
 import QWeatherStrategies from 'utils/weather/strategies/qweather';
 import Weather from 'utils/weather/strategies/weather';
+import { i18n } from 'boot/i18n';
 
 interface data {
   location: Location;
@@ -37,6 +38,39 @@ export const useWeatherStore = defineStore('weather', {
             this.current = res;
           }
         });
+    },
+  },
+});
+
+export const useAppInfoStore = defineStore('AppInfo', {
+  state: () => ({
+    logo: 'https://s2.loli.net/2022/06/27/x2E1DslO8Ka3h7c.png',
+    project: i18n.global.t('project'),
+    version: '0.0.1',
+  }),
+  actions: {
+    contributors() {
+      return [
+        {
+          avatar: 'https://avatars.githubusercontent.com/u/65435402?s=60&v=4',
+          name: 'ARCTURUS',
+          url: 'https://github.com/ICE99125',
+        },
+      ];
+    },
+    links() {
+      return [
+        {
+          icon: 'fa-brands fa-github',
+          name: i18n.global.t('github'),
+          url: 'https://github.com/ICE990125/iweather_vue',
+        },
+        {
+          icon: 'fa-solid fa-envelope',
+          name: i18n.global.t('issue'),
+          url: 'https://github.com/ICE990125/iweather_vue/issues',
+        },
+      ];
     },
   },
 });
