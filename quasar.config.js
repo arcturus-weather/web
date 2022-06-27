@@ -37,7 +37,7 @@ module.exports = configure(function (/* ctx */) {
     // see docs: https://quasar.dev/vue-components/icon
     extras: [
       // 'ionicons-v4',
-      // 'mdi-v5',
+      'mdi-v5',
       'fontawesome-v6',
       // 'eva-icons',
       // 'themify',
