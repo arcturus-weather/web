@@ -49,6 +49,11 @@ export const useAppInfoStore = defineStore('AppInfo', {
     version: '0.0.1',
   }),
   actions: {
+    copyRight() {
+      const year = new Date().getFullYear();
+
+      return `© 2022${year === 2022 ? '' : '-' + year}`;
+    },
     contributors() {
       return [
         {

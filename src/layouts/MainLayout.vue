@@ -24,8 +24,12 @@
         </div>
       </div>
     </q-drawer>
-    <q-page-container>
-      <router-view></router-view>
+    <q-page-container class="container">
+      <router-view v-slot="{ Component }">
+        <transition name="slide-up" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </router-view>
     </q-page-container>
   </q-layout>
 </template>
@@ -97,5 +101,24 @@ $logo-margin-bottom: 20px;
   .tabs {
     padding-top: $logo-margin-bottom + $logo-height;
   }
+}
+
+.slide-up-enter-from {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.5s ease;
+}
+
+.slide-up-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+
+.container {
+  overflow: hidden;
 }
 </style>

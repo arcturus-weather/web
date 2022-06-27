@@ -1,9 +1,11 @@
 <template>
   <q-page class="row items-center justify-center">
-    <div class="column items-center">
-      <q-avatar size="150px" class="q-mr-sm col">
+    <div class="column items-center introduction">
+      <!-- logo -->
+      <q-avatar size="120px" class="q-mr-sm col">
         <img :src="logo" alt="logo" />
       </q-avatar>
+      <!-- 项目名称 -->
       <div class="col text-h4 q-mb-md">
         {{ project }}
         <q-badge color="primary">v{{ version }}</q-badge>
@@ -28,7 +30,7 @@
         </q-item>
       </q-list>
     </div>
-    <div class="absolute-right introduction column items-center">
+    <div class="absolute-right contributors column items-center">
       <!-- 贡献者列表 -->
       <div class="text-h6 q-py-md">🥇 {{ $t('contributors') }}</div>
       <q-list>
@@ -50,6 +52,10 @@
         </q-item>
       </q-list>
     </div>
+    <q-separator vertical />
+    <div class="absolute-bottom q-mb-md text-center copyright">
+      {{ copyRight }}
+    </div>
   </q-page>
 </template>
 
@@ -70,14 +76,26 @@ export default defineComponent({
       drawer: ref(true),
       contributors: AppInfo.contributors(),
       links: AppInfo.links(),
+      copyRight: AppInfo.copyRight(),
     };
   },
 });
 </script>
 
 <style lang="scss" scoped>
+$ctri-width: 250px;
+
 .introduction {
+  margin-right: $ctri-width;
+}
+
+.contributors {
   padding: 2em;
-  width: 250px;
+  width: $ctri-width;
+  box-sizing: border-box;
+}
+
+.copyright {
+  margin-right: $ctri-width;
 }
 </style>
