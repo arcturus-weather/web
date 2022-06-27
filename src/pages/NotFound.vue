@@ -19,8 +19,6 @@ import { defineComponent, ref, onMounted, Ref } from 'vue';
 function makeSnow(el: Ref<HTMLCanvasElement | null>) {
   let width = window.innerWidth;
   let height = window.innerHeight;
-
-  // 避免画布模糊
   const canvas = el.value;
 
   const ctx = canvas?.getContext('2d');
@@ -74,6 +72,7 @@ function makeSnow(el: Ref<HTMLCanvasElement | null>) {
   }
 
   function onResize() {
+    // 避免画布模糊
     width = window.innerWidth;
     height = window.innerHeight;
     canvas!.width = width;
@@ -84,7 +83,7 @@ function makeSnow(el: Ref<HTMLCanvasElement | null>) {
 
   function createParticles(count: number) {
     if (count !== particles.length) {
-      particles.length = 0;
+      particles.length = 0; // clear array
       for (let i = 0; i < count; i++) {
         particles.push(new Particle());
       }
@@ -228,7 +227,6 @@ $col-ground: #f6f9fa;
   }
 
   &:after {
-    // 脚印
     $w: 28px;
     $h: 6px;
     content: '';
