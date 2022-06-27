@@ -34,10 +34,11 @@ module.exports = configure(function (/* ctx */) {
     css: ['app.scss'],
 
     // https://github.com/quasarframework/quasar/tree/dev/extras
+    // see docs: https://quasar.dev/vue-components/icon
     extras: [
       // 'ionicons-v4',
       // 'mdi-v5',
-      // 'fontawesome-v6',
+      'fontawesome-v6',
       // 'eva-icons',
       // 'themify',
       // 'line-awesome',
