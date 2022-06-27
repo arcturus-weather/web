@@ -58,7 +58,7 @@ module.exports = configure(function (/* ctx */) {
         utils: path.join(__dirname, './src/utils'),
       },
 
-      vueRouterMode: 'hash', // available values: 'hash', 'history'
+      vueRouterMode: 'history', // available values: 'hash', 'history'
       // vueRouterBase,
       // vueDevtools,
       // vueOptionsAPI: false,
