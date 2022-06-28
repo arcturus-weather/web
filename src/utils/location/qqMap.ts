@@ -72,47 +72,32 @@ export class QQMap {
 }
 
 /*************************
- *      腾讯地图绘制      *
+ *      腾讯地图绘制       *
  *************************/
-interface TMapType {
-  LatLng: any;
-  Map: any;
-  MarkerStyle: any;
-  MultiMarker: any;
-  [key: string]: any;
-}
-
-declare const TMap: TMapType;
-
-// 地图点击事件
-interface event {
-  latLng: { lat: any; lng: any };
-  poi?: { name: string };
-}
-
 export class DrawQQMap {
   private maker: TMapType['MultiMarker'];
   private map: TMapType['Map'];
-  callback: (options: object) => void;
+  callback: (res: qqMapcallBack) => void;
 
   constructor(
-    id: number,
+    dom: HTMLElement | null,
     latitude: number,
     logitude: number,
-    callback: (options: object) => void
+    callback: (res: qqMapcallBack) => void
   ) {
-    this.callback = callback || function () {};
-    this.init(id, latitude, logitude);
+    this.callback = callback ?? function () {};
+    this.init(dom, latitude, logitude);
   }
 
   // 初始化地图
-  init(id: number, latitude: number, logitude: number) {
+  init(dom: HTMLElement | null, latitude: number, logitude: number) {
     // 中心点坐标
     const center = new TMap.LatLng(latitude, logitude);
     // 初始化地图
-    this.map = new TMap.Map(id, {
+    this.map = new TMap.Map(dom ?? 'map', {
       center,
       zoom: 14, // 缩放比例
+      viewMode: '2D', // 显示模式
     });
     // 绑定地图点击事件
     this.map.on('click', this.select.bind(this));
@@ -135,45 +120,36 @@ export class DrawQQMap {
     this.updateMaker(lat, lng); // 更新锚点
   }
 
-  /**
-   * @param { TMap.LatLng } loc
-   * @returns TMap.MultiMarker instance
-   */
   setMaker(loc: TMapType['LatLng']) {
-    if (!this.maker) {
-      // 设置点标记
-      this.maker = new TMap.MultiMarker({
-        map: this.map,
-        styles: {
-          // 点标记样式
-          marker: new TMap.MarkerStyle({
-            width: 20, // 样式宽
-            height: 30, // 样式高
-            anchor: { x: 10, y: 30 }, // 描点位置
-          }),
+    // 设置点标记
+    this.maker = new TMap.MultiMarker({
+      map: this.map,
+      styles: {
+        // 点标记样式
+        marker: new TMap.MarkerStyle({
+          width: 20, // 样式宽
+          height: 30, // 样式高
+          anchor: { x: 10, y: 30 }, // 描点位置
+        }),
+      },
+      geometries: [
+        // 点标记数据数组
+        {
+          // 标记位置(纬度, 经度, 高度)
+          position: loc,
+          id: 'marker',
         },
-        geometries: [
-          // 点标记数据数组
-          {
-            // 标记位置(纬度，经度，高度)
-            position: loc,
-            id: 'marker',
-          },
-        ],
-      });
-    }
+      ],
+    });
   }
 
   // 更新标记
   updateMaker(latitude: number, longitude: number) {
-    const loc = new TMap.LatLng(latitude, longitude);
-
-    this.maker?.setGeometries([
+    this.maker.setGeometries([
       {
-        position: loc,
+        position: new TMap.LatLng(latitude, longitude),
         id: 'marker',
       },
     ]);
-    this.map?.setCenter(loc);
   }
 }
