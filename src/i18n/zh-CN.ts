@@ -44,6 +44,8 @@ export default {
     qWeather: '和风天气',
     openWeather: 'openWeather',
     colorfulClouds: '彩云天气',
+    language: '语言',
   },
-  notFound: '这儿啥也没有丫ˋ( ° ▽  ° )',
+  mapPlaceholder: '请输入地点',
+  select: '选择',
 };
