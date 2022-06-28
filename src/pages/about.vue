@@ -7,7 +7,7 @@
       </q-avatar>
       <!-- 项目名称 -->
       <div class="col text-h4 q-mb-md">
-        {{ project }}
+        {{ $t('project') }}
         <q-badge color="primary">v{{ version }}</q-badge>
       </div>
       <!-- 相关链接 -->
@@ -24,7 +24,7 @@
             <q-avatar color="primary" text-color="white" :icon="item.icon" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>{{ item.name }}</q-item-label>
+            <q-item-label>{{ $t(`${item.name}`) }}</q-item-label>
             <q-item-label caption>{{ item.url }}</q-item-label>
           </q-item-section>
         </q-item>
@@ -71,7 +71,6 @@ export default defineComponent({
 
     return {
       logo: AppInfo.logo,
-      project: AppInfo.project,
       version: AppInfo.version,
       drawer: ref(true),
       contributors: AppInfo.contributors(),
