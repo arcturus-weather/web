@@ -113,7 +113,7 @@ export class DrawQQMap {
   // 点击地图事件
   select(evt: event) {
     const { lat, lng } = evt.latLng;
-    const name = evt.poi?.name ?? '';
+    const name = evt.poi?.name;
 
     this.callback({ latitude: lat, logitude: lng, name }); // 执行回调
 
