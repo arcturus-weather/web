@@ -7,20 +7,10 @@
     <meta name="description" content="<%= productDescription %>" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
-    <meta
-      name="viewport"
-      content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width<% if (ctx.mode.cordova || ctx.mode.capacitor) { %>, viewport-fit=cover<% } %>"
-    />
     <link rel="icon" type="image/icon" href="favicon.ico" />
-
     <script src="https://map.qq.com/api/gljs?v=1.exp&key=<%= qqMapKey %>"></script>
     <!-- 定位API -->
     <script src="https://mapapi.qq.com/web/mapComponents/geoLocation/v/geolocation.min.js"></script>
-    <!-- 防止大屏地图显示过小 -->
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
   </head>
   <body>
     <!-- quasar:entry-point -->

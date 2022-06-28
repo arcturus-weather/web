@@ -14,7 +14,7 @@ const path = require('path');
 module.exports = configure(function (/* ctx */) {
   return {
     htmlVariables: {
-      qqMapKey: process.env.qqMapKey ?? '',
+      qqMapKey: process.env.qqMapKey,
     },
     eslint: {
       // fix: true,
