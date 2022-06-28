@@ -34,5 +34,16 @@ export default {
   waring: {
     key: 'key 缺失',
   },
+  setting: {
+    theme: '主题',
+    darkMode: '暗黑模式',
+    autoMode: '自动模式',
+    lightMode: '亮色模式',
+    systemMode: '跟随系统',
+    dataSources: '数据提供商',
+    qWeather: '和风天气',
+    openWeather: 'openWeather',
+    colorfulClouds: '彩云天气',
+  },
   notFound: '这儿啥也没有丫ˋ( ° ▽  ° )',
 };
