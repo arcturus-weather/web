@@ -87,6 +87,7 @@ $ctri-width: 250px;
 
 .introduction {
   margin-right: $ctri-width;
+  transform: translateY(-40px);
 }
 
 .contributors {
