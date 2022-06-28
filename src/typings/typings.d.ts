@@ -1,6 +1,59 @@
 /* eslint-disable */
 interface ILocation {}
 
+// 腾讯地图相关
+interface TMapType {
+  LatLng: any;
+  Map: any;
+  MarkerStyle: any;
+  MultiMarker: any;
+  [key: string]: any;
+}
+
+declare const TMap: TMapType;
+
+// 地图点击事件
+interface event {
+  latLng: {
+    lat: number;
+    lng: number;
+    height: number;
+  };
+  poi: {
+    name: string;
+    bounds: number[];
+    coord: {
+      x: number;
+      y: number;
+    };
+    isIndoor: boolean;
+    latLng: {
+      lat: number;
+      lng: number;
+      height: number;
+    };
+  } | null;
+  point: {
+    x: number;
+    y: number;
+  };
+}
+
+// 地图回调函数参数
+interface qqMapcallBack {
+  latitude: number;
+  logitude: number;
+  name?: string;
+}
+
+// 语言
+type languages = 'en-US' | 'zh-TW' | 'zh-CN';
+
+interface Lang {
+  value: string;
+  label: string;
+}
+
 type DataSources = 'qWeather' | 'openWeather' | 'colorfulClouds';
 
 interface IComponents {
