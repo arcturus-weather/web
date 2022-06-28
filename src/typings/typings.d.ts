@@ -1,6 +1,8 @@
 /* eslint-disable */
 interface ILocation {}
 
+type DataSources = 'qWeather' | 'openWeather' | 'colorfulClouds';
+
 interface IComponents {
   co: number;
   no?: number;

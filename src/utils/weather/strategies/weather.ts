@@ -17,7 +17,7 @@ export default class Weather {
   }
 
   // 修改策略
-  changeStrategy(type: string) {
+  changeStrategy(type: DataSources) {
     this.current = this.strategies[type];
   }
 
