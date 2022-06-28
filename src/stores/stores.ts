@@ -3,10 +3,42 @@ import { LocalStorage, Dark } from 'quasar';
 import Location from 'utils/location/location';
 import QWeatherStrategies from 'utils/weather/strategies/qweather';
 import Weather from 'utils/weather/strategies/weather';
-import { i18n } from 'boot/i18n';
+import { languageMap } from 'utils/languages';
+
+export const useLocationStore = defineStore('location', {
+  state: () => ({
+    current: new Location({
+      // 当前位置
+      latitude: 39.9087,
+      longitude: 116.3974,
+      city: '北京市',
+      address: '天安门',
+    }),
+    select: {
+      // map 选择的位置
+      latitude: 39.9087,
+      longitude: 116.3974,
+      address: '天安门',
+    },
+  }),
+  getters: {
+    latitude: (state) => state.current.latitude,
+    longitude: (state) => state.current.longitude,
+    address: (state) => state.current.address,
+    city: (state) => state.current.city,
+  },
+  actions: {
+    updateLocation() {
+      this.current = new Location({
+        latitude: this.select.latitude,
+        longitude: this.select.longitude,
+        address: this.select.address,
+      });
+    },
+  },
+});
 
 interface data {
-  location: Location;
   current?: IWeather;
   local?: IWeather;
   startegies: string;
@@ -20,22 +52,17 @@ const weather = new Weather(qweather, 'qWeather');
 
 export const useWeatherStore = defineStore('weather', {
   state: (): data => ({
-    location: new Location({
-      latitude: 39.9,
-      longitude: 116.38,
-      city: '北京市',
-      address: '天安门',
-    }),
     startegies: 'qWeather', // 当前数据源
     weather: weather,
     current: undefined,
     local: undefined,
   }),
-  getters: {},
   actions: {
     getAllWeather() {
+      const loc = useLocationStore();
+
       this.weather
-        .getAllweather(this.location as Location)
+        .getAllweather(loc.current as Location)
         .then((res: IWeather | void) => {
           console.log(res);
           if (typeof res !== 'undefined') {
@@ -55,12 +82,17 @@ export type Themes = 'lightMode' | 'darkMode' | 'systemMode' | 'autoMode';
 interface setting {
   theme: Themes;
   dataSource: DataSources;
+  language: Lang;
 }
 
 export const useSettingStore = defineStore('settings', {
   state: (): setting => ({
     theme: 'lightMode',
     dataSource: 'qWeather',
+    language: {
+      label: '简体中文',
+      value: 'zh-CN',
+    },
   }),
   actions: {
     setTheme(theme: Themes) {
@@ -103,13 +135,30 @@ export const useSettingStore = defineStore('settings', {
       weather.changeStrategy(source);
       this.dataSource = source;
     },
+    getLanguage() {
+      const langStr = LocalStorage.getItem('language') as string | null;
+      if (langStr) {
+        const lang = JSON.parse(langStr) as Lang;
+        // 只有本地存储中存在用户自定义的
+        this.language = lang;
+        return lang;
+      }
+    },
+    saveLanguage() {
+      LocalStorage.set('language', JSON.stringify(this.language));
+    },
+    setLanguage(lang: languages) {
+      this.language = {
+        label: languageMap[lang],
+        value: lang,
+      };
+    },
   },
 });
 
 export const useAppInfoStore = defineStore('AppInfo', {
   state: () => ({
     logo: 'https://s2.loli.net/2022/06/28/XiVhMfmoKWwpdQA.png',
-    project: i18n.global.t('project'),
     version: '0.0.1',
   }),
   actions: {
@@ -131,12 +180,12 @@ export const useAppInfoStore = defineStore('AppInfo', {
       return [
         {
           icon: 'fa-brands fa-github',
-          name: i18n.global.t('github'),
+          name: 'github',
           url: 'https://github.com/ICE990125/iweather_vue',
         },
         {
           icon: 'fa-solid fa-envelope',
-          name: i18n.global.t('issue'),
+          name: 'issue',
           url: 'https://github.com/ICE990125/iweather_vue/issues',
         },
       ];
