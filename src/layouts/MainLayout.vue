@@ -27,7 +27,9 @@
     <q-page-container class="container">
       <router-view v-slot="{ Component }">
         <transition name="slide-up" mode="out-in">
-          <component :is="Component" />
+          <keep-alive>
+            <component :is="Component" />
+          </keep-alive>
         </transition>
       </router-view>
     </q-page-container>
