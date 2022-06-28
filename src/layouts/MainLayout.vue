@@ -6,6 +6,7 @@
         <!-- 路由 -->
         <q-tabs v-model="tab" vertical class="text-primary tabs">
           <q-route-tab
+            no-caps
             v-for="(item, idx) in _getTab()"
             :key="idx"
             :name="item.name"
@@ -20,7 +21,7 @@
           <q-avatar size="56px" class="q-mr-sm">
             <img :src="logo" alt="logo" />
           </q-avatar>
-          <div class="text-weight-bold">{{ project }}</div>
+          <div class="text-weight-bold">{{ $t('project') }}</div>
         </div>
       </div>
     </q-drawer>
@@ -52,9 +53,9 @@ export default defineComponent({
           url: '/',
         },
         {
-          name: 'map',
-          icon: 'explore',
-          url: '/map',
+          name: 'favorites',
+          icon: 'favorite',
+          url: '/favorites',
         },
         {
           name: 'calendar',
@@ -82,7 +83,6 @@ export default defineComponent({
       tab: ref('dashBoard'),
       drawer: ref(true),
       logo: AppInfo.logo,
-      project: AppInfo.project,
     };
   },
 });

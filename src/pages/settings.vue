@@ -6,10 +6,13 @@
       <div>
         <q-btn-toggle
           unelevated
+          no-caps
           v-model="theme"
           @update:model-value="setTheme"
           :options="themes"
           padding="10px 15px"
+          color="grey-11"
+          text-color="primary"
         />
       </div>
     </div>
@@ -19,24 +22,42 @@
       <div>
         <q-btn-toggle
           unelevated
+          no-caps
           v-model="dataSource"
           @update:model-value="setDataSource"
           :options="dataSources"
           color="grey-11"
-          text-color="black"
-          toggle-text-color="white"
+          text-color="primary"
           padding="10px 15px"
         />
+      </div>
+    </div>
+    <!-- 语言切换 -->
+    <div class="q-ma-lg">
+      <div class="text-h6 q-mb-md">{{ $t('setting.language') }}</div>
+      <div style="width: 200px">
+        <q-select
+          outlined
+          v-model="language"
+          :options="languages"
+          @update:model-value="setLanguages"
+        >
+          <template v-slot:prepend>
+            <q-icon name="mdi-translate" />
+          </template>
+        </q-select>
       </div>
     </div>
   </q-page>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-import { i18n } from 'boot/i18n';
+import { defineComponent } from 'vue';
 import { useSettingStore } from 'stores/stores';
 import { Themes } from 'stores/stores';
+import { storeToRefs } from 'pinia';
+import { useI18n } from 'vue-i18n';
+import languageList from 'utils/languages';
 
 const setting = useSettingStore();
 
@@ -52,58 +73,72 @@ export default defineComponent({
       setting.setDataSource(source);
       setting.saveDataSource(source);
     },
+    setLanguages(language: { label: string; value: string }) {
+      this.locale = language.value;
+
+      setting.saveLanguage();
+    },
+  },
+  computed: {
+    themes() {
+      return [
+        {
+          label: this.$t('setting.lightMode'),
+          value: 'lightMode',
+          icon: 'mdi-white-balance-sunny',
+          disable: false,
+        },
+        {
+          label: this.$t('setting.darkMode'),
+          value: 'darkMode',
+          icon: 'mdi-weather-night',
+          disable: false,
+        },
+        {
+          label: this.$t('setting.systemMode'),
+          value: 'systemMode',
+          icon: 'mdi-weather-night',
+          disable: false,
+        },
+        {
+          label: this.$t('setting.autoMode'),
+          value: 'autoMode',
+          icon: 'mdi-cellphone-link',
+          disable: false,
+        },
+      ];
+    },
+    dataSources() {
+      return [
+        {
+          label: this.$t('setting.qWeather'),
+          value: 'qWeather',
+          disable: false,
+        },
+        {
+          label: this.$t('setting.openWeather'),
+          value: 'openWeather',
+          disable: true,
+        },
+        {
+          label: this.$t('setting.colorfulClouds'),
+          value: 'colorfulClouds',
+          disable: true,
+        },
+      ];
+    },
   },
   setup() {
-    const themes = [
-      {
-        label: i18n.global.t('setting.lightMode'),
-        value: 'lightMode',
-        icon: 'mdi-white-balance-sunny',
-        disable: false,
-      },
-      {
-        label: i18n.global.t('setting.darkMode'),
-        value: 'darkMode',
-        icon: 'mdi-weather-night',
-        disable: false,
-      },
-      {
-        label: i18n.global.t('setting.systemMode'),
-        value: 'systemMode',
-        icon: 'mdi-weather-night',
-        disable: false,
-      },
-      {
-        label: i18n.global.t('setting.autoMode'),
-        value: 'autoMode',
-        icon: 'mdi-cellphone-link',
-        disable: false,
-      },
-    ];
+    const { locale } = useI18n();
 
-    const dataSources = [
-      {
-        label: i18n.global.t('setting.qWeather'),
-        value: 'qWeather',
-        disable: false,
-      },
-      {
-        label: i18n.global.t('setting.openWeather'),
-        value: 'openWeather',
-        disable: true,
-      },
-      {
-        label: i18n.global.t('setting.colorfulClouds'),
-        value: 'colorfulClouds',
-        disable: true,
-      },
-    ];
+    const { dataSource, theme, language } = storeToRefs(setting);
 
     return {
-      themes,
-      dataSources,
-      dataSource: ref(setting.dataSource),
-      theme: ref(setting.theme),
+      theme,
+      dataSource,
+      languages: languageList(),
+      language,
+      locale,
     };
   },
 });
