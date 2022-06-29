@@ -30,6 +30,7 @@ export class QQMap {
       baseUrl: this.baseUrl,
     });
 
+    Http.setRequestInterceptors(this.http.ax, 'qqMap');
     Http.setQQMapResponseInterceptors(this.http.ax);
 
     // 获取定位
@@ -60,14 +61,17 @@ export class QQMap {
 
   // 获取搜索建议
   searchSuggestions(keyword: string, region = '') {
-    return this.http.request({
-      url: '/ws/place/v1/suggestion',
-      method: 'GET',
-      data: {
-        keyword,
-        region,
-      },
-    });
+    return this.http
+      .request({
+        url: '/ws/place/v1/suggestion',
+        method: 'GET',
+        data: {
+          key: this.key,
+          keyword,
+          region,
+        },
+      })
+      .catch(() => {});
   }
 }
 
@@ -79,14 +83,8 @@ export class DrawQQMap {
   private map: TMapType['Map'];
   callback: (res: qqMapcallBack) => void;
 
-  constructor(
-    dom: HTMLElement | null,
-    latitude: number,
-    logitude: number,
-    callback: (res: qqMapcallBack) => void
-  ) {
+  constructor(callback: (res: qqMapcallBack) => void) {
     this.callback = callback ?? function () {};
-    this.init(dom, latitude, logitude);
   }
 
   // 初始化地图
@@ -120,8 +118,8 @@ export class DrawQQMap {
     this.updateMaker(lat, lng); // 更新锚点
   }
 
+  // 设置点标记
   setMaker(loc: TMapType['LatLng']) {
-    // 设置点标记
     this.maker = new TMap.MultiMarker({
       map: this.map,
       styles: {
@@ -151,5 +149,10 @@ export class DrawQQMap {
         id: 'marker',
       },
     ]);
+  }
+
+  // 设置瞄点居中
+  setMakerCenter(latitude: number, longitude: number) {
+    this.map.setCenter(new TMap.LatLng(latitude, longitude));
   }
 }
