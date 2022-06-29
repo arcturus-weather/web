@@ -3,7 +3,8 @@ import { LocalStorage, Dark } from 'quasar';
 import Location from 'utils/location/location';
 import QWeatherStrategies from 'utils/weather/strategies/qweather';
 import Weather from 'utils/weather/strategies/weather';
-import { languageMap } from 'utils/languages';
+import { languageMap } from 'src/i18n/languages';
+import { QQMap } from 'utils/location/qqMap';
 
 export const useLocationStore = defineStore('location', {
   state: () => ({
@@ -14,12 +15,7 @@ export const useLocationStore = defineStore('location', {
       city: '北京市',
       address: '天安门',
     }),
-    select: {
-      // map 选择的位置
-      latitude: 39.9087,
-      longitude: 116.3974,
-      address: '天安门',
-    },
+    qqMap: new QQMap(process.env.qqMapKey!),
   }),
   getters: {
     latitude: (state) => state.current.latitude,
@@ -27,15 +23,7 @@ export const useLocationStore = defineStore('location', {
     address: (state) => state.current.address,
     city: (state) => state.current.city,
   },
-  actions: {
-    updateLocation() {
-      this.current = new Location({
-        latitude: this.select.latitude,
-        longitude: this.select.longitude,
-        address: this.select.address,
-      });
-    },
-  },
+  actions: {},
 });
 
 interface data {
@@ -64,7 +52,6 @@ export const useWeatherStore = defineStore('weather', {
       this.weather
         .getAllweather(loc.current as Location)
         .then((res: IWeather | void) => {
-          console.log(res);
           if (typeof res !== 'undefined') {
             this.current = res;
           }
