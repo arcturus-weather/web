@@ -18,7 +18,6 @@ export default {
   issue: '问题/建议',
   contributors: '贡献者',
   settings: '设置',
-  map: '地图',
   calendar: '日历',
   about: '关于',
   favorites: '收藏',
@@ -46,6 +45,12 @@ export default {
     colorfulClouds: '彩云天气',
     language: '语言',
   },
-  mapPlaceholder: '请输入地点',
+  map: {
+    map: '地图',
+    placeholder: '请输入地点',
+    select: '地图选点',
+  },
+  confirm: '确认',
+  cacel: '取消',
   select: '选择',
 };
