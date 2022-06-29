@@ -23,7 +23,11 @@ export const useLocationStore = defineStore('location', {
     address: (state) => state.current.address,
     city: (state) => state.current.city,
   },
-  actions: {},
+  actions: {
+    changeLocation(loc: IMapData) {
+      this.current = new Location(loc);
+    },
+  },
 });
 
 interface data {

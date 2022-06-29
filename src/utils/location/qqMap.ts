@@ -88,9 +88,9 @@ export class DrawQQMap {
   }
 
   // 初始化地图
-  init(dom: HTMLElement | null, latitude: number, logitude: number) {
+  init(dom: HTMLElement | null, latitude: number, longitude: number) {
     // 中心点坐标
-    const center = new TMap.LatLng(latitude, logitude);
+    const center = new TMap.LatLng(latitude, longitude);
     // 初始化地图
     this.map = new TMap.Map(dom ?? 'map', {
       center,
@@ -113,7 +113,7 @@ export class DrawQQMap {
     const { lat, lng } = evt.latLng;
     const address = evt.poi?.name;
 
-    this.callback({ latitude: lat, logitude: lng, address }); // 执行回调
+    this.callback({ latitude: lat, longitude: lng, address }); // 执行回调
 
     this.updateMaker(lat, lng); // 更新锚点
   }

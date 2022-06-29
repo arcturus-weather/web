@@ -62,7 +62,7 @@ interface qqMapSuggestionsItem {
 // ice-map confirm 事件返回值
 interface IMapData {
   latitude: number;
-  logitude: number;
+  longitude: number;
   address?: string;
   city?: string;
 }

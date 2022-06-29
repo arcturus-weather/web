@@ -10,6 +10,9 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import iceMap from 'src/components/ice-map.vue';
+import { useLocationStore } from 'stores/stores';
+
+const location = useLocationStore();
 
 export default defineComponent({
   name: 'dashBoardPage',
@@ -18,7 +21,7 @@ export default defineComponent({
 
   methods: {
     confirm(e: IMapData) {
-      console.log(e);
+      location.changeLocation(e);
     },
   },
 
