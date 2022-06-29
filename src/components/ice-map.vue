@@ -96,6 +96,8 @@ export default defineComponent({
       this.$emit('confirm', {
         latitude: this.latitude,
         longitude: this.longitude,
+        city: this.city,
+        address: this.address,
       });
     },
 
@@ -127,12 +129,14 @@ export default defineComponent({
     select(e: qqMapSuggestionsItem) {
       const {
         address,
+        city,
         location: { lat, lng },
       } = e;
 
       this.latitude = lat;
       this.longitude = lng;
       this.address = address;
+      this.city = city;
 
       // 更新锚点
       drawMap.updateMaker(lat, lng);
@@ -148,18 +152,20 @@ export default defineComponent({
       latitude = ref(location.latitude),
       longitude = ref(location.longitude),
       address = ref(location.address),
+      city = ref(location.city),
       displayList = ref(false),
       poiList = ref<Array<qqMapSuggestionsItem>>([]); // 搜索建议
 
     // 不能把 drawMap 写成 ref 否则会报错
     // 'Failed to execute 'postMessage' on 'Worker': #<t> could not be cloned.'
-    drawMap = new DrawQQMap((res: qqMapcallBack) => {
+    drawMap = new DrawQQMap((res: IMapData) => {
       latitude.value = res.latitude;
       longitude.value = res.logitude;
-      address.value = res.name ?? '';
+      address.value = res.address ?? '';
+      city.value = ''; // 地图选点获取不到城市信息...（ ´д｀）ゞ
     });
 
-    return { map, latitude, poiList, longitude, address, displayList };
+    return { map, latitude, city, poiList, longitude, address, displayList };
   },
 });
 </script>

@@ -81,9 +81,9 @@ export class QQMap {
 export class DrawQQMap {
   private maker: TMapType['MultiMarker'];
   private map: TMapType['Map'];
-  callback: (res: qqMapcallBack) => void;
+  callback: (res: IMapData) => void;
 
-  constructor(callback: (res: qqMapcallBack) => void) {
+  constructor(callback: (res: IMapData) => void) {
     this.callback = callback ?? function () {};
   }
 
@@ -111,9 +111,9 @@ export class DrawQQMap {
   // 点击地图事件
   select(evt: event) {
     const { lat, lng } = evt.latLng;
-    const name = evt.poi?.name;
+    const address = evt.poi?.name;
 
-    this.callback({ latitude: lat, logitude: lng, name }); // 执行回调
+    this.callback({ latitude: lat, logitude: lng, address }); // 执行回调
 
     this.updateMaker(lat, lng); // 更新锚点
   }

@@ -59,11 +59,12 @@ interface qqMapSuggestionsItem {
   district: string; //	区
 }
 
-// 地图回调函数参数
-interface qqMapcallBack {
+// ice-map confirm 事件返回值
+interface IMapData {
   latitude: number;
   logitude: number;
-  name?: string;
+  address?: string;
+  city?: string;
 }
 
 // 语言

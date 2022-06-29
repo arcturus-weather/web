@@ -17,7 +17,7 @@ export default defineComponent({
   components: { iceMap },
 
   methods: {
-    confirm(e: { latitude: number; longitude: number }) {
+    confirm(e: IMapData) {
       console.log(e);
     },
   },
