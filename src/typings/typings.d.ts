@@ -39,6 +39,26 @@ interface event {
   };
 }
 
+// 腾讯地图搜索返回, docs: https://lbs.qq.com/service/webService/webServiceGuide/webServiceSearch
+interface qqMapSuggestionsItem {
+  id: string; // POI 唯一标识
+  title: string; //	POI(地点)名称
+  address: string; //	地址
+  tel: string; //	电话
+  category: string; //	POI 分类
+  type: number; //	POI 类型
+  location: {
+    lat: number; //	纬度
+    lng: number; //	经度
+  };
+  _distance: number; //	距离
+  ad_info: object; //	行政区划信息
+  adcode: number; //	行政区划代码
+  province: string; //	省
+  city: string; //	市
+  district: string; //	区
+}
+
 // 地图回调函数参数
 interface qqMapcallBack {
   latitude: number;
