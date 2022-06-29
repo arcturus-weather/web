@@ -67,55 +67,72 @@ export default class Http {
    *       响应拦截器        *
    *************************/
 
-  static setResponseInterceptors(ax: AxiosInstance, func: (arg: any) => any) {
+  // qWeather
+  static setQweatherResponseInterceptors(ax: AxiosInstance) {
     ax.interceptors.response.use(
       (resp) => {
-        return func(resp);
-      },
-      (err) => {
-        if (typeof err === 'string') {
+        const res = resp.data;
+        if (res.code === '200') {
+          return res;
+        } else {
           Notify.create({
             type: 'negative',
-            message: err,
+            message: qWeatherCode[res.code],
           });
-        }
 
-        return Promise.reject(err);
+          return Promise.reject();
+        }
+      },
+      (err) => {
+        Notify.create({
+          type: 'negative',
+          message: err,
+        });
       }
     );
   }
 
-  // qWeather
-  static setQweatherResponseInterceptors(ax: AxiosInstance) {
-    Http.setResponseInterceptors(ax, function (resp) {
-      const res = resp.data;
-      if (res.code === '200') {
-        return res;
-      } else {
-        return Promise.reject(qWeatherCode[res.code]);
-      }
-    });
-  }
-
   // openWeather
   static setOpenWeatherResponseInterceptors(ax: AxiosInstance) {
-    Http.setResponseInterceptors(ax, function (resp) {
-      if (resp.status === 200) {
-        return resp.data;
-      } else {
-        return Promise.reject(openWeatherCode[resp.status]);
+    ax.interceptors.response.use(
+      (resp) => {
+        if (resp.status === 200) {
+          return resp.data;
+        } else {
+          Notify.create({
+            type: 'negative',
+            message: openWeatherCode[resp.status],
+          });
+        }
+      },
+      (err) => {
+        Notify.create({
+          type: 'negative',
+          message: err,
+        });
       }
-    });
+    );
   }
 
   // 腾讯地图
   static setQQMapResponseInterceptors(ax: AxiosInstance) {
-    Http.setResponseInterceptors(ax, function (resp) {
-      if (resp.data.status === 0) {
-        return resp.data;
-      } else {
-        return Promise.reject(qqMapCode[resp.data.status]);
+    ax.interceptors.response.use(
+      (resp) => {
+        if (resp.data.status === 0) {
+          return resp.data.data;
+        } else {
+          Notify.create({
+            type: 'negative',
+            message: qqMapCode[resp.data.status],
+          });
+        }
+      },
+      (err) => {
+        Notify.create({
+          type: 'negative',
+          message: err,
+        });
       }
-    });
+    );
   }
 }
