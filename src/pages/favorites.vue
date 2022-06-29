@@ -1,9 +1,7 @@
 <template>
   <q-page class="page__container">
     <div class="row page">
-      <div class="col-8 q-pa-md map">
-        <ice-map></ice-map>
-      </div>
+      <div class="col-8 q-pa-md map"></div>
       <div class="col-2 q-pa-md">hello</div>
     </div>
   </q-page>
@@ -11,11 +9,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import iceMap from 'src/components/ice-map.vue';
 
 export default defineComponent({
   name: 'AboutPage',
-  components: { iceMap },
 
   setup() {},
 });
