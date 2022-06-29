@@ -57,7 +57,7 @@ import { useSettingStore } from 'stores/stores';
 import { Themes } from 'stores/stores';
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
-import languageList from 'utils/languages';
+import languageList from 'src/i18n/languages';
 
 const setting = useSettingStore();
 
