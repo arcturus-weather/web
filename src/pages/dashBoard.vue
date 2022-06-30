@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, nextTick, onMounted, ref } from 'vue';
+import { defineComponent, ref } from 'vue';
 import iceMap from 'src/components/ice-map.vue';
 import iceAirPanel from 'src/components/ice-air-panel.vue';
 import { useLocationStore, useWeatherStore } from 'stores/stores';
@@ -39,11 +39,7 @@ export default defineComponent({
   setup() {
     const air = ref<HTMLElement | null>(null);
 
-    onMounted(() => {
-      nextTick(() => {
-        weather.getAllWeather().then(() => {});
-      });
-    });
+    weather.getAllWeather().then(() => {});
 
     return {
       mapVisible: ref(false),
