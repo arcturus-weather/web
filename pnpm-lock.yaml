@@ -18,6 +18,7 @@ specifiers:
   eslint: ^8.18.0
   eslint-config-prettier: ^8.5.0
   eslint-plugin-vue: ^8.7.1
+  iweather_icons: ^0.0.5
   mockjs: ^1.1.0
   pinia: ^2.0.14
   prettier: ^2.7.1
@@ -34,6 +35,7 @@ dependencies:
   '@vueuse/core': 8.7.5_vue@3.2.37
   animate.css: 4.1.1
   axios: 0.21.4
+  iweather_icons: 0.0.5
   mockjs: 1.1.0
   pinia: 2.0.14_j6bzmzd4ujpabbp5objtwxyjp4
   quasar: 2.7.3
@@ -2788,6 +2790,12 @@ packages:
     resolution: {integrity: sha512-WhB9zCku7EGTj/HQQRz5aUQEUeoQZH2bWcltRErOpymJ4boYE6wL9Tbr23krRPSZ+C5zqNSrSw+Cc7sZZ4b7vg==}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /iweather_icons/0.0.5:
+    resolution: {integrity: sha512-9pYpl0w+yzVOA9NwKJkCJp0SxkN6aA+AyC9O3Bsn0BeI7r9rHSh9Ri8bkGnucXAXjI9FPpF0YDq5hpf9bpnlUg==}
+    dependencies:
+      vue: 3.2.37
+    dev: false
 
   /jake/10.8.5:
     resolution: {integrity: sha512-sVpxYeuAhWt0OTWITwT98oyV0GsXyMlXCF+3L1SuafBVUIr/uILGRB+NqwkzhgXKvoJpDIpQvqkUALgdmQsQxw==}
