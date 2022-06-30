@@ -21,12 +21,12 @@ export default defineComponent({
   props: {
     enter: {
       type: String,
-      default: 'fadeInDown',
+      default: 'fadeIn',
     },
 
     leave: {
       type: String,
-      default: 'fadeOutDown',
+      default: 'fadeOut',
     },
 
     duration: {
@@ -36,7 +36,7 @@ export default defineComponent({
 
     appear: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
 });
