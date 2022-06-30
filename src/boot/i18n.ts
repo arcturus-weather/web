@@ -7,6 +7,33 @@ const i18n = createI18n({
   locale: 'zh-CN',
   fallbackLocale: 'zh-CN',
   messages,
+  datetimeFormats: {
+    'en-US': {
+      short: {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      },
+      time: {
+        weekday: 'short',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true,
+      },
+    },
+    'zh-CN': {
+      short: {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      },
+      time: {
+        weekday: 'short',
+        hour: 'numeric',
+        minute: 'numeric',
+      },
+    },
+  },
   globalInjection: true,
   legacy: false,
 });
