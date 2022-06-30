@@ -1,1 +1,10 @@
 // app global css in SCSS form
+
+// the default style of quasar have not this.
+.items-stretch {
+  align-items: stretch;
+}
+
+.clickabe {
+  cursor: pointer;
+}
