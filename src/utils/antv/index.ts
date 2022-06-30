@@ -3,12 +3,22 @@ import { Gauge, Area } from '@antv/g2plot';
 export function guage(dom: HTMLElement | null, percent: number) {
   const gauge = new Gauge(dom ?? 'guage', {
     autoFit: true,
-    percent: percent,
-    type: 'meter',
-    innerRadius: 0.75,
+    renderer: 'svg',
+    percent: 0,
+    padding: 10,
     range: {
-      ticks: [0, 50, 100, 150, 200, 300, 500],
-      color: ['#56B37F', '#FCFF00', '#FEC163', '#FFAA85', '#EE9AE5', '#F05F57'],
+      ticks: [0, 1],
+      color:
+        'l(0) 0.17:#56B37F 0.33:#FCFF00 0.5:#FEC163 0.67:#FFAA85 0.83:#EE9AE5 1:#F05F57',
+    },
+    axis: {
+      tickLine: null,
+      label: {
+        offset: 20,
+        formatter(v) {
+          return Number(v) * 500;
+        },
+      },
     },
     indicator: {
       pointer: {
@@ -22,17 +32,18 @@ export function guage(dom: HTMLElement | null, percent: number) {
         },
       },
     },
-    statistic: {
-      content: {
-        style: {
-          fontSize: '36px',
-          lineHeight: '36px',
-        },
-      },
-    },
   });
 
   gauge.render();
+
+  let data = 0;
+  const interval = setInterval(() => {
+    if (data >= percent) {
+      clearInterval(interval);
+    }
+    data += 0.005;
+    gauge.changeData(data > 1 ? data - 1 : data);
+  }, 100);
 }
 
 export interface AreaDateItem {
@@ -58,6 +69,7 @@ export function area(dom: HTMLElement | null, data: AreaDateItem[]) {
     xAxis: {
       label: null,
       line: null,
+      range: [0, 1],
     },
     yField: 'temp',
     autoFit: true,
