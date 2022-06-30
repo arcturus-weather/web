@@ -35,6 +35,7 @@ interface data {
   local?: IWeather;
   startegies: string;
   weather: Weather;
+  ready: boolean;
 }
 
 const qweather = new QWeatherStrategies(process.env.qWeatherKey!);
@@ -48,18 +49,26 @@ export const useWeatherStore = defineStore('weather', {
     weather: weather,
     current: undefined,
     local: undefined,
+    ready: false, // 数据是否准备完毕
   }),
   actions: {
     getAllWeather() {
       const loc = useLocationStore();
 
-      this.weather
-        .getAllweather(loc.current as Location)
-        .then((res: IWeather | void) => {
-          if (typeof res !== 'undefined') {
-            this.current = res;
-          }
-        });
+      this.ready = false; // 开始获取新数据前, 把 ready 置为 false
+
+      return new Promise<void>((resolve) => {
+        this.weather
+          .getAllweather(loc.current as Location)
+          .then((res: IWeather | void) => {
+            if (typeof res !== 'undefined') {
+              this.current = res;
+              this.ready = true;
+
+              resolve();
+            }
+          });
+      });
     },
     // 修改数据源
     changeStrategy(strategy: DataSources) {
