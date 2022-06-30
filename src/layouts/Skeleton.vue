@@ -11,16 +11,9 @@
         <div class="col-4">
           <ice-air :visible="ready"></ice-air>
         </div>
-        <!-- 日月升落 -->
+        <!-- sun and moon -->
         <div class="col-4 q-mt-md">
-          <q-card flat square bordered>
-            <q-card-section>
-              <q-skeleton width="80px"></q-skeleton>
-            </q-card-section>
-            <q-card-section>
-              <q-skeleton height="150px" square />
-            </q-card-section>
-          </q-card>
+          <ice-astronomy :visible="ready"></ice-astronomy>
         </div>
         <!-- 风速,气压等 -->
         <div class="col-8 q-mt-md q-pl-xs gutter">
@@ -51,6 +44,7 @@
 import { defineComponent } from 'vue';
 import iceMain from 'components/ice-main.vue';
 import iceAir from 'components/ice-air.vue';
+import iceAstronomy from '../components/ice-astronomy.vue';
 import { useWeatherStore } from 'stores/stores';
 import { storeToRefs } from 'pinia';
 
@@ -59,7 +53,7 @@ const weather = useWeatherStore();
 export default defineComponent({
   name: 'iceSkeleton',
 
-  components: { iceMain, iceAir },
+  components: { iceMain, iceAir, iceAstronomy },
 
   setup() {
     const { ready } = storeToRefs(weather);
