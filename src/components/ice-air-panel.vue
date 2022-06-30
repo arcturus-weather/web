@@ -23,7 +23,7 @@
             show-value
             :value="current?.air.aqi"
             track-color="grey-3"
-            color="light-blue"
+            color="secondary"
             size="120px"
             class="q-ma-md"
           />
@@ -32,6 +32,7 @@
           <div class="grid">
             <q-linear-progress
               v-for="(item, idx) in pollutions"
+              color="secondary"
               :key="idx"
               :value="item.value / item.max"
               size="60px"
@@ -41,11 +42,11 @@
                 class="absolute-full column justify-between q-pa-sm"
                 style="color: black; font-size: 10px"
               >
-                <div>
+                <div class="text-bold">
                   {{ item.label }}
                   <span class="unit">μg/m³</span>
                 </div>
-                <div class="row items-end" style="font-size: 16px">
+                <div class="row items-center" style="font-size: 16px">
                   <div class="text-bold">{{ item.value }}</div>
                   <div class="text-caption">/{{ item.max }}</div>
                 </div>
@@ -105,5 +106,6 @@ export default defineComponent({
   padding: 1px;
   color: #fff;
   background-color: #ff5252;
+  font-weight: normal;
 }
 </style>
