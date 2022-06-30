@@ -65,7 +65,7 @@ export default defineComponent({
   setup() {
     const air = ref<HTMLElement | null>(null),
       open = ref(false),
-      category = ref(''),
+      category = ref('excellent'),
       { current } = storeToRefs(weather);
 
     watchEffect(() => {
