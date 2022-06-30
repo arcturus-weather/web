@@ -64,7 +64,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { DrawQQMap } from 'utils/location/qqMap';
-import { useLocationStore } from 'src/stores/stores';
+import { useLocationStore } from 'stores/stores';
 import { debounce } from 'utils/utils';
 
 const location = useLocationStore();
@@ -160,7 +160,7 @@ export default defineComponent({
     // 'Failed to execute 'postMessage' on 'Worker': #<t> could not be cloned.'
     drawMap = new DrawQQMap((res: IMapData) => {
       latitude.value = res.latitude;
-      longitude.value = res.logitude;
+      longitude.value = res.longitude;
       address.value = res.address ?? '';
       city.value = ''; // 地图选点获取不到城市信息...（ ´д｀）ゞ
     });
