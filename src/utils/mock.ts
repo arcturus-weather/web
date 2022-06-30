@@ -104,8 +104,8 @@ Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/astronomy\/sun,*/g, {
   code: '200',
   updateTime: '2021-02-17T11:00+08:00',
   fxLink: 'http://hfx.link/2ax1',
-  sunrise: '2022-03-20T06:58+08:00',
-  sunset: '2022-03-20T17:57+08:00',
+  sunrise: '2022-06-30T21:58+08:00',
+  sunset: '2022-07-01T04:57+08:00',
   refer: {
     sources: ['qweather.com'],
     license: ['commercial license'],
@@ -117,8 +117,8 @@ Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/astronomy\/moon.*/g, {
   code: '200',
   updateTime: '2022-11-15T17:00+08:00',
   fxLink: 'http://hfx.link/2ax1',
-  moonrise: '2022-03-20T08:25+08:00',
-  moonset: '2022-03-20T21:42+08:00',
+  moonrise: '2022-06-30T13:25+08:00',
+  moonset: '2022-07-01T04:42+08:00',
   moonPhase: moonPhase,
   refer: {
     sources: ['QWeather'],
