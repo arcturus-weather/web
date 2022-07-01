@@ -1,31 +1,29 @@
 <template>
   <q-card flat bordered style="height: 283px">
     <ice-transition>
-      <div v-if="visible" @click="openAirPanel" class="clickable">
-        <q-card-section> {{ $t('weather.aqi') }}</q-card-section>
-        <div class="row justify-center aqi-graph">
-          <div style="height: 175px; width: 175px" ref="air"></div>
-          <div class="text-h5 category">
-            {{ $t(`weather.air.${category}`) }}
-          </div>
+      <div
+        v-if="visible"
+        style="height: inherit"
+        @click="openAirPanel"
+        class="column"
+      >
+        <div class="clickable click"></div>
+        <q-card-section>
+          {{ $t('weather.aqi') }}:
+          {{ $t(`weather.air.${category}`) }}
+        </q-card-section>
+        <div class="row justify-center" style="flex: 1">
+          <div style="width: 200px" ref="air"></div>
         </div>
-        <q-card-actions align="right">
-          <q-btn unelevated text-color="primary" >
-            {{ $t('click') }}
-          </q-btn>
-        </q-card-actions>
       </div>
 
-      <div v-else style="height: 283px">
+      <div v-else style="height: 283px" class="column">
         <q-card-section>
           <q-skeleton width="80px"></q-skeleton>
         </q-card-section>
-        <div class="row justify-center">
+        <div class="row justify-center items-center" style="flex: 1">
           <q-skeleton height="175px" width="175px" />
         </div>
-        <q-card-actions align="right">
-          <q-skeleton type="QBtn" />
-        </q-card-actions>
       </div>
     </ice-transition>
   </q-card>
@@ -81,15 +79,13 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
-.aqi-graph {
-  position: relative;
-
-  .category {
-    position: absolute;
-    left: 50%;
-    bottom: -10%;
-    transform: translate(-50%, -50%);
-  }
+<style scoped land="scss">
+.click {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
 }
 </style>
