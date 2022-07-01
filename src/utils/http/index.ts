@@ -86,8 +86,10 @@ export default class Http {
       (err) => {
         Notify.create({
           type: 'negative',
-          message: err,
+          message: err.message,
         });
+
+        return Promise.reject();
       }
     );
   }
@@ -110,8 +112,10 @@ export default class Http {
       (err) => {
         Notify.create({
           type: 'negative',
-          message: err,
+          message: err.message,
         });
+
+        return Promise.reject();
       }
     );
   }

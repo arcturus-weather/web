@@ -1,6 +1,0 @@
-[[redirects]]
-  from = "/qqmap"
-  to = "https://apis.map.qq.com"
-  status = 200
-  force = true
-  headers = { X-From = "Netlify" }
