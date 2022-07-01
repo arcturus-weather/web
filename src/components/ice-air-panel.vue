@@ -70,7 +70,7 @@ import { pollutionsMap } from 'utils/weather/tools';
 const { current } = storeToRefs(useWeatherStore());
 
 export default defineComponent({
-  name: 'iceMap',
+  name: 'iceAirPanel',
 
   props: {
     visible: {
