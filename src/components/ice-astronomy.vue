@@ -65,7 +65,7 @@
               <div>{{ $d(current.moon.moonRise, 'time2') }}↑</div>
               <div>{{ $d(current.moon.moonSet, 'time2') }}↓</div>
             </div>
-            <q-icon name="dark_mode" size="25px" ></q-icon>
+            <q-icon name="dark_mode" size="25px"></q-icon>
           </div>
         </div>
       </div>
@@ -182,7 +182,7 @@ export default defineComponent({
         return '#303133';
       } else if (diff2 > -7200) {
         // sunset is still two hours away
-        return '#FEB692';
+        return '#ffcc80';
       } else {
         return '#6AB3FF';
       }
