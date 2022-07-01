@@ -5,12 +5,14 @@ export default {
     afternoon: '中午',
     evening: '旁晚',
     night: '夜间',
+    day: '日间'
   },
   weather: {
     wind: '风速',
     pressure: '大气压',
     dew: '露点温度',
     humidity: '空气湿度',
+    visibility: '能见度',
     coluds: '云量',
     uvIndex: '紫外线指数',
     precipitation: '降水量',
