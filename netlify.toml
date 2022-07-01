@@ -1,6 +1,6 @@
 [[redirects]]
   from = "/qqmap/*"
-  to = "https://apis.map.qq.com/"
+  to = "https://apis.map.qq.com/:splat"
   status = 200
 
 [[redirects]]
