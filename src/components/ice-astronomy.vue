@@ -148,7 +148,7 @@ export default defineComponent({
 
     return {
       curveLineColor: ref('#fff'), // the color of curve
-      orbRadius: ref(20), // the radius of earth ans moon
+      orbRadius: ref(10), // the radius of earth ans moon
       skyHeight: ref(150), // the background color
       sunDeg,
       moonDeg,
