@@ -13,9 +13,6 @@ const path = require('path');
 
 module.exports = configure(function (/* ctx */) {
   return {
-    htmlVariables: {
-      qqMapKey: process.env.qqMapKey,
-    },
     eslint: {
       // fix: true,
       // include = [],
@@ -57,7 +54,6 @@ module.exports = configure(function (/* ctx */) {
         browser: ['es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1'],
         node: 'node16',
       },
-      distDir: 'dist',
       alias: {
         // path alias: https://quasar.dev/quasar-cli-vite/handling-vite#folder-aliases
         utils: path.join(__dirname, './src/utils'),
@@ -88,6 +84,7 @@ module.exports = configure(function (/* ctx */) {
           {
             // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
             // compositionOnly: false,
+            runtimeOnly: false,
 
             // you need to set i18n resource including paths !
             include: path.resolve(__dirname, './src/i18n/**'),
