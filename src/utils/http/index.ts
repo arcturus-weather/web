@@ -132,7 +132,12 @@ export default class Http {
         }
       },
       (err) => {
-        console.log(err);
+        console.log(err.message);
+
+        Notify.create({
+          type: 'negative',
+          message: err.message,
+        });
 
         return Promise.reject(err);
       }
