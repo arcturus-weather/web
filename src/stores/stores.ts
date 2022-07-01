@@ -26,6 +26,9 @@ export const useLocationStore = defineStore('location', {
   actions: {
     changeLocation(loc: IMapData) {
       this.current = new Location(loc);
+
+      const weather = useWeatherStore();
+      weather.getAllWeather();
     },
   },
 });
