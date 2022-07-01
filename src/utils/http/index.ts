@@ -103,6 +103,8 @@ export default class Http {
             type: 'negative',
             message: openWeatherCode[resp.status],
           });
+
+          return Promise.reject();
         }
       },
       (err) => {
@@ -125,6 +127,8 @@ export default class Http {
             type: 'negative',
             message: qqMapCode[resp.data.status],
           });
+
+          return Promise.reject();
         }
       },
       (err) => {
