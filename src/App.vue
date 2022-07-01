@@ -12,6 +12,8 @@ if (process.env.NODE_ENV === 'development') {
   import('utils/mock');
 }
 
+console.log(process.env)
+
 export default defineComponent({
   name: 'App',
   setup() {
