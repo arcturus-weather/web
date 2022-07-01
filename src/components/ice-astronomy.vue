@@ -50,7 +50,24 @@
             </div>
           </div>
         </q-card-section>
-        <q-card-section></q-card-section>
+        <div class="row justify-between q-px-md">
+          <!-- sun time -->
+          <div class="row items-center">
+            <q-icon name="sunny" size="25px"></q-icon>
+            <div class="q-ml-sm">
+              <div>{{ $d(current.sun.sunRise, 'time2') }}↑</div>
+              <div>{{ $d(current.sun.sunSet, 'time2') }}↓</div>
+            </div>
+          </div>
+          <!-- moon time -->
+          <div class="row items-center">
+            <div class="q-mr-sm">
+              <div>{{ $d(current.moon.moonRise, 'time2') }}↑</div>
+              <div>{{ $d(current.moon.moonSet, 'time2') }}↓</div>
+            </div>
+            <q-icon name="dark_mode" size="25px" ></q-icon>
+          </div>
+        </div>
       </div>
       <div v-else>
         <q-card-section>
@@ -135,6 +152,7 @@ export default defineComponent({
       skyHeight: ref(150), // the background color
       sunDeg,
       moonDeg,
+      current,
     };
   },
 
