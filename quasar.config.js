@@ -57,6 +57,7 @@ module.exports = configure(function (/* ctx */) {
         browser: ['es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1'],
         node: 'node16',
       },
+      distDir: 'dist',
       alias: {
         // path alias: https://quasar.dev/quasar-cli-vite/handling-vite#folder-aliases
         utils: path.join(__dirname, './src/utils'),
