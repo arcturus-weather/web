@@ -32,6 +32,10 @@ const i18n = createI18n({
         hour: 'numeric',
         minute: 'numeric',
       },
+      time2: {
+        hour: 'numeric',
+        minute: 'numeric',
+      },
     },
   },
   globalInjection: true,
