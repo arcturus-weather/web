@@ -9,7 +9,10 @@ export default {
   weather: {
     wind: '风速',
     pressure: '大气压',
-    uv: '紫外线指数',
+    dew: '露点温度',
+    humidity: '空气湿度',
+    coluds: '云量',
+    uvIndex: '紫外线指数',
     precipitation: '降水量',
     precipChance: '降水概率',
     temperature: '温度',
