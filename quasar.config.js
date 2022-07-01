@@ -12,7 +12,12 @@ const { configure } = require('quasar/wrappers');
 const path = require('path');
 
 module.exports = configure(function (/* ctx */) {
+  require('dotenv').config();
+
   return {
+    htmlVariables: {
+      QQMAP_KEY: process.env.VUE_QQMAP_KEY,
+    },
     eslint: {
       // fix: true,
       // include = [],
@@ -68,7 +73,10 @@ module.exports = configure(function (/* ctx */) {
 
       // publicPath: '/',
       // analyze: true,
-      env: require('dotenv').config().parsed,
+      env: {
+        VUE_QQMAP_KEY: process.env.VUE_QQMAP_KEY,
+        VUE_QWEATHER_KEY: process.env.VUE_QWEATHER_KEY,
+      },
       // rawDefine: {}
       // ignorePublicFolder: true,
       // minify: false,
