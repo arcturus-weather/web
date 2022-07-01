@@ -132,8 +132,6 @@ export default class Http {
         }
       },
       (err) => {
-        console.log(err.message);
-
         Notify.create({
           type: 'negative',
           message: err.message,
