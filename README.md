@@ -32,5 +32,9 @@ pnpm run format
 quasar build
 ```
 
+sorcemap
+```
+quasar build --debug
+```
 ### Customize the configuration
 See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
