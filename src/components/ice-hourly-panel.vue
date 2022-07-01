@@ -91,7 +91,7 @@ export default defineComponent({
         },
         {
           label: 'pressure',
-          value: h.pressure,
+          value: `${h.pressure}hpa`,
           icon: 'speed',
         },
       ];
@@ -115,7 +115,7 @@ export default defineComponent({
       if (h.visibility) {
         res.push({
           label: 'visibility',
-          value: h.visibility,
+          value: `${h.visibility}km`,
           icon: 'visibility',
         });
       }
