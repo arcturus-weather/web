@@ -12,8 +12,6 @@ if (process.env.NODE_ENV === 'development') {
   import('utils/mock');
 }
 
-console.log(process.env.NODE_ENV, process.env.qWeatherKey)
-
 export default defineComponent({
   name: 'App',
   setup() {
