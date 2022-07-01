@@ -1,5 +1,5 @@
 <template>
-  <q-card flat bordered class="clickabe" style="height: 232px">
+  <q-card flat bordered class="clickable" style="height: 232px">
     <ice-transition>
       <div v-if="visible">
         <q-card-section>

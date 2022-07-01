@@ -1,7 +1,7 @@
 <template>
   <q-card flat bordered style="height: 283px">
     <ice-transition>
-      <div v-if="visible" flat square bordered>
+      <div v-if="visible" @click="openAirPanel" class="clickable">
         <q-card-section> {{ $t('weather.aqi') }}</q-card-section>
         <div class="row justify-center aqi-graph">
           <div style="height: 175px; width: 175px" ref="air"></div>
@@ -10,7 +10,7 @@
           </div>
         </div>
         <q-card-actions align="right">
-          <q-btn unelevated text-color="primary" @click="openAirPanel">
+          <q-btn unelevated text-color="primary" >
             {{ $t('click') }}
           </q-btn>
         </q-card-actions>

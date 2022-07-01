@@ -50,13 +50,13 @@
       <ice-transition>
         <!-- pressure, precip, windspeed -->
         <div v-if="visible" class="row items-center justify-between">
-          <q-chip icon="air" size="sm" class="clickabe">
+          <q-chip icon="air" size="sm" class="clickable">
             {{ currentWeather!.now.pressure }}hpa
           </q-chip>
-          <q-chip icon="water_drop" size="sm" class="clickabe">
+          <q-chip icon="water_drop" size="sm" class="clickable">
             {{ currentWeather!.now.precip }}%
           </q-chip>
-          <q-chip icon="wind_power" size="sm" class="clickabe">
+          <q-chip icon="wind_power" size="sm" class="clickable">
             {{ currentWeather!.now.wind.windSpeed }}km/h
           </q-chip>
         </div>
