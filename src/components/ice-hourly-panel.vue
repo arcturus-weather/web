@@ -83,7 +83,6 @@ export default defineComponent({
           label: 'dew',
           value: `${h.dewPoint}°`,
           icon: 'mdi-thermometer-lines',
-          // icon: 'mdi-sun-thermometer-outline',
         },
         {
           label: 'humidity',
