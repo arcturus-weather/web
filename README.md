@@ -6,7 +6,8 @@
 
 </div>
 
-## Install the dependencies
+# 本地开发
+## 安装依赖
 ```bash
 pnpm install
 ```
