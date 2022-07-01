@@ -58,7 +58,7 @@ module.exports = configure(function (/* ctx */) {
         // path alias: https://quasar.dev/quasar-cli-vite/handling-vite#folder-aliases
         utils: path.join(__dirname, './src/utils'),
       },
-
+      distDir: 'dist',
       vueRouterMode: 'history', // available values: 'hash', 'history'
       // vueRouterBase,
       // vueDevtools,
