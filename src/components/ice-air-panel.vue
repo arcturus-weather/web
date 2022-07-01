@@ -28,7 +28,7 @@
             class="q-ma-md"
           />
         </div>
-        <div class="col-8">
+        <div class="col-8 column">
           <div class="grid">
             <q-linear-progress
               v-for="(item, idx) in pollutions"
@@ -44,7 +44,6 @@
               >
                 <div class="text-bold">
                   {{ item.label }}
-                  <span class="unit">μg/m³</span>
                 </div>
                 <div class="row items-center" style="font-size: 16px">
                   <div class="text-bold">{{ item.value }}</div>
@@ -52,6 +51,9 @@
                 </div>
               </div>
             </q-linear-progress>
+          </div>
+          <div class="text-right q-mt-md">
+            <q-badge>μg/m³</q-badge>
           </div>
         </div>
       </q-card-section>
