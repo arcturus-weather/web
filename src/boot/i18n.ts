@@ -59,6 +59,9 @@ const i18n = createI18n({
       time3: {
         hour: 'numeric',
       },
+      week: {
+        weekday: 'long',
+      },
     },
   },
   globalInjection: true,
