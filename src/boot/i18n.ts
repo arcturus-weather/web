@@ -25,21 +25,39 @@ const i18n = createI18n({
         minute: 'numeric',
         hour12: true,
       },
+      tiem3: {
+        hour: 'numeric',
+        hour12: true,
+      },
     },
     'zh-CN': {
       short: {
+        // such as 2022-09-01
         year: 'numeric',
         month: 'short',
         day: 'numeric',
       },
+      long: {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        weekday: 'long',
+        hour: 'numeric',
+        minute: 'numeric',
+      },
       time: {
+        // such as 周二09:00
         weekday: 'short',
         hour: 'numeric',
         minute: 'numeric',
       },
       time2: {
+        // such as 09:00
         hour: 'numeric',
         minute: 'numeric',
+      },
+      time3: {
+        hour: 'numeric',
       },
     },
   },
