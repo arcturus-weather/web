@@ -32,7 +32,7 @@
       <q-separator vertical class="height__100" />
       <div class="column height__100 width__100 justify-between q-pa-md">
         <ice-hourly :visible="ready"></ice-hourly>
-        <q-skeleton class="rect__2" height="50px" v-for="i in 7" :key="i" />
+        <ice-daily :visible="ready"></ice-daily>
       </div>
     </div>
   </div>
@@ -44,16 +44,16 @@ import iceMain from 'components/ice-main.vue';
 import iceAir from 'components/ice-air.vue';
 import iceAstronomy from 'components/ice-astronomy.vue';
 import iceHourly from 'components/ice-hourly.vue';
+import iceDaily from 'components/ice-daily.vue';
 import { useWeatherStore } from 'stores/stores';
 import { storeToRefs } from 'pinia';
-import IceHourly from '../components/ice-hourly.vue';
 
 const weather = useWeatherStore();
 
 export default defineComponent({
   name: 'iceSkeleton',
 
-  components: { iceMain, iceAir, iceAstronomy, iceHourly, IceHourly },
+  components: { iceMain, iceAir, iceAstronomy, iceHourly, iceDaily },
 
   setup() {
     const { ready } = storeToRefs(weather);
