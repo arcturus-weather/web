@@ -20,6 +20,11 @@ const i18n = createI18n({
         minute: 'numeric',
         hour12: true,
       },
+      time2: {
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true,
+      },
     },
     'zh-CN': {
       short: {
