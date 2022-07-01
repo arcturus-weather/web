@@ -15,7 +15,7 @@ export const useLocationStore = defineStore('location', {
       city: '北京市',
       address: '天安门',
     }),
-    qqMap: new QQMap(process.env.qqMapKey!),
+    qqMap: new QQMap(process.env.VITE_QQMAP_KEY!),
   }),
   getters: {
     latitude: (state) => state.current.latitude,
@@ -41,7 +41,7 @@ interface data {
   ready: boolean;
 }
 
-const qweather = new QWeatherStrategies(process.env.qWeatherKey!);
+const qweather = new QWeatherStrategies(process.env.VITE_QWEATHER_KEY!);
 const weather = new Weather(qweather, 'qWeather');
 // 以后在这里添加数据源....
 // weather.addStrategy(openWeather, 'openWeather');
