@@ -27,14 +27,12 @@
         </div>
       </div>
     </div>
-    <!-- 侧边天气数据 -->
+    <!-- weather data -->
     <div class="col-3 row">
       <q-separator vertical class="height__100" />
       <div class="column height__100 width__100 justify-between q-pa-md">
-        <div class="row justify-between">
-          <q-skeleton width="55px" height="80px" v-for="i in 4" :key="i" />
-        </div>
-        <q-skeleton class="rect__2" height="60px" v-for="i in 7" :key="i" />
+        <ice-hourly :visible="ready"></ice-hourly>
+        <q-skeleton class="rect__2" height="50px" v-for="i in 7" :key="i" />
       </div>
     </div>
   </div>
@@ -44,16 +42,18 @@
 import { defineComponent } from 'vue';
 import iceMain from 'components/ice-main.vue';
 import iceAir from 'components/ice-air.vue';
-import iceAstronomy from '../components/ice-astronomy.vue';
+import iceAstronomy from 'components/ice-astronomy.vue';
+import iceHourly from 'components/ice-hourly.vue';
 import { useWeatherStore } from 'stores/stores';
 import { storeToRefs } from 'pinia';
+import IceHourly from '../components/ice-hourly.vue';
 
 const weather = useWeatherStore();
 
 export default defineComponent({
   name: 'iceSkeleton',
 
-  components: { iceMain, iceAir, iceAstronomy },
+  components: { iceMain, iceAir, iceAstronomy, iceHourly, IceHourly },
 
   setup() {
     const { ready } = storeToRefs(weather);

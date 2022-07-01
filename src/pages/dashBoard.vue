@@ -11,16 +11,13 @@
 
     <!-- 隐藏页面 -->
     <ice-map v-model="mapVisible" @confirm="confirm"></ice-map>
-    <ice-air-panel v-model="airVisible" @confirm="confirm"></ice-air-panel>
   </q-page>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import iceMap from 'src/components/ice-map.vue';
-import iceAirPanel from 'src/components/ice-air-panel.vue';
 import { useLocationStore, useWeatherStore } from 'stores/stores';
-// import { guage } from 'utils/antv';
 import iceSkeleton from 'src/layouts/Skeleton.vue';
 const location = useLocationStore();
 const weather = useWeatherStore();
@@ -28,7 +25,7 @@ const weather = useWeatherStore();
 export default defineComponent({
   name: 'dashBoardPage',
 
-  components: { iceMap, iceAirPanel, iceSkeleton },
+  components: { iceMap, iceSkeleton },
 
   methods: {
     confirm(e: IMapData) {
@@ -43,7 +40,6 @@ export default defineComponent({
 
     return {
       mapVisible: ref(false),
-      airVisible: ref(false),
       air,
     };
   },
