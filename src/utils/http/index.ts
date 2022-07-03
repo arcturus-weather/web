@@ -86,8 +86,10 @@ export default class Http {
       (err) => {
         Notify.create({
           type: 'negative',
-          message: err,
+          message: err.message,
         });
+
+        return Promise.reject();
       }
     );
   }
@@ -103,13 +105,17 @@ export default class Http {
             type: 'negative',
             message: openWeatherCode[resp.status],
           });
+
+          return Promise.reject();
         }
       },
       (err) => {
         Notify.create({
           type: 'negative',
-          message: err,
+          message: err.message,
         });
+
+        return Promise.reject();
       }
     );
   }
@@ -125,13 +131,17 @@ export default class Http {
             type: 'negative',
             message: qqMapCode[resp.data.status],
           });
+
+          return Promise.reject();
         }
       },
       (err) => {
         Notify.create({
           type: 'negative',
-          message: err,
+          message: err.message,
         });
+
+        return Promise.reject(err);
       }
     );
   }

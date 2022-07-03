@@ -104,10 +104,15 @@ export default defineComponent({
     getList(e: string | number | null) {
       const el = String(e);
       if (el !== '') {
-        location.qqMap.searchSuggestions(el).then((res) => {
-          this.poiList = res as unknown as Array<qqMapSuggestionsItem>;
-          this.displayList = true;
-        });
+        location.qqMap
+          .searchSuggestions(el)
+          .then((res) => {
+            this.poiList = res as unknown as Array<qqMapSuggestionsItem>;
+            this.displayList = true;
+          })
+          .catch(() => {
+            this.poiList.length = 0; // 请求失败后置空
+          });
       }
     },
 

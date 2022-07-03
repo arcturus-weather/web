@@ -1,6 +1,9 @@
 [[redirects]]
-  from = "/qqmap/"
-  to = "https://apis.map.qq.com"
+  from = "/qqmap/*"
+  to = "https://apis.map.qq.com/:splat"
   status = 200
-  force = true
-  headers = { X-From = "Netlify" }
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

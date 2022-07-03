@@ -61,17 +61,15 @@ export class QQMap {
 
   // 获取搜索建议
   searchSuggestions(keyword: string, region = '') {
-    return this.http
-      .request({
-        url: '/ws/place/v1/suggestion',
-        method: 'GET',
-        data: {
-          key: this.key,
-          keyword,
-          region,
-        },
-      })
-      .catch(() => {});
+    return this.http.request({
+      url: '/ws/place/v1/suggestion',
+      method: 'GET',
+      data: {
+        key: this.key,
+        keyword,
+        region,
+      },
+    });
   }
 }
 
