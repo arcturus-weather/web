@@ -5,7 +5,7 @@
         <div class="row item-stretch">
           <!-- main -->
           <div class="col-8 q-pr-xs">
-            <ice-main :visible="ready"></ice-main>
+            <ice-main :visible="ready" @open-map="mapVisible = true"></ice-main>
           </div>
           <!-- aqi panel -->
           <div class="col-4">

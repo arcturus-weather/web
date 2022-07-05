@@ -47,7 +47,7 @@ export function guage(dom: HTMLElement | null, percent: number) {
 }
 
 export interface AreaDateItem {
-  temp: number;
+  value: number;
   label: string;
 }
 
@@ -71,7 +71,7 @@ export function area(dom: HTMLElement | null, data: AreaDateItem[]) {
       line: null,
       range: [0, 1],
     },
-    yField: 'temp',
+    yField: 'value',
     autoFit: true,
     renderer: 'svg',
     areaStyle: () => {
