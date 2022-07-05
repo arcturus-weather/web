@@ -77,8 +77,8 @@ export class QQMap {
  *      腾讯地图绘制       *
  *************************/
 export class DrawQQMap {
-  private maker: TMapType['MultiMarker'];
-  private map: TMapType['Map'];
+  private maker: TMap.MultiMarker | undefined;
+  private map: TMap.Map | undefined;
   callback: (res: IMapData) => void;
 
   constructor(callback: (res: IMapData) => void) {
@@ -107,7 +107,7 @@ export class DrawQQMap {
   }
 
   // 点击地图事件
-  select(evt: event) {
+  select(evt: TMap.MapEvent) {
     const { lat, lng } = evt.latLng;
     const address = evt.poi?.name;
 
@@ -117,7 +117,7 @@ export class DrawQQMap {
   }
 
   // 设置点标记
-  setMaker(loc: TMapType['LatLng']) {
+  setMaker(loc: TMap.LatLng) {
     this.maker = new TMap.MultiMarker({
       map: this.map,
       styles: {
@@ -141,7 +141,7 @@ export class DrawQQMap {
 
   // 更新标记
   updateMaker(latitude: number, longitude: number) {
-    this.maker.setGeometries([
+    this.maker!.setGeometries([
       {
         position: new TMap.LatLng(latitude, longitude),
         id: 'marker',
@@ -151,6 +151,6 @@ export class DrawQQMap {
 
   // 设置瞄点居中
   setMakerCenter(latitude: number, longitude: number) {
-    this.map.setCenter(new TMap.LatLng(latitude, longitude));
+    this.map!.setCenter(new TMap.LatLng(latitude, longitude));
   }
 }
