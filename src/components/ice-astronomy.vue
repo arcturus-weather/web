@@ -1,5 +1,11 @@
 <template>
-  <q-card flat bordered class="clickable" style="height: 232px">
+  <q-card
+    flat
+    bordered
+    class="clickable"
+    @click="open = true"
+    style="height: 232px"
+  >
     <ice-transition>
       <div v-if="visible">
         <q-card-section>
@@ -80,6 +86,7 @@
       </div>
     </ice-transition>
   </q-card>
+  <ice-astronomy-panel v-model="open"></ice-astronomy-panel>
 </template>
 
 <script>
@@ -88,13 +95,14 @@ import { useWeatherStore } from 'stores/stores';
 import { date } from 'quasar';
 import { storeToRefs } from 'pinia';
 import iceTransition from 'components/ice-transition.vue';
+import iceAstronomyPanel from 'components/ice-astronomy-panel.vue';
 
 const { current } = storeToRefs(useWeatherStore());
 
 export default defineComponent({
   name: 'ice-astronomy',
 
-  components: { iceTransition },
+  components: { iceTransition, iceAstronomyPanel },
 
   props: {
     visible: {
@@ -105,7 +113,8 @@ export default defineComponent({
 
   setup(props) {
     const sunDeg = ref(0),
-      moonDeg = ref(0);
+      moonDeg = ref(0),
+      open = ref(false);
 
     watch(
       () => props.visible,
@@ -153,6 +162,7 @@ export default defineComponent({
       sunDeg,
       moonDeg,
       current,
+      open,
     };
   },
 
