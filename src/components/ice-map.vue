@@ -66,8 +66,9 @@ import { defineComponent, ref } from 'vue';
 import { DrawQQMap } from 'utils/location/qqMap';
 import { useLocationStore } from 'stores/stores';
 import { debounce } from 'utils/utils';
+import { storeToRefs } from 'pinia';
 
-const location = useLocationStore();
+const { qqMap } = storeToRefs(useLocationStore());
 
 let drawMap: DrawQQMap;
 
@@ -84,11 +85,29 @@ export default defineComponent({
       default: 500,
       type: Number,
     },
+    lat: {
+      default: 39.9087,
+      type: Number,
+    },
+    lng: {
+      default: 116.3974,
+      type: Number,
+    },
+    addr: {
+      type: String,
+      default: '天安门',
+    },
+    city: {
+      type: String,
+      default: '北京市',
+    },
   },
 
   methods: {
     init() {
-      drawMap.init(this.map, this.latitude, this.longitude);
+      drawMap.init(this.map, this.lat, this.lng);
+      this.address = this.addr;
+      this.city_ = this.city;
     },
 
     confirm() {
@@ -103,8 +122,9 @@ export default defineComponent({
 
     getList(e: string | number | null) {
       const el = String(e);
+
       if (el !== '') {
-        location.qqMap
+        qqMap.value
           .searchSuggestions(el)
           .then((res) => {
             this.poiList = res as unknown as Array<qqMapSuggestionsItem>;
@@ -141,7 +161,7 @@ export default defineComponent({
       this.latitude = lat;
       this.longitude = lng;
       this.address = address;
-      this.city = city;
+      this.city_ = city;
 
       // 更新锚点
       drawMap.updateMaker(lat, lng);
@@ -154,10 +174,10 @@ export default defineComponent({
 
   setup() {
     const map = ref<HTMLElement | null>(null),
-      latitude = ref(location.latitude),
-      longitude = ref(location.longitude),
-      address = ref(location.address),
-      city = ref(location.city),
+      latitude = ref(0),
+      longitude = ref(0),
+      address = ref(''),
+      city_ = ref(''),
       displayList = ref(false),
       poiList = ref<Array<qqMapSuggestionsItem>>([]); // 搜索建议
 
@@ -167,10 +187,10 @@ export default defineComponent({
       latitude.value = res.latitude;
       longitude.value = res.longitude;
       address.value = res.address ?? '';
-      city.value = ''; // 地图选点获取不到城市信息...（ ´д｀）ゞ
+      city_.value = ''; // 地图选点获取不到城市信息...（ ´д｀）ゞ
     });
 
-    return { map, latitude, city, poiList, longitude, address, displayList };
+    return { map, latitude, city_, poiList, longitude, address, displayList };
   },
 });
 </script>
