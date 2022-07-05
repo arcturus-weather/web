@@ -20,6 +20,8 @@ pnpm install
 VUE_QWEATHER_KEY=xxx # 和风天气
 
 VUE_QQMAP_KEY=xxx # 腾讯地图
+
+VUE_APP_NAME="小冰天气" # 腾讯地图key对应的APP名
 ```
 
 ## 运行

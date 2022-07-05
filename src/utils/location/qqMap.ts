@@ -34,7 +34,10 @@ export class QQMap {
     Http.setQQMapResponseInterceptors(this.http.ax);
 
     // 获取定位
-    this.geolocation = new qq.maps.Geolocation(this.key, '小冰天气');
+    this.geolocation = new qq.maps.Geolocation(
+      this.key,
+      process.env.VUE_APP_NAME
+    );
   }
 
   // 获取位置信息
@@ -44,15 +47,16 @@ export class QQMap {
         (res: geoResult) => {
           const { lat, lng, city, addr, district, province } = res;
           resolve({
-            lat, // 纬度
-            lng, // 经度
-            city, // 市
-            addr, // 具体地址
+            latitude: lat, // 纬度
+            longitude: lng, // 经度
+            city: city, // 市
+            address: addr, // 具体地址
             district, // 区
             province, // 省
           });
         },
-        () => {
+        (err: any) => {
+          console.log(err);
           reject();
         }
       );
