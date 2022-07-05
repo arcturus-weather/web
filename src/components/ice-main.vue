@@ -4,9 +4,9 @@
       <ice-transition>
         <div v-if="visible" class="row justify-between">
           <!-- location -->
-          <div class="row items-center">
+          <div class="row items-center clickable" @click="$emit('openMap')">
             <q-icon name="room"></q-icon>
-            <div class="ellipsis clickable" style="width: 150px">
+            <div class="ellipsis" style="width: 150px">
               {{ currentLocation.address }}
             </div>
             <q-tooltip>
@@ -55,13 +55,18 @@
       <ice-transition>
         <!-- pressure, precip, windspeed -->
         <div v-if="visible" class="row items-center justify-between">
-          <q-chip icon="air" size="sm" class="clickable">
+          <q-chip icon="air" size="sm" clickable>
             {{ currentWeather!.now.pressure }}hpa
           </q-chip>
-          <q-chip icon="water_drop" size="sm" class="clickable">
+          <q-chip
+            icon="water_drop"
+            size="sm"
+            clickable
+            @click="slide = 'precip'"
+          >
             {{ currentWeather!.now.precip }}mm
           </q-chip>
-          <q-chip icon="wind_power" size="sm" class="clickable">
+          <q-chip icon="wind_power" size="sm" clickable>
             {{ currentWeather!.now.wind.windSpeed }}km/h
           </q-chip>
         </div>
@@ -75,25 +80,57 @@
       <ice-transition :duration="1000">
         <!-- temperature plot -->
         <q-card v-if="visible" flat bordered style="height: 100%">
-          <q-card-section>
-            {{ $t('weather.temperature') }}
-          </q-card-section>
-          <!-- Graph -->
-          <q-card-section>
-            <div ref="tempPlot" style="height: 90px"></div>
-          </q-card-section>
-          <!-- the maximum and minimal of temperature -->
-          <q-card-section class="row justify-between">
-            <div class="column items-center">
-              <div>{{ $t('weather.max') }}</div>
-              <div>{{ max }}°</div>
-            </div>
-            <div class="column items-center">
-              <div>{{ $t('weather.min') }}</div>
-              <div>{{ min }}°</div>
-            </div>
-          </q-card-section>
+          <q-carousel
+            v-model="slide"
+            height="249px"
+            transition-prev="scale"
+            transition-next="scale"
+            animated
+            arrows
+          >
+            <!-- temp graph -->
+            <q-carousel-slide
+              name="temp"
+              class="q-pa-none column justify-between"
+            >
+              <q-card-section>
+                {{ $t('weather.temperature') }}
+              </q-card-section>
+              <!-- Graph -->
+              <q-card-section>
+                <div ref="tempPlot" style="height: 90px"></div>
+              </q-card-section>
+              <!-- the maximum and minimal of temperature -->
+              <q-card-section class="row justify-between">
+                <div class="column items-center">
+                  <div>{{ $t('weather.max') }}</div>
+                  <div>{{ max }}°</div>
+                </div>
+                <div class="column items-center">
+                  <div>{{ $t('weather.min') }}</div>
+                  <div>{{ min }}°</div>
+                </div>
+              </q-card-section>
+            </q-carousel-slide>
+
+            <!-- preciptation graph -->
+            <q-carousel-slide
+              name="precip"
+              class="q-pa-none column justify-between"
+            >
+              <q-card-section>
+                {{ $t('weather.precipitation') }}
+              </q-card-section>
+              <q-card-section>
+                <div ref="precipPlot" style="height: 90px"></div>
+              </q-card-section>
+              <q-card-section class="row justify-between">
+                <div class="summary">{{ currentWeather?.precip.summary }}</div>
+              </q-card-section>
+            </q-carousel-slide>
+          </q-carousel>
         </q-card>
+
         <q-card v-else flat bordered style="height: 100%">
           <q-card-section>
             <q-skeleton width="50px" />
@@ -134,29 +171,70 @@ export default defineComponent({
     },
   },
 
+  emits: ['openMap'],
+
+  computed: {
+    isPrecip() {
+      return currentWeather!.value!.precip.minutely.every(
+        (e: IPrecip) => e.precip !== 0.0
+      );
+    },
+  },
+
   setup() {
     const tempPlot = ref<HTMLElement | null>(null),
+      precipPlot = ref<HTMLElement | null>(null),
       max = ref(0),
-      min = ref(0);
+      min = ref(0),
+      slide = ref('temp');
 
     watchEffect(() => {
       if (tempPlot.value) {
         const hourly =
           currentWeather!.value!.hourly.map((e: IWeatherItem) => ({
             label: date.formatDate(e.dateTime, 'YYYY-MM-DD HH:mm:ss'),
-            temp: e.temperature.day!,
+            value: e.temperature.day!,
           })) ?? [];
 
-        const temp = hourly.map((e) => e.temp);
+        const temp = hourly.map((e) => e.value);
         max.value = Math.max(...temp);
         min.value = Math.min(...temp);
 
         // repaint
         area(tempPlot.value, hourly);
       }
+
+      if (precipPlot.value) {
+        const precip = currentWeather!.value!.precip.minutely.map(
+          (e: IPrecip) => ({
+            label: date.formatDate(e.dateTime, 'HH:mm'),
+            value: e.precip,
+          })
+        );
+
+        area(precipPlot.value, precip);
+      }
     });
 
-    return { currentLocation, currentWeather, tempPlot, max, min };
+    return {
+      currentLocation,
+      currentWeather,
+      tempPlot,
+      max,
+      min,
+      slide,
+      precipPlot,
+    };
   },
 });
 </script>
+
+<style lang="scss">
+.summary {
+  background-color: #f5f5f5;
+  border-left: 2px solid #d5d5d5;
+  border-radius: 1px;
+  width: 100%;
+  padding: 10px;
+}
+</style>
