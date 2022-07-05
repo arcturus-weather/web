@@ -59,7 +59,7 @@ export class QQMap {
           reject('定位失败');
         },
         {
-          timeout: 10, // 超时时间
+          timeout: 5000, // 超时时间
           failTipFlag: true, // 重新授权
         }
       );
