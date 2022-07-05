@@ -45,7 +45,7 @@ quasar build
 quasar build --debug
 ```
 ## 其他
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
+查看 [quasar 配置](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js)
 
 
 # 部署 Netlify
