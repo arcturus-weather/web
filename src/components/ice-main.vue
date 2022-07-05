@@ -6,7 +6,12 @@
           <!-- location -->
           <div class="row items-center">
             <q-icon name="room"></q-icon>
-            <div>{{ currentLocation.address }}</div>
+            <div class="ellipsis clickable" style="width: 150px">
+              {{ currentLocation.address }}
+            </div>
+            <q-tooltip>
+              {{ currentLocation.address }}
+            </q-tooltip>
           </div>
           <!-- weather pubtime -->
           <div>
