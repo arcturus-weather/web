@@ -55,9 +55,12 @@ export class QQMap {
             province, // 省
           });
         },
-        (err: any) => {
-          console.log(err);
-          reject();
+        () => {
+          reject('定位失败');
+        },
+        {
+          timeout: 10, // 超时时间
+          failTipFlag: true, // 重新授权
         }
       );
     });
