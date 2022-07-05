@@ -29,6 +29,8 @@ interface IMapData {
   longitude: number;
   address?: string;
   city?: string;
+  district?: string;
+  province?: string;
 }
 
 // 语言
