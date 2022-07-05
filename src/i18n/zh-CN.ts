@@ -5,10 +5,13 @@ export default {
     afternoon: '中午',
     evening: '旁晚',
     night: '夜间',
-    day: '日间'
+    day: '日间',
   },
   weather: {
     wind: '风速',
+    moonphase: '月相',
+    illumination: '照明度',
+    moonPhaseValue: '月相数值',
     pressure: '大气压',
     dew: '露点温度',
     humidity: '空气湿度',
