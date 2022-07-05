@@ -1,30 +1,22 @@
 export default class Location implements ILocation {
-  constructor(
-    private options: {
-      latitude: number;
-      longitude: number;
-      city?: string;
-      address?: string;
-    }
-  ) {}
+  latitude: number;
+  longitude: number;
+  address?: string;
+  city?: string;
 
-  get latitude(): number {
-    return this.options.latitude;
-  }
-
-  get longitude(): number {
-    return this.options.longitude;
-  }
-
-  get city(): string | undefined {
-    return this.options.city;
-  }
-
-  get address(): string | undefined {
-    return this.options.address;
+  constructor(options: {
+    latitude: number;
+    longitude: number;
+    city?: string;
+    address?: string;
+  }) {
+    this.latitude = options.latitude;
+    this.longitude = options.longitude;
+    this.address = options.address;
+    this.city = options.city;
   }
 
   toString(): string {
-    return `${this.options.longitude},${this.options.latitude}`;
+    return `${this.longitude},${this.latitude}`;
   }
 }

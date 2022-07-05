@@ -45,7 +45,14 @@
     </q-page-sticky>
 
     <!-- 隐藏页面 -->
-    <ice-map v-model="mapVisible" @confirm="confirm"></ice-map>
+    <ice-map
+      v-model="mapVisible"
+      @confirm="confirm"
+      :lat="location.latitude"
+      :lng="location.longitude"
+      :addr="location.address"
+      :city="location.city"
+    ></ice-map>
   </q-page>
 </template>
 
@@ -79,7 +86,7 @@ export default defineComponent({
 
     location.getLocation();
 
-    return { ready, mapVisible: ref(false) };
+    return { ready, mapVisible: ref(false), location };
   },
 });
 </script>
