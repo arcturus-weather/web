@@ -34,7 +34,10 @@ export class QQMap {
     Http.setQQMapResponseInterceptors(this.http.ax);
 
     // 获取定位
-    this.geolocation = new qq.maps.Geolocation(this.key, '小冰天气');
+    this.geolocation = new qq.maps.Geolocation(
+      this.key,
+      process.env.VUE_APP_NAME
+    );
   }
 
   // 获取位置信息
@@ -44,16 +47,20 @@ export class QQMap {
         (res: geoResult) => {
           const { lat, lng, city, addr, district, province } = res;
           resolve({
-            lat, // 纬度
-            lng, // 经度
-            city, // 市
-            addr, // 具体地址
+            latitude: lat, // 纬度
+            longitude: lng, // 经度
+            city: city, // 市
+            address: addr, // 具体地址
             district, // 区
             province, // 省
           });
         },
         () => {
-          reject();
+          reject('定位失败');
+        },
+        {
+          timeout: 10, // 超时时间
+          failTipFlag: true, // 重新授权
         }
       );
     });
@@ -77,8 +84,8 @@ export class QQMap {
  *      腾讯地图绘制       *
  *************************/
 export class DrawQQMap {
-  private maker: TMapType['MultiMarker'];
-  private map: TMapType['Map'];
+  private maker: TMap.MultiMarker | undefined;
+  private map: TMap.Map | undefined;
   callback: (res: IMapData) => void;
 
   constructor(callback: (res: IMapData) => void) {
@@ -107,7 +114,7 @@ export class DrawQQMap {
   }
 
   // 点击地图事件
-  select(evt: event) {
+  select(evt: TMap.MapEvent) {
     const { lat, lng } = evt.latLng;
     const address = evt.poi?.name;
 
@@ -117,7 +124,7 @@ export class DrawQQMap {
   }
 
   // 设置点标记
-  setMaker(loc: TMapType['LatLng']) {
+  setMaker(loc: TMap.LatLng) {
     this.maker = new TMap.MultiMarker({
       map: this.map,
       styles: {
@@ -141,7 +148,7 @@ export class DrawQQMap {
 
   // 更新标记
   updateMaker(latitude: number, longitude: number) {
-    this.maker.setGeometries([
+    this.maker!.setGeometries([
       {
         position: new TMap.LatLng(latitude, longitude),
         id: 'marker',
@@ -151,6 +158,6 @@ export class DrawQQMap {
 
   // 设置瞄点居中
   setMakerCenter(latitude: number, longitude: number) {
-    this.map.setCenter(new TMap.LatLng(latitude, longitude));
+    this.map!.setCenter(new TMap.LatLng(latitude, longitude));
   }
 }

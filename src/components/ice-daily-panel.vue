@@ -16,7 +16,7 @@
         <div class="col-12 row justify-center">
           <!-- day -->
           <div class="col-6 column justify-center items-center q-mb-md">
-            <div class="">{{ $t('date.day') }}</div>
+            <div class="">{{ $t('weather.max') }}</div>
             <i-icon :name="daily!.dayIcon" :size="70"></i-icon>
             <div>{{ daily!.dayDesc }}, {{ daily!.temperature.max }}°</div>
             <q-icon name="air" size="20px"></q-icon>
@@ -31,7 +31,7 @@
             v-if="daily!.nightIcon"
             class="col-6 column justify-center items-center q-mb-md"
           >
-            <div class="">{{ $t('date.night') }}</div>
+            <div class="">{{ $t('weather.min') }}</div>
             <i-icon :name="daily!.nightIcon" :size="70"></i-icon>
             <div>{{ daily!.dayDesc }}, {{ daily!.temperature.min }}°</div>
             <q-icon name="air" size="20px"></q-icon>

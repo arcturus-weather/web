@@ -22,6 +22,7 @@ specifiers:
   mockjs: ^1.1.0
   pinia: ^2.0.14
   prettier: ^2.7.1
+  qqmap-gl-typings: ^1.0.0
   quasar: ^2.7.3
   typescript: ^4.7.4
   vue: ^3.2.37
@@ -56,6 +57,7 @@ devDependencies:
   eslint-config-prettier: 8.5.0_eslint@8.18.0
   eslint-plugin-vue: 8.7.1_eslint@8.18.0
   prettier: 2.7.1
+  qqmap-gl-typings: 1.0.0
   typescript: 4.7.4
 
 packages:
@@ -3314,6 +3316,10 @@ packages:
   /punycode/2.1.1:
     resolution: {integrity: sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==}
     engines: {node: '>=6'}
+    dev: true
+
+  /qqmap-gl-typings/1.0.0:
+    resolution: {integrity: sha512-QGqfd+qvXwHm7wFTnPDlr/gsW8XiDBiOA8b1XQUr5vz7ANYjQEneG5NqLbj4pHxKQqx5f3mbA93ifj0ltZMhgg==}
     dev: true
 
   /qs/6.10.3:

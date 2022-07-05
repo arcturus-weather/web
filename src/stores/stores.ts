@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { LocalStorage, Dark } from 'quasar';
+import { LocalStorage, Dark, Notify } from 'quasar';
 import Location from 'utils/location/location';
 import QWeatherStrategies from 'utils/weather/strategies/qweather';
 import Weather from 'utils/weather/strategies/weather';
@@ -7,7 +7,10 @@ import { languageMap } from 'src/i18n/languages';
 import { QQMap } from 'utils/location/qqMap';
 
 export const useLocationStore = defineStore('location', {
-  state: () => ({
+  state: (): {
+    current: Location;
+    qqMap: QQMap;
+  } => ({
     current: new Location({
       // 当前位置
       latitude: 39.9087,
@@ -29,6 +32,20 @@ export const useLocationStore = defineStore('location', {
 
       const weather = useWeatherStore();
       weather.getAllWeather();
+    },
+
+    getLocation() {
+      this.qqMap
+        .addressInfo()
+        .then((res: IMapData) => {
+          this.changeLocation(res);
+        })
+        .catch((err: string) => {
+          Notify.create({
+            type: 'negative',
+            message: err,
+          });
+        });
     },
   },
 });
@@ -60,18 +77,14 @@ export const useWeatherStore = defineStore('weather', {
 
       this.ready = false; // 开始获取新数据前, 把 ready 置为 false
 
-      return new Promise<void>((resolve) => {
-        this.weather
-          .getAllweather(loc.current as Location)
-          .then((res: IWeather | void) => {
-            if (typeof res !== 'undefined') {
-              this.current = res;
-              this.ready = true;
-
-              resolve();
-            }
-          });
-      });
+      this.weather
+        .getAllweather(loc.current as Location)
+        .then((res: IWeather | void) => {
+          if (typeof res !== 'undefined') {
+            this.current = res;
+            this.ready = true;
+          }
+        });
     },
     // 修改数据源
     changeStrategy(strategy: DataSources) {

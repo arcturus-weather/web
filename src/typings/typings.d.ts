@@ -1,43 +1,7 @@
 /* eslint-disable */
+/// <reference types="qqmap-gl-typings" />
+
 interface ILocation {}
-
-// 腾讯地图相关
-interface TMapType {
-  LatLng: any;
-  Map: any;
-  MarkerStyle: any;
-  MultiMarker: any;
-  [key: string]: any;
-}
-
-declare const TMap: TMapType;
-
-// 地图点击事件
-interface event {
-  latLng: {
-    lat: number;
-    lng: number;
-    height: number;
-  };
-  poi: {
-    name: string;
-    bounds: number[];
-    coord: {
-      x: number;
-      y: number;
-    };
-    isIndoor: boolean;
-    latLng: {
-      lat: number;
-      lng: number;
-      height: number;
-    };
-  } | null;
-  point: {
-    x: number;
-    y: number;
-  };
-}
 
 // 腾讯地图搜索返回, docs: https://lbs.qq.com/service/webService/webServiceGuide/webServiceSearch
 interface qqMapSuggestionsItem {
@@ -65,6 +29,8 @@ interface IMapData {
   longitude: number;
   address?: string;
   city?: string;
+  district?: string;
+  province?: string;
 }
 
 // 语言
