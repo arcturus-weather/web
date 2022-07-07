@@ -1,5 +1,5 @@
 import { openWeatherCode, qWeatherCode, qqMapCode } from './code';
-import axios, { AxiosInstance, Method } from 'axios';
+import axios, { AxiosInstance, AxiosResponse, Method } from 'axios';
 import { Notify } from 'quasar';
 import { i18n } from 'src/boot/i18n';
 
@@ -56,9 +56,9 @@ export default class Http {
 
         return config;
       },
-      () => {
-        // 请求失败, 如网络错误等
-        return Promise.reject();
+      (err) => {
+        // 请求失败, 如网络错误等, 会被响应拦截器的第二个参数接收
+        return Promise.reject(err);
       }
     );
   }
@@ -67,82 +67,64 @@ export default class Http {
    *       响应拦截器        *
    *************************/
 
-  // qWeather
-  static setQweatherResponseInterceptors(ax: AxiosInstance) {
+  static setResponseInterceptors(
+    ax: AxiosInstance,
+    fn: (resp: AxiosResponse<any>) => Promise<any>
+  ) {
     ax.interceptors.response.use(
       (resp) => {
-        const res = resp.data;
-        if (res.code === '200') {
-          return res;
-        } else {
-          Notify.create({
-            type: 'negative',
-            message: qWeatherCode[res.code],
-          });
-
-          return Promise.reject();
-        }
+        return fn(resp);
       },
       (err) => {
-        Notify.create({
-          type: 'negative',
-          message: err.message,
-        });
-
-        return Promise.reject();
-      }
-    );
-  }
-
-  // openWeather
-  static setOpenWeatherResponseInterceptors(ax: AxiosInstance) {
-    ax.interceptors.response.use(
-      (resp) => {
-        if (resp.status === 200) {
-          return resp.data;
-        } else {
+        if (typeof err === 'string') {
           Notify.create({
             type: 'negative',
-            message: openWeatherCode[resp.status],
+            message: err,
           });
-
-          return Promise.reject();
-        }
-      },
-      (err) => {
-        Notify.create({
-          type: 'negative',
-          message: err.message,
-        });
-
-        return Promise.reject();
-      }
-    );
-  }
-
-  // 腾讯地图
-  static setQQMapResponseInterceptors(ax: AxiosInstance) {
-    ax.interceptors.response.use(
-      (resp) => {
-        if (resp.data.status === 0) {
-          return resp.data.data;
-        } else {
+        } else if (typeof err.message !== 'undefined') {
           Notify.create({
             type: 'negative',
-            message: qqMapCode[resp.data.status],
+            message: err.message,
           });
-
-          return Promise.reject();
         }
-      },
-      (err) => {
-        Notify.create({
-          type: 'negative',
-          message: err.message,
-        });
 
         return Promise.reject(err);
       }
     );
+  }
+
+  // qWeather
+  static setQweatherResponseInterceptors(ax: AxiosInstance) {
+    Http.setResponseInterceptors(ax, (resp) => {
+      const res = resp.data;
+      if (res.code === '200') {
+        return Promise.resolve(res);
+      } else {
+        return Promise.reject(qWeatherCode[res.code]);
+      }
+    });
+  }
+
+  // openWeather
+  static setOpenWeatherResponseInterceptors(ax: AxiosInstance) {
+    Http.setResponseInterceptors(ax, (resp) => {
+      if (resp.status === 200) {
+        return Promise.resolve(resp.data);
+      } else {
+        return Promise.reject(openWeatherCode[resp.status]);
+      }
+    });
+  }
+
+  // 腾讯地图
+  static setQQMapResponseInterceptors(ax: AxiosInstance) {
+    Http.setResponseInterceptors(ax, (resp) => {
+      const data = resp.data;
+      if (data.status === 0) {
+        return Promise.resolve(data.data);
+      } else {
+        return Promise.reject(qqMapCode[resp.data.status]);
+      }
+    });
   }
 }
