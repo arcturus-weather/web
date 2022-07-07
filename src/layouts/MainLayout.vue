@@ -21,17 +21,17 @@
           <q-avatar size="56px" class="q-mr-sm">
             <img :src="logo" alt="logo" />
           </q-avatar>
-          <div class="text-weight-bold">{{ $t('project') }}</div>
+          <div class="text-weight-bold">{{ $t('appInfo.project') }}</div>
         </div>
       </div>
     </q-drawer>
     <q-page-container class="container">
       <router-view v-slot="{ Component }">
-        <transition name="slide-up" mode="out-in">
+        <ice-transition enter="fadeInUp" leave="fadeOutUp">
           <keep-alive>
             <component :is="Component" />
           </keep-alive>
-        </transition>
+        </ice-transition>
       </router-view>
     </q-page-container>
   </q-layout>
@@ -40,6 +40,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { useAppInfoStore } from 'stores/stores';
+import iceTransition from 'components/ice-transition.vue';
 
 export default defineComponent({
   name: 'MainLayout',
@@ -76,6 +77,8 @@ export default defineComponent({
     },
   },
 
+  components: { iceTransition },
+
   setup() {
     const AppInfo = useAppInfoStore();
 
@@ -103,21 +106,6 @@ $logo-margin-bottom: 20px;
   .tabs {
     padding-top: $logo-margin-bottom + $logo-height;
   }
-}
-
-.slide-up-enter-from {
-  opacity: 0;
-  transform: translateY(30px);
-}
-
-.slide-up-enter-active,
-.slide-up-leave-active {
-  transition: all 0.5s ease;
-}
-
-.slide-up-leave-to {
-  opacity: 0;
-  transform: translateY(-30px);
 }
 
 .container {

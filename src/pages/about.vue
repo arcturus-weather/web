@@ -7,7 +7,7 @@
       </q-avatar>
       <!-- 项目名称 -->
       <div class="col text-h4 q-mb-md">
-        {{ $t('project') }}
+        {{ $t('appInfo.project') }}
         <q-badge color="primary">v{{ version }}</q-badge>
       </div>
       <!-- 相关链接 -->
@@ -24,7 +24,7 @@
             <q-avatar color="primary" text-color="white" :icon="item.icon" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>{{ $t(`${item.name}`) }}</q-item-label>
+            <q-item-label>{{ $t(`appInfo.${item.name}`) }}</q-item-label>
             <q-item-label caption>{{ item.url }}</q-item-label>
           </q-item-section>
         </q-item>
@@ -32,7 +32,7 @@
     </div>
     <div class="absolute-right contributors column items-center">
       <!-- 贡献者列表 -->
-      <div class="text-h6 q-py-md">🥇 {{ $t('contributors') }}</div>
+      <div class="text-h6 q-py-md">🥇 {{ $t('appInfo.contributors') }}</div>
       <q-list>
         <q-item
           v-for="(item, idx) in contributors"

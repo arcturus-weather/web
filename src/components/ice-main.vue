@@ -94,7 +94,7 @@
               class="q-pa-none column justify-between"
             >
               <q-card-section>
-                {{ $t('weather.temperature') }}
+                {{ $t('weather.temperature.label') }}
               </q-card-section>
               <!-- Graph -->
               <q-card-section>
@@ -103,11 +103,11 @@
               <!-- the maximum and minimal of temperature -->
               <q-card-section class="row justify-between">
                 <div class="column items-center">
-                  <div>{{ $t('weather.max') }}</div>
+                  <div>{{ $t('weather.temperature.max') }}</div>
                   <div>{{ max }}°</div>
                 </div>
                 <div class="column items-center">
-                  <div>{{ $t('weather.min') }}</div>
+                  <div>{{ $t('weather.temperature.min') }}</div>
                   <div>{{ min }}°</div>
                 </div>
               </q-card-section>

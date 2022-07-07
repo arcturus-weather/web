@@ -5,7 +5,7 @@
   >
     <q-card style="width: 400px">
       <q-card-section class="row items-center q-pb-none">
-        <div class="text-h6">{{ $t('weather.moonphase') }}</div>
+        <div class="text-h6">{{ $t('weather.astronomy.moonphase') }}</div>
         <q-space />
         <q-btn icon="close" flat round dense v-close-popup />
       </q-card-section>
@@ -22,10 +22,10 @@
               <div class="row items-center justify-between q-pr-md">
                 <div>
                   <div>
-                    {{ $t('weather.illumination') }} : {{ item.illumination }}
+                    {{ $t('weather.astronomy.illumination') }} : {{ item.illumination }}
                   </div>
                   <div>
-                    {{ $t('weather.moonPhaseValue') }} : {{ item.value }}
+                    {{ $t('weather.astronomy.moonPhaseValue') }} : {{ item.value }}
                   </div>
                 </div>
                 <i-icon :name="item.icon"></i-icon>
