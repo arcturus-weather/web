@@ -167,13 +167,18 @@ class OpenWeatherHandler {
   }
 }
 
+const openWeatherLangMap = {
+  'zh-CN': 'zh_cn',
+  'zh-TW': 'zh_tw',
+  'en-US': 'en',
+};
+
 export default class OpenWeatherStrategies extends Strategies {
   private http: Http;
-  unit: string;
-  lang: string;
 
   constructor(
     private key: string,
+    private lang: string = 'zh_cn',
     private baseUrl: string = 'http://api.openweathermap.org/data/2.5'
   ) {
     super();
@@ -182,11 +187,13 @@ export default class OpenWeatherStrategies extends Strategies {
       baseUrl: this.baseUrl,
     });
 
-    this.lang = 'zh_ch'; // 语言
-    this.unit = 'metric'; // 单位
-
     // 添加响应拦截器
     Http.setOpenWeatherResponseInterceptors(this.http.ax);
+  }
+
+  // docs: https://openweathermap.org/api/one-call-3#multi
+  set language(lang: Languages) {
+    this.lang = openWeatherLangMap[lang];
   }
 
   request(options: { url: string; data: object }): Promise<any> {
@@ -196,7 +203,7 @@ export default class OpenWeatherStrategies extends Strategies {
       data: Object.assign(
         {
           key: this.key,
-          unit: this.unit,
+          unit: 'metric',
           lang: this.lang,
         },
         options.data

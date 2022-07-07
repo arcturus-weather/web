@@ -16,41 +16,18 @@ const aqiMap = {
   6: 'SeriousPollution',
 };
 
+// 根据 aqi 获取等级说明
 export function aqiCategory(aqi: number): string {
   return aqiMap[aqiLevel(aqi)];
 }
 
 export const pollutionsMap = {
-  co: {
-    label: 'CO',
-    max: 1500,
-  },
-  no: {
-    label: 'NO',
-    max: 0.69,
-  },
-  no2: {
-    label: 'NO₂',
-    max: 3840,
-  },
-  o3: {
-    label: 'O₃',
-    max: 1200,
-  },
-  so2: {
-    label: 'SO₂',
-    max: 800,
-  },
-  pm2p5: {
-    label: 'PM2.5',
-    max: 500,
-  },
-  pm10: {
-    label: 'PM10',
-    max: 600,
-  },
-  nh3: {
-    label: 'NH₃',
-    max: 0.69,
-  },
+  co: 'CO',
+  no: 'NO',
+  no2: 'NO₂',
+  o3: 'O₃',
+  so2: 'SO₂',
+  pm2p5: 'PM2.5',
+  pm10: 'PM10',
+  nh3: 'NH₃',
 };

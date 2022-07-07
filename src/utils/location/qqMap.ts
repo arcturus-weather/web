@@ -5,19 +5,6 @@ import Http from 'utils/http';
 
 declare const qq: { maps: { Geolocation: any } };
 
-interface geoResult {
-  module: string;
-  nation: string;
-  province: string;
-  city: string;
-  district: string;
-  adcode: string; // 行政区 ID
-  addr: string;
-  lat: number; // 火星坐标(gcj02), 腾讯、Google、高德通用
-  lng: number;
-  accuracy: number; //误差范围, 以米为单位
-}
-
 export class QQMap {
   private baseUrl: string;
   private http: Http;
@@ -59,7 +46,7 @@ export class QQMap {
           reject('定位失败');
         },
         {
-          timeout: 5000, // 超时时间
+          timeout: 10000, // 超时时间 10s
           failTipFlag: true, // 重新授权
         }
       );

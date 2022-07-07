@@ -84,7 +84,8 @@ export default defineComponent({
   setup() {
     const { ready } = storeToRefs(weather);
 
-    location.getLocation();
+    // location.getLocation();
+    weather.getAllWeather();
 
     return { ready, mapVisible: ref(false), location };
   },

@@ -1,6 +1,6 @@
-import { Gauge, Area } from '@antv/g2plot';
+import { Gauge, Area, Liquid } from '@antv/g2plot';
 
-export function guage(dom: HTMLElement | null, percent: number) {
+export function guage(dom: HTMLElement | null | string, percent: number) {
   const gauge = new Gauge(dom ?? 'guage', {
     autoFit: true,
     renderer: 'svg',
@@ -51,7 +51,7 @@ export interface AreaDateItem {
   label: string;
 }
 
-export function area(dom: HTMLElement | null, data: AreaDateItem[]) {
+export function area(dom: HTMLElement | null | string, data: AreaDateItem[]) {
   const area = new Area(dom ?? 'area', {
     data,
     xField: 'label',
@@ -83,4 +83,22 @@ export function area(dom: HTMLElement | null, data: AreaDateItem[]) {
   });
 
   area.render();
+}
+
+export function liquid(dom: HTMLElement | null | string, percent: number) {
+  const liquidPlot = new Liquid(dom ?? 'container', {
+    percent,
+    shape: 'rect',
+    autoFit: true,
+    outline: {
+      border: 0,
+      distance: 0,
+    },
+    renderer: 'svg',
+    wave: {
+      length: 128,
+    },
+  });
+
+  liquidPlot.render();
 }

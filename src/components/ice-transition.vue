@@ -1,9 +1,9 @@
 <template>
   <Transition
+    mode="out-in"
     name="animate__animated animated"
     :duration="duration"
     :appear="appear"
-    mode="out-in"
     :enter-active-class="`animate__${enter}`"
     :leave-active-class="`animate__${leave}`"
   >
@@ -31,7 +31,7 @@ export default defineComponent({
 
     duration: {
       type: Number,
-      default: 700,
+      default: 1000,
     },
 
     appear: {

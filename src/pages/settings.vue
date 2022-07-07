@@ -2,146 +2,131 @@
   <q-page padding>
     <!-- 主题切换 -->
     <div class="q-ma-lg">
-      <div class="text-h6 q-mb-md">{{ $t('setting.theme') }}</div>
-      <div>
-        <q-btn-toggle
-          unelevated
-          no-caps
-          v-model="theme"
-          @update:model-value="setTheme"
-          :options="themes"
-          padding="10px 15px"
-          color="grey-11"
-          text-color="primary"
-        />
-      </div>
+      <div class="text-h6 q-mb-md">{{ $t('setting.theme.label') }}</div>
+      <ice-btn-toggle
+        v-model="theme"
+        @update:model-value="setTheme"
+        :options="themes"
+      ></ice-btn-toggle>
     </div>
     <!-- 数据源切换 -->
     <div class="q-ma-lg">
-      <div class="text-h6 q-mb-md">{{ $t('setting.dataSources') }}</div>
-      <div>
-        <q-btn-toggle
-          unelevated
-          no-caps
-          v-model="dataSource"
-          @update:model-value="setDataSource"
-          :options="dataSources"
-          color="grey-11"
-          text-color="primary"
-          padding="10px 15px"
-        />
-      </div>
+      <div class="text-h6 q-mb-md">{{ $t('setting.dataSources.label') }}</div>
+      <ice-btn-toggle
+        :options="dataSources"
+        v-model="dataSource"
+      ></ice-btn-toggle>
     </div>
     <!-- 语言切换 -->
     <div class="q-ma-lg">
-      <div class="text-h6 q-mb-md">{{ $t('setting.language') }}</div>
-      <div style="width: 200px">
-        <q-select
-          outlined
-          v-model="language"
-          :options="languages"
-          @update:model-value="setLanguages"
-        >
-          <template v-slot:prepend>
-            <q-icon name="mdi-translate" />
-          </template>
-        </q-select>
-      </div>
+      <div class="text-h6 q-mb-md">{{ $t('setting.language.label') }}</div>
+      <q-select
+        outlined
+        style="width: 200px"
+        v-model="language"
+        :options="languages"
+        @update:model-value="setLanguages"
+      >
+        <template v-slot:prepend>
+          <q-icon name="mdi-translate" />
+        </template>
+      </q-select>
     </div>
   </q-page>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { useSettingStore } from 'stores/stores';
-import { Themes } from 'stores/stores';
-import { storeToRefs } from 'pinia';
+import { defineComponent, ref } from 'vue';
+import { useSettingStore, Themes } from 'stores/stores';
 import { useI18n } from 'vue-i18n';
-import languageList from 'src/i18n/languages';
+import { languageMap } from 'utils/utils';
+import iceBtnToggle from 'src/components/ice-btn-toggle.vue';
 
 const setting = useSettingStore();
 
 export default defineComponent({
   name: 'SettingsPage',
 
+  components: { iceBtnToggle },
+
   methods: {
     setTheme(theme: Themes) {
       setting.setTheme(theme);
       setting.saveTheme(theme);
     },
+
     setDataSource(source: DataSources) {
       setting.setDataSource(source);
       setting.saveDataSource(source);
     },
-    setLanguages(language: { label: string; value: string }) {
-      this.locale = language.value;
 
+    setLanguages(lang: string) {
+      // lang: '简体中文' | 'English' | '繁体中文'
+      this.locale = languageMap[lang];
+      setting.setLanguage(lang);
       setting.saveLanguage();
     },
   },
+
   computed: {
+    // 主题
     themes() {
       return [
         {
-          label: this.$t('setting.lightMode'),
+          label: this.$t('setting.theme.lightMode'),
           value: 'lightMode',
           icon: 'mdi-white-balance-sunny',
-          disable: false,
         },
         {
-          label: this.$t('setting.darkMode'),
+          label: this.$t('setting.theme.darkMode'),
           value: 'darkMode',
           icon: 'mdi-weather-night',
-          disable: false,
         },
         {
-          label: this.$t('setting.systemMode'),
+          label: this.$t('setting.theme.systemMode'),
           value: 'systemMode',
           icon: 'mdi-weather-night',
-          disable: false,
         },
         {
-          label: this.$t('setting.autoMode'),
+          label: this.$t('setting.theme.autoMode'),
           value: 'autoMode',
           icon: 'mdi-cellphone-link',
-          disable: false,
         },
       ];
     },
+
+    // 数据源
     dataSources() {
       return [
         {
-          label: this.$t('setting.qWeather'),
+          label: this.$t('setting.dataSources.qWeather'),
           value: 'qWeather',
           disable: false,
         },
         {
-          label: this.$t('setting.openWeather'),
+          label: this.$t('setting.dataSources.openWeather'),
           value: 'openWeather',
           disable: true,
         },
         {
-          label: this.$t('setting.colorfulClouds'),
-          value: 'colorfulClouds',
+          label: this.$t('setting.dataSources.caiyun'),
+          value: 'caiyun',
           disable: true,
         },
       ];
     },
   },
+
   setup() {
     const { locale } = useI18n();
 
-    const { dataSource, theme, language } = storeToRefs(setting);
-
     return {
-      theme,
-      dataSource,
-      languages: languageList(),
-      language,
+      theme: ref(setting.theme),
+      dataSource: ref(setting.dataSource),
+      languages: Object.keys(languageMap),
+      language: ref(setting.language),
       locale,
     };
   },
 });
 </script>
-
-<style lang="scss" scoped></style>

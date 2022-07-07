@@ -16,7 +16,7 @@
           v-ripple
           @click="openHourlyPanel(idx)"
           class="margin-right column justify-between items-center q-px-xs"
-          style="width: 60px"
+          style="width: 60px; position: relative"
         >
           <q-item-label class="text-center">
             {{ $d(item.dateTime, 'time3') }}
@@ -44,11 +44,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { ComponentPublicInstance, defineComponent, ref } from 'vue';
 import iceTransition from 'components/ice-transition.vue';
 import iceHourlyPanel from 'components/ice-hourly-panel.vue';
 import { useWeatherStore } from 'stores/stores';
 import { storeToRefs } from 'pinia';
+import { liquid } from 'utils/antv';
 
 export default defineComponent({
   name: 'iceHourly',
@@ -82,5 +83,13 @@ export default defineComponent({
 <style lang="scss" scoped>
 .margin-right:not(:last-of-type) {
   margin-right: 10px;
+}
+
+.per {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 </style>
