@@ -1,7 +1,26 @@
 /* eslint-disable */
 /// <reference types="qqmap-gl-typings" />
 
-interface ILocation {}
+interface ILocation {
+  latitude: number;
+  longitude: number;
+  address?: string;
+  city?: string;
+}
+
+// 腾讯地图定位
+interface geoResult {
+  module: string;
+  nation: string;
+  province: string;
+  city: string;
+  district: string;
+  adcode: string; // 行政区 ID
+  addr: string;
+  lat: number; // 火星坐标(gcj02)
+  lng: number;
+  accuracy: number; //误差范围, 以米为单位
+}
 
 // 腾讯地图搜索返回, docs: https://lbs.qq.com/service/webService/webServiceGuide/webServiceSearch
 interface qqMapSuggestionsItem {
@@ -33,15 +52,16 @@ interface IMapData {
   province?: string;
 }
 
-// 语言
-type languages = 'en-US' | 'zh-TW' | 'zh-CN';
-
 interface Lang {
   value: string;
   label: string;
 }
 
-type DataSources = 'qWeather' | 'openWeather' | 'colorfulClouds';
+// 语言
+type Languages = 'en-US' | 'zh-TW' | 'zh-CN';
+
+// 数据源
+type DataSources = 'qWeather' | 'openWeather' | 'caiyun';
 
 interface IComponents {
   co: number;
