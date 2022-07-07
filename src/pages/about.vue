@@ -1,36 +1,42 @@
 <template>
-  <q-page class="row items-center justify-center">
-    <div class="column items-center introduction">
-      <!-- logo -->
-      <q-avatar size="120px" class="q-mr-sm col">
-        <img :src="logo" alt="logo" />
-      </q-avatar>
-      <!-- 项目名称 -->
-      <div class="col text-h4 q-mb-md">
-        {{ $t('appInfo.project') }}
-        <q-badge color="primary">v{{ version }}</q-badge>
+  <q-page class="row justify-center items-stretch">
+    <!-- 项目介绍 -->
+    <div
+      class="col col-md-9 col-lg-11 row items-center justify-center introduction"
+    >
+      <div class="column items-center">
+        <!-- logo -->
+        <q-avatar size="120px" class="q-mr-sm col">
+          <img :src="logo" alt="logo" />
+        </q-avatar>
+        <!-- 项目名称 -->
+        <div class="col text-h4 q-mb-md">
+          {{ $t('appInfo.project') }}
+          <q-badge color="primary">v{{ version }}</q-badge>
+        </div>
+        <!-- 相关链接 -->
+        <q-list>
+          <q-item
+            v-for="(item, idx) in links"
+            :key="idx"
+            clickable
+            v-ripple
+            :href="item.url"
+            target="_blank"
+          >
+            <q-item-section avatar>
+              <q-avatar color="primary" text-color="white" :icon="item.icon" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>{{ $t(`appInfo.${item.name}`) }}</q-item-label>
+              <q-item-label caption>{{ item.url }}</q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-list>
       </div>
-      <!-- 相关链接 -->
-      <q-list>
-        <q-item
-          v-for="(item, idx) in links"
-          :key="idx"
-          clickable
-          v-ripple
-          :href="item.url"
-          target="_blank"
-        >
-          <q-item-section avatar>
-            <q-avatar color="primary" text-color="white" :icon="item.icon" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>{{ $t(`appInfo.${item.name}`) }}</q-item-label>
-            <q-item-label caption>{{ item.url }}</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
     </div>
-    <div class="absolute-right contributors column items-center">
+    <!-- 贡献者 -->
+    <div class="col col-md-3 col-lg-1 contributors column items-center">
       <!-- 贡献者列表 -->
       <div class="text-h6 q-py-md">🥇 {{ $t('appInfo.contributors') }}</div>
       <q-list>
@@ -52,11 +58,11 @@
         </q-item>
       </q-list>
     </div>
-    <q-separator vertical />
-    <div class="absolute-bottom q-mb-md text-center copyright">
-      {{ copyRight }}
-    </div>
   </q-page>
+  <!-- 版权信息 -->
+  <div class="absolute-bottom q-mb-md text-center copyright">
+    {{ copyRight }}
+  </div>
 </template>
 
 <script lang="ts">
@@ -82,20 +88,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-$ctri-width: 250px;
-
 .introduction {
-  margin-right: $ctri-width;
-  transform: translateY(-40px);
+  min-width: 400px;
 }
 
 .contributors {
+  min-width: 200px;
   padding: 2em;
-  width: $ctri-width;
-  box-sizing: border-box;
-}
-
-.copyright {
-  margin-right: $ctri-width;
 }
 </style>
