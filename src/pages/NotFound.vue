@@ -97,7 +97,7 @@ function makeSnow(el: Ref<HTMLCanvasElement | null>) {
 }
 
 export default defineComponent({
-  name: 'NotFound',
+  name: 'notFound',
   setup() {
     const snow = ref<HTMLCanvasElement | null>(null);
 
