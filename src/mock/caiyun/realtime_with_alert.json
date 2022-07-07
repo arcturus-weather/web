@@ -1,0 +1,47 @@
+{
+  "status": "ok",
+  "api_version": "v2.6",
+  "api_status": "alpha",
+  "lang": "zh_CN",
+  "unit": "metric",
+  "tzshift": 28800,
+  "timezone": "Asia/Shanghai",
+  "server_time": 1640759880,
+  "location": [39.976, 116.3176],
+  "result": {
+    "alert": {
+      "status": "ok",
+      "content": [
+        {
+          "province": "北京市",
+          "status": "预警中",
+          "code": "0501",
+          "description": "海淀区气象台29日07时25分发布大风蓝色预警,预计，当前至29日16时，海淀区将有3、4级偏北风，阵风6、7级，请注意防范。",
+          "regionId": "101010200",
+          "county": "无",
+          "pubtimestamp": 1640733900,
+          "latlon": [39.959912, 116.298056],
+          "city": "海淀区",
+          "alertId": "11010841600000_20211229072633",
+          "title": "海淀区气象台发布大风蓝色预警[IV/一般]",
+          "adcode": "110108",
+          "source": "国家预警信息发布中心",
+          "location": "北京市海淀区",
+          "request_status": "ok"
+        }
+      ],
+      "adcodes": [
+        {
+          "adcode": 110000,
+          "name": "北京市"
+        },
+        {
+          "adcode": 110108,
+          "name": "海淀区"
+        }
+      ]
+    },
+    "realtime": {},
+    "primary": 0
+  }
+}

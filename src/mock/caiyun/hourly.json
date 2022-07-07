@@ -1,0 +1,98 @@
+{
+  "status": "ok",
+  "api_version": "v2.6",
+  "api_status": "alpha",
+  "lang": "zh_CN",
+  "unit": "metric",
+  "tzshift": 28800,
+  "timezone": "Asia/Shanghai",
+  "server_time": 1653552908,
+  "location": [39.2072, 101.6656],
+  "result": {
+    "hourly": {
+      "status": "ok",
+      "description": "未来24小时阴",
+      "precipitation": [
+        {
+          "datetime": "2022-05-26T16:00+08:00",
+          "value": 0,
+          "probability": 0
+        }
+      ],
+      "temperature": [
+        {
+          "datetime": "2022-05-26T16:00+08:00",
+          "value": 27
+        }
+      ],
+      "apparent_temperature": [
+        {
+          "datetime": "2022-05-26T16:00+08:00",
+          "value": 24.6
+        }
+      ],
+      "wind": [
+        {
+          "datetime": "2022-05-26T16:00+08:00",
+          "speed": 9,
+          "direction": 104
+        }
+      ],
+      "humidity": [
+        {
+          "datetime": "2022-05-26T16:00+08:00",
+          "value": 0.12
+        }
+      ],
+      "cloudrate": [
+        {
+          "datetime": "2022-05-26T16:00+08:00",
+          "value": 0
+        }
+      ],
+      "skycon": [
+        {
+          "datetime": "2022-05-26T16:00+08:00",
+          "value": "CLEAR_DAY"
+        }
+      ],
+      "pressure": [
+        {
+          "datetime": "2022-05-26T16:00+08:00",
+          "value": 84020.8379904
+        }
+      ],
+      "visibility": [
+        {
+          "datetime": "2022-05-26T16:00+08:00",
+          "value": 25
+        }
+      ],
+      "dswrf": [
+        {
+          "datetime": "2022-05-26T16:00+08:00",
+          "value": 736.87204608
+        }
+      ],
+      "air_quality": {
+        "aqi": [
+          {
+            "datetime": "2022-05-26T16:00+08:00",
+            "value": {
+              "chn": 78,
+              "usa": 54
+            }
+          }
+        ],
+        "pm25": [
+          {
+            "datetime": "2022-05-26T16:00+08:00",
+            "value": 14
+          }
+        ]
+      }
+    },
+    "primary": 0,
+    "forecast_keypoint": "未来24小时阴"
+  }
+}
