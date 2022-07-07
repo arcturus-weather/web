@@ -4,7 +4,7 @@
     <div
       class="col col-md-9 col-lg-11 row items-center justify-center introduction"
     >
-      <div class="column items-center">
+      <div class="column items-center" style="width: 100%">
         <!-- logo -->
         <q-avatar size="120px" class="q-mr-sm col">
           <img :src="logo" alt="logo" />
@@ -15,7 +15,7 @@
           <q-badge color="primary">v{{ version }}</q-badge>
         </div>
         <!-- 相关链接 -->
-        <q-list>
+        <q-list style="max-width: 320px">
           <q-item
             v-for="(item, idx) in links"
             :key="idx"
@@ -29,7 +29,9 @@
             </q-item-section>
             <q-item-section>
               <q-item-label>{{ $t(`appInfo.${item.name}`) }}</q-item-label>
-              <q-item-label caption>{{ item.url }}</q-item-label>
+              <q-item-label caption class="ellipsis">
+                {{ item.url }}
+              </q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
@@ -59,10 +61,6 @@
       </q-list>
     </div>
   </q-page>
-  <!-- 版权信息 -->
-  <div class="absolute-bottom q-mb-md text-center copyright">
-    {{ copyRight }}
-  </div>
 </template>
 
 <script lang="ts">
@@ -81,7 +79,6 @@ export default defineComponent({
       drawer: ref(true),
       contributors: AppInfo.contributors(),
       links: AppInfo.links(),
-      copyRight: AppInfo.copyRight(),
     };
   },
 });
@@ -89,6 +86,8 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .introduction {
+  padding: 2em;
+  box-sizing: border-box;
   min-width: 400px;
 }
 
