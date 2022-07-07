@@ -1,7 +1,7 @@
 import { openWeatherCode, qWeatherCode, qqMapCode } from './code';
 import axios, { AxiosInstance, AxiosResponse, Method } from 'axios';
-import { Notify } from 'quasar';
 import { i18n } from 'src/boot/i18n';
+import { notify } from 'utils/utils';
 
 export default class Http {
   ax: AxiosInstance;
@@ -77,17 +77,10 @@ export default class Http {
       },
       (err) => {
         if (typeof err === 'string') {
-          Notify.create({
-            type: 'negative',
-            message: err,
-          });
-        } else if (typeof err.message !== 'undefined') {
-          Notify.create({
-            type: 'negative',
-            message: err.message,
-          });
+          notify.negative(err);
+        } else if (typeof err.message === 'string') {
+          notify.negative(err.message);
         }
-
         return Promise.reject(err);
       }
     );
@@ -100,7 +93,8 @@ export default class Http {
       if (res.code === '200') {
         return Promise.resolve(res);
       } else {
-        return Promise.reject(qWeatherCode[res.code]);
+        notify.negative(qWeatherCode[res.code]);
+        return Promise.reject();
       }
     });
   }
@@ -111,7 +105,8 @@ export default class Http {
       if (resp.status === 200) {
         return Promise.resolve(resp.data);
       } else {
-        return Promise.reject(openWeatherCode[resp.status]);
+        notify.negative(openWeatherCode[resp.status]);
+        return Promise.reject();
       }
     });
   }
@@ -123,7 +118,8 @@ export default class Http {
       if (data.status === 0) {
         return Promise.resolve(data.data);
       } else {
-        return Promise.reject(qqMapCode[resp.data.status]);
+        notify.negative(qqMapCode[resp.data.status]);
+        return Promise.reject();
       }
     });
   }
