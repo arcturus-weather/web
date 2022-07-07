@@ -3,9 +3,10 @@ import { LocalStorage, Dark, Notify } from 'quasar';
 import Location from 'utils/location/location';
 import QWeatherStrategies from 'utils/weather/strategies/qweather';
 import Weather from 'utils/weather/strategies/weather';
-import { languageMap } from 'src/i18n/languages';
 import { QQMap } from 'utils/location/qqMap';
+import { languageMap } from 'utils/utils';
 
+// 地理位置
 export const useLocationStore = defineStore('location', {
   state: (): {
     current: Location;
@@ -20,20 +21,15 @@ export const useLocationStore = defineStore('location', {
     }),
     qqMap: new QQMap(process.env.VUE_QQMAP_KEY!),
   }),
-  getters: {
-    latitude: (state) => state.current.latitude,
-    longitude: (state) => state.current.longitude,
-    address: (state) => state.current.address,
-    city: (state) => state.current.city,
-  },
   actions: {
     changeLocation(loc: IMapData) {
       this.current = new Location(loc);
 
-      const weather = useWeatherStore();
-      weather.getAllWeather();
+      // 改变地理位置后重新请求天气数据
+      useWeatherStore().getAllWeather();
     },
 
+    // 获取当前位置
     getLocation() {
       this.qqMap
         .addressInfo()
@@ -50,66 +46,55 @@ export const useLocationStore = defineStore('location', {
   },
 });
 
-interface data {
-  current?: IWeather;
-  local?: IWeather;
-  startegies: string;
-  weather: Weather;
-  ready: boolean;
-}
-
 const qweather = new QWeatherStrategies(process.env.VUE_QWEATHER_KEY!);
 const weather = new Weather(qweather, 'qWeather');
 // 以后在这里添加数据源....
 // weather.addStrategy(openWeather, 'openWeather');
 
 export const useWeatherStore = defineStore('weather', {
-  state: (): data => ({
-    startegies: 'qWeather', // 当前数据源
-    weather: weather,
-    current: undefined,
-    local: undefined,
+  state: () => ({
+    strategies: 'qWeather', // 当前数据源
+    current: null,
     ready: false, // 数据是否准备完毕
   }),
+
   actions: {
     getAllWeather() {
       const loc = useLocationStore();
 
       this.ready = false; // 开始获取新数据前, 把 ready 置为 false
 
-      this.weather
+      weather
         .getAllweather(loc.current as Location)
-        .then((res: IWeather | void) => {
+        .then((res: IWeather | undefined) => {
           if (typeof res !== 'undefined') {
             this.current = res;
             this.ready = true;
           }
         });
     },
+
     // 修改数据源
     changeStrategy(strategy: DataSources) {
-      this.weather.changeStrategy(strategy);
+      weather.changeStrategy(strategy);
+    },
+
+    // 修改数据源语言
+    changeLanguage(lang: Languages) {
+      weather.changeLanguage(lang);
     },
   },
 });
 
 export type Themes = 'lightMode' | 'darkMode' | 'systemMode' | 'autoMode';
 
-interface setting {
-  theme: Themes;
-  dataSource: DataSources;
-  language: Lang;
-}
-
 export const useSettingStore = defineStore('settings', {
-  state: (): setting => ({
+  state: () => ({
     theme: 'lightMode',
     dataSource: 'qWeather',
-    language: {
-      label: '简体中文',
-      value: 'zh-CN',
-    },
+    language: '简体中文',
   }),
+
   actions: {
     setTheme(theme: Themes) {
       switch (theme) {
@@ -134,44 +119,45 @@ export const useSettingStore = defineStore('settings', {
 
       this.theme = theme;
     },
+
     getTheme() {
       return LocalStorage.getItem('theme') as Themes | null;
     },
+
     saveTheme(theme: Themes) {
       LocalStorage.set('theme', theme);
     },
+
     getDataSource() {
       return LocalStorage.getItem('dataSource') as DataSources | null;
     },
+
     saveDataSource(source: DataSources) {
       LocalStorage.set('dataSource', source);
     },
+
     setDataSource(source: DataSources) {
-      const weather = useWeatherStore();
-      weather.changeStrategy(source);
+      useWeatherStore().changeStrategy(source);
       this.dataSource = source;
     },
+
     getLanguage() {
-      const langStr = LocalStorage.getItem('language') as string | null;
-      if (langStr) {
-        const lang = JSON.parse(langStr) as Lang;
-        // 只有本地存储中存在用户自定义的
-        this.language = lang;
-        return lang;
-      }
+      return LocalStorage.getItem('language') as string | null;
     },
+
     saveLanguage() {
-      LocalStorage.set('language', JSON.stringify(this.language));
+      LocalStorage.set('language', this.language);
     },
-    setLanguage(lang: languages) {
-      this.language = {
-        label: languageMap[lang],
-        value: lang,
-      };
+
+    setLanguage(lang: string) {
+      this.language = lang;
+      // 修改数据源语言
+      useWeatherStore().changeLanguage(languageMap[lang]);
     },
   },
 });
 
+// App 的一些信息
 export const useAppInfoStore = defineStore('AppInfo', {
   state: () => ({
     logo: 'https://s2.loli.net/2022/06/28/XiVhMfmoKWwpdQA.png',
