@@ -44,12 +44,11 @@
 </template>
 
 <script lang="ts">
-import { ComponentPublicInstance, defineComponent, ref } from 'vue';
+import { defineComponent, ref } from 'vue';
 import iceTransition from 'components/ice-transition.vue';
 import iceHourlyPanel from 'components/ice-hourly-panel.vue';
 import { useWeatherStore } from 'stores/stores';
 import { storeToRefs } from 'pinia';
-import { liquid } from 'utils/antv';
 
 export default defineComponent({
   name: 'iceHourly',
