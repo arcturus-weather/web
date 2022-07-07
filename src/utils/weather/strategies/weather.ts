@@ -21,6 +21,13 @@ export default class Weather {
     this.current = this.strategies[type];
   }
 
+  // 修改策略语言
+  changeLanguage(lang: Languages) {
+    Object.keys(this.strategies).forEach((key) => {
+      this.strategies[key].language = lang;
+    });
+  }
+
   getAqi(loc: Location): Promise<IAir> {
     return this.current.getAir(loc);
   }

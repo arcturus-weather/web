@@ -195,11 +195,20 @@ class QWeatherHandler {
   }
 }
 
+// docs: https://dev.qweather.com/docs/resource/language/
+// qweather 支持的语言字符串与我们自定义的不一致
+const qWeatherLangMap = {
+  'zh-CN': 'zh',
+  'zh-TW': 'zh-hant',
+  'en-US': 'en',
+};
+
 export default class QWeatherStrategies extends Strategies {
   private http: Http;
 
   constructor(
     private key: string,
+    private lang = 'zh',
     private baseUrl: string = 'https://devapi.qweather.com/v7/'
   ) {
     super();
@@ -214,6 +223,10 @@ export default class QWeatherStrategies extends Strategies {
     Http.setQweatherResponseInterceptors(this.http.ax);
   }
 
+  set language(lang: Languages) {
+    this.lang = qWeatherLangMap[lang];
+  }
+
   request(options: { url: string; data: object }): Promise<any> {
     return this.http.request({
       url: `${this.baseUrl}${options.url}`,
@@ -221,6 +234,7 @@ export default class QWeatherStrategies extends Strategies {
       data: Object.assign(
         {
           key: this.key,
+          lang: this.lang,
         },
         options.data
       ),
