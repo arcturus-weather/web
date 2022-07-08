@@ -50,5 +50,6 @@ export default defineComponent({
   display: grid;
   grid-template-columns: repeat(auto-fill, 140px);
   grid-gap: 16px;
+  justify-content: space-between;
 }
 </style>
