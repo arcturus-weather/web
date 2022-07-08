@@ -43,7 +43,7 @@ export class QQMap {
           });
         },
         () => {
-          reject('定位失败');
+          reject();
         },
         {
           timeout: 10000, // 超时时间 10s

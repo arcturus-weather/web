@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia';
-import { LocalStorage, Dark, Notify } from 'quasar';
+import { LocalStorage, Dark } from 'quasar';
 import Location from 'utils/location/location';
 import QWeatherStrategies from 'utils/weather/strategies/qweather';
 import Weather from 'utils/weather/strategies/weather';
 import { QQMap } from 'utils/location/qqMap';
-import { languageMap } from 'utils/utils';
+import { languageMap, notify } from 'utils/utils';
+import { i18n } from 'src/boot/i18n';
 
 // 地理位置
 export const useLocationStore = defineStore('location', {
@@ -36,11 +37,8 @@ export const useLocationStore = defineStore('location', {
         .then((res: IMapData) => {
           this.changeLocation(res);
         })
-        .catch((err: string) => {
-          Notify.create({
-            type: 'negative',
-            message: err,
-          });
+        .catch(() => {
+          notify.negative(i18n.global.t('map.err'));
         });
     },
   },

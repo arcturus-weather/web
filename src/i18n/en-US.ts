@@ -79,6 +79,7 @@ export default {
     label: 'map',
     placeholder: 'please input address',
     select: 'select addr with map',
+    err: 'Locate failure',
   },
   confirm: 'confirm',
   cacel: 'cacel',

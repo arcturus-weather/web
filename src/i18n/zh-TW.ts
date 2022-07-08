@@ -79,6 +79,7 @@ export default {
     label: '地圖',
     placeholder: '請輸入地點',
     select: '地圖選點',
+    err: '定位失敗',
   },
   confirm: '確認',
   cacel: '取消',
