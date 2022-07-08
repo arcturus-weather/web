@@ -105,6 +105,7 @@ export const time: Record<string, Intl.DateTimeFormatOptions> = {
   },
   hour: {
     hour: 'numeric',
+    hour12: false,
   },
   time: {
     hour: 'numeric',
