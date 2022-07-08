@@ -11,7 +11,12 @@
       </q-card-section>
 
       <q-card-section>
-        <q-scroll-area style="height: 350px">
+        <q-scroll-area
+          style="height: 350px"
+          :thumb-style="{
+            width: '0',
+          }"
+        >
           <q-timeline color="secondary">
             <q-timeline-entry
               v-for="(item, idx) in moonphase"
@@ -22,10 +27,12 @@
               <div class="row items-center justify-between q-pr-md">
                 <div>
                   <div>
-                    {{ $t('weather.astronomy.illumination') }} : {{ item.illumination }}
+                    {{ $t('weather.astronomy.illumination') }} :
+                    {{ item.illumination }}
                   </div>
                   <div>
-                    {{ $t('weather.astronomy.moonPhaseValue') }} : {{ item.value }}
+                    {{ $t('weather.astronomy.moonPhaseValue') }} :
+                    {{ item.value }}
                   </div>
                 </div>
                 <i-icon :name="item.icon"></i-icon>
