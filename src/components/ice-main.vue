@@ -97,7 +97,7 @@
         </q-card>
 
         <!-- 骨架屏 -->
-        <q-card v-else flat bordered style="height: 100%">
+        <q-card v-else-if="!visible" flat bordered style="height: 100%">
           <q-card-section>
             <q-skeleton width="50px" />
           </q-card-section>
