@@ -3,11 +3,14 @@
     flat
     bordered
     class="clickable"
+    style="height: 100%"
     @click="open = true"
-    style="height: 232px"
   >
     <ice-transition>
       <div v-if="visible">
+        <q-card-section class="text-bold">
+          {{ $t('weather.astronomy.label') }}
+        </q-card-section>
         <q-card-section>
           <div
             class="sky"
@@ -55,25 +58,27 @@
               <div class="moon" :style="sphereStyle"></div>
             </div>
           </div>
+
+          <!-- 时间 -->
+          <div class="row justify-between">
+            <!-- 日出日落 -->
+            <div class="row items-center">
+              <q-icon name="sunny" size="25px"></q-icon>
+              <div class="q-ml-sm">
+                <div>{{ $d(current.sun.sunRise, 'time') }}↑</div>
+                <div>{{ $d(current.sun.sunSet, 'time') }}↓</div>
+              </div>
+            </div>
+            <!-- 月升月落 -->
+            <div class="row items-center">
+              <div class="q-mr-sm">
+                <div>{{ $d(current.moon.moonRise, 'time') }}↑</div>
+                <div>{{ $d(current.moon.moonSet, 'time') }}↓</div>
+              </div>
+              <q-icon name="dark_mode" size="25px"></q-icon>
+            </div>
+          </div>
         </q-card-section>
-        <div class="row justify-between q-px-md">
-          <!-- sun time -->
-          <div class="row items-center">
-            <q-icon name="sunny" size="25px"></q-icon>
-            <div class="q-ml-sm">
-              <div>{{ $d(current.sun.sunRise, 'time2') }}↑</div>
-              <div>{{ $d(current.sun.sunSet, 'time2') }}↓</div>
-            </div>
-          </div>
-          <!-- moon time -->
-          <div class="row items-center">
-            <div class="q-mr-sm">
-              <div>{{ $d(current.moon.moonRise, 'time2') }}↑</div>
-              <div>{{ $d(current.moon.moonSet, 'time2') }}↓</div>
-            </div>
-            <q-icon name="dark_mode" size="25px"></q-icon>
-          </div>
-        </div>
       </div>
       <div v-else>
         <q-card-section>
