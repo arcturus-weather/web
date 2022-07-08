@@ -13,7 +13,12 @@
 
       <q-card-section>
         <div ref="map" class="map" id="map">
-          <div class="input absolute-top" @click.stop @mousemove.stop>
+          <div
+            class="input absolute-top"
+            @click.stop
+            @touchstart.stop
+            @mousemove.stop
+          >
             <!-- 地址输入 -->
             <q-input
               outlined
@@ -23,26 +28,24 @@
               bg-color="white"
               :label="$t('map.placeholder')"
             />
-            <div>
-              <q-menu
-                v-model="displayList"
-                max-width="250px"
-                transition-show="jump-down"
-                transition-hide="jump-up"
-              >
-                <q-list>
-                  <q-item
-                    clickable
-                    @click="select(item)"
-                    v-close-popup
-                    v-for="(item, idx) in poiList"
-                    :key="idx"
-                  >
-                    <q-item-section>{{ item.address }}</q-item-section>
-                  </q-item>
-                </q-list>
-              </q-menu>
-            </div>
+            <q-menu
+              v-model="displayList"
+              :max-width="maxWidth"
+              transition-show="jump-down"
+              transition-hide="jump-up"
+            >
+              <q-list>
+                <q-item
+                  clickable
+                  @click="select(item)"
+                  v-close-popup
+                  v-for="(item, idx) in poiList"
+                  :key="idx"
+                >
+                  <q-item-section>{{ item.address }}</q-item-section>
+                </q-item>
+              </q-list>
+            </q-menu>
           </div>
         </div>
       </q-card-section>
@@ -97,6 +100,22 @@ export default defineComponent({
     city: {
       type: String,
       default: '北京市',
+    },
+  },
+
+  computed: {
+    maxWidth() {
+      const width = window.innerWidth;
+
+      if (width > 500) {
+        return '250px';
+      } else if (width <= 500 && width > 400) {
+        return '200px';
+      } else if (width <= 400 && width > 300) {
+        return '150px';
+      } else {
+        return '100px';
+      }
     },
   },
 
@@ -201,15 +220,29 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@mixin mdi($width: 400px, $screen: 500px) {
+  @media screen and (max-width: $screen) {
+    width: $width;
+  }
+}
+
 .map {
   height: 250px;
   width: 500px;
+
+  @include mdi();
+  @include mdi(300px, 400px);
+  @include mdi(200px, 300px);
 
   .input {
     width: 250px;
     top: 10px;
     left: 10px;
     z-index: 9999;
+
+    @include mdi(200px, 500px);
+    @include mdi(150px, 400px);
+    @include mdi(100px, 300px);
   }
 }
 </style>
