@@ -45,7 +45,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .btn-toggle__container {
   display: grid;
   grid-template-columns: repeat(auto-fill, 140px);

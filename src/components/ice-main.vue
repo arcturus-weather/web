@@ -226,7 +226,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .summary {
   border-radius: 1px;
   width: 100%;
