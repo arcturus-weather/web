@@ -37,7 +37,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { useSettingStore, Themes } from 'stores/stores';
+import { useSettingStore } from 'stores/stores';
 import { useI18n } from 'vue-i18n';
 import { languageMap } from 'utils/utils';
 import iceBtnToggle from 'src/components/ice-btn-toggle.vue';
