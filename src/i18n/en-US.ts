@@ -11,6 +11,7 @@ export default {
     evening: 'evening',
     night: 'night',
     day: 'day',
+    pubTime: 'publish time',
   },
   weather: {
     astronomy: {
@@ -18,8 +19,8 @@ export default {
       illumination: 'illumination',
       moonPhaseValue: 'moon phase value',
     },
-    wind:  {
-      speed: 'wind speed'
+    wind: {
+      speed: 'wind speed',
     },
     temperature: {
       label: 'temperature',
@@ -85,4 +86,20 @@ export default {
   about: 'about',
   favorites: 'favorites',
   dashBoard: 'dashboard',
+};
+
+export const time: Record<string, Intl.DateTimeFormatOptions> = {
+  short: {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  },
+  long: {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    weekday: 'short',
+    hour: 'numeric',
+    minute: 'numeric',
+  },
 };

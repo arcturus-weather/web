@@ -11,6 +11,7 @@ export default {
     evening: '旁晚',
     night: '夜間',
     day: '日間',
+    pubTime: '發布時間',
   },
   weather: {
     astronomy: {
@@ -85,4 +86,20 @@ export default {
   about: '關於',
   favorites: '收藏',
   dashBoard: '儀表盤',
+};
+
+export const time: Record<string, Intl.DateTimeFormatOptions> = {
+  short: {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  },
+  long: {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    weekday: 'short',
+  },
 };
