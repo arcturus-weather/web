@@ -181,8 +181,8 @@ interface IDailyItem {
   dewPoint?: number;
   nightWind?: IWind;
   humidity: number;
-  precip?: number;
-  pop?: number;
+  precip: number;
+  pop: number;
   pressure: number;
   visibility?: number;
   clouds?: number;
