@@ -82,6 +82,9 @@
       </div>
       <div v-else>
         <q-card-section>
+          <q-skeleton width="80px" />
+        </q-card-section>
+        <q-card-section>
           <q-skeleton height="150px" square />
         </q-card-section>
         <q-card-section class="row justify-between">

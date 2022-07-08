@@ -25,12 +25,12 @@
         </div>
       </ice-transition>
 
-      <div class="column items-center justify-center">
+      <div class="column items-center justify-center q-my-md">
         <ice-transition>
           <!-- 当前温度 -->
           <div
             v-if="visible"
-            class="text-h2 q-my-md text-center text-bold"
+            class="text-h2 q-mb-md text-center text-bold"
             style="height: 80px; width: 80px; line-height: 80px"
           >
             {{ currentWeather!.now.temperature.day }}°
@@ -48,7 +48,7 @@
           <!-- 当前天气情况 -->
           <div v-if="visible">
             {{ currentWeather!.now.description }},
-            {{ currentWeather!.now.feelsLike?.day }}
+            {{ currentWeather!.now.feelsLike!.day }}
           </div>
           <!-- 骨架屏 -->
           <q-skeleton v-else width="50px"></q-skeleton>
@@ -78,10 +78,13 @@
       </ice-transition>
     </q-card-section>
 
-    <q-card-section class="col-xs-12 col-sm-6 col-md-8">
-      <ice-transition>
+    <ice-transition>
+      <q-card-section
+        v-if="visible && isPrecip"
+        class="col-xs-12 col-sm-6 col-md-8"
+      >
         <!-- 这里放降水图 -->
-        <q-card v-if="visible && isPrecip" flat bordered style="height: 100%">
+        <q-card flat bordered style="height: 100%">
           <q-card-section>
             {{ $t('weather.precipitation') }}
           </q-card-section>
@@ -92,21 +95,24 @@
             </div>
           </q-card-section>
         </q-card>
+      </q-card-section>
+      <!-- 骨架屏 -->
+      <q-card-section v-else-if="!visible" class="col-xs-12 col-sm-6 col-md-8">
+        <q-card flat bordered style="height: 100%">
+          <q-card-section>
+            <q-skeleton width="80px" />
+          </q-card-section>
 
-        <!-- 骨架屏 -->
-        <q-card v-else-if="!visible" flat bordered style="height: 100%">
           <q-card-section>
-            <q-skeleton width="50px" />
+            <q-skeleton height="130px"></q-skeleton>
           </q-card-section>
+
           <q-card-section>
-            <q-skeleton height="90px"></q-skeleton>
-          </q-card-section>
-          <q-card-section class="row justify-between">
-            <q-skeleton width="50px" v-for="i in 2" :key="i"></q-skeleton>
+            <q-skeleton></q-skeleton>
           </q-card-section>
         </q-card>
-      </ice-transition>
-    </q-card-section>
+      </q-card-section>
+    </ice-transition>
   </q-card>
 </template>
 

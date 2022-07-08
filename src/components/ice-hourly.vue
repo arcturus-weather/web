@@ -1,53 +1,68 @@
 <template>
   <q-card flat bordered style="height: 100%">
-    <q-card-section class="text-bold">
-      {{ $t('weather.hourly') }}</q-card-section
-    >
-    <q-scroll-area
-      class="height"
-      :thumb-style="{
-        bottom: '2px',
-        borderRadius: '5px',
-        opacity: '0.1',
-      }"
-    >
-      <ice-transition>
-        <q-list v-if="visible" class="row no-wrap height list">
-          <q-item
-            v-for="(item, idx) in current!.hourly"
-            :key="idx"
-            clickable
-            v-ripple
-            @click="openHourlyPanel(idx)"
-            class="list-item column justify-between items-center q-px-xs"
-          >
-            <!-- 时间 -->
-            <q-item-label class="text-center">
-              {{ $d(item.dateTime, 'hour') }}
-            </q-item-label>
-            <!-- 图标 -->
-            <q-item-section>
-              <i-icon :name="item.icon" :size="40"></i-icon>
-              <div class="text-center ellipsis" style="width: 100%">
-                {{ item.description }}
-              </div>
-            </q-item-section>
-          </q-item>
+    <ice-transition>
+      <div v-if="visible">
+        <q-card-section class="text-bold">
+          {{ $t('weather.hourly') }}
+        </q-card-section>
+        <q-scroll-area
+          class="height"
+          :thumb-style="{
+            bottom: '2px',
+            borderRadius: '5px',
+            opacity: '0.1',
+          }"
+        >
+          <q-list class="row no-wrap height list">
+            <q-item
+              v-for="(item, idx) in current!.hourly"
+              :key="idx"
+              clickable
+              v-ripple
+              @click="openHourlyPanel(idx)"
+              class="list-item column justify-between items-center q-px-xs"
+            >
+              <!-- 时间 -->
+              <q-item-label class="text-center">
+                {{ $d(item.dateTime, 'hour') }}
+              </q-item-label>
+              <!-- 图标 -->
+              <q-item-section>
+                <i-icon :name="item.icon" :size="40"></i-icon>
+                <div class="text-center ellipsis" style="width: 100%">
+                  {{ item.description }}
+                </div>
+              </q-item-section>
+            </q-item>
 
-          <!-- 折线图 -->
-          <div ref="hour" class="graph"></div>
-        </q-list>
-        <!-- 骨架屏 -->
-        <div v-else class="row no-wrap">
-          <q-skeleton
-            class="hour-skeleton height"
-            width="60px"
-            v-for="i in 20"
-            :key="i"
-          />
-        </div>
-      </ice-transition>
-    </q-scroll-area>
+            <!-- 折线图 -->
+            <div ref="hour" class="graph"></div>
+          </q-list>
+        </q-scroll-area>
+      </div>
+      <!-- 骨架屏 -->
+      <div v-else>
+        <q-card-section>
+          <q-skeleton width="80px"></q-skeleton>
+        </q-card-section>
+
+        <q-scroll-area
+          class="height"
+          :thumb-style="{
+            height: '0',
+          }"
+        >
+          <div class="row no-wrap">
+            <q-skeleton
+              class="hour-skeleton height q-mb-xs"
+              width="60px"
+              v-for="i in 20"
+              :key="i"
+            />
+          </div>
+        </q-scroll-area>
+      </div>
+    </ice-transition>
   </q-card>
   <ice-hourly-panel v-model="open" :idx="idx"></ice-hourly-panel>
 </template>

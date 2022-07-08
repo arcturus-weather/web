@@ -1,11 +1,7 @@
 <template>
   <q-card flat bordered style="height: 100%">
     <ice-transition>
-      <div
-        v-if="visible"
-        style="height: 100%"
-        class="column"
-      >
+      <div v-if="visible" style="height: 100%" class="column">
         <q-card-section>
           <div class="text-bold">{{ $t('weather.aqi') }}</div>
           <!-- 发布时间 -->
@@ -50,13 +46,16 @@
         </q-card-section>
       </div>
 
-      <div v-else style="height: 283px" class="column">
+      <div v-else style="height: 100%" class="column justify-between">
         <q-card-section>
           <q-skeleton width="80px"></q-skeleton>
         </q-card-section>
         <div class="row justify-center items-center" style="flex: 1">
           <q-skeleton height="175px" width="175px" />
         </div>
+        <q-card-section class="row justify-between items-center">
+          <q-skeleton v-for="idx in 6" :key="idx" width="30px" />
+        </q-card-section>
       </div>
     </ice-transition>
   </q-card>
