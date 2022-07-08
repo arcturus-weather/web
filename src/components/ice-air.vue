@@ -1,9 +1,9 @@
 <template>
-  <q-card flat bordered style="height: 283px">
+  <q-card flat bordered style="height: 100%">
     <ice-transition>
       <div
         v-if="visible"
-        style="height: inherit"
+        style="height: 100%"
         class="column"
       >
         <q-card-section>
