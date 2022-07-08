@@ -52,10 +52,8 @@ interface IMapData {
   province?: string;
 }
 
-interface Lang {
-  value: string;
-  label: string;
-}
+// 主题
+type Themes = 'lightMode' | 'darkMode' | 'systemMode' | 'autoMode';
 
 // 语言
 type Languages = 'en-US' | 'zh-TW' | 'zh-CN';
