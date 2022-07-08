@@ -107,12 +107,12 @@ export default defineComponent({
     maxWidth() {
       const width = window.innerWidth;
 
-      if (width > 500) {
+      if (width > 600) {
         return '250px';
-      } else if (width <= 500 && width > 400) {
-        return '200px';
-      } else if (width <= 400 && width > 300) {
+      } else if (width <= 600 && width > 400) {
         return '150px';
+      } else if (width <= 400 && width > 300) {
+        return '125px';
       } else {
         return '100px';
       }
@@ -220,7 +220,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@mixin mdi($width: 400px, $screen: 500px) {
+@mixin mdi($width: 300px, $screen: 600px) {
   @media screen and (max-width: $screen) {
     width: $width;
   }
@@ -231,7 +231,7 @@ export default defineComponent({
   width: 500px;
 
   @include mdi();
-  @include mdi(300px, 400px);
+  @include mdi(250px, 400px);
   @include mdi(200px, 300px);
 
   .input {
@@ -240,8 +240,8 @@ export default defineComponent({
     left: 10px;
     z-index: 9999;
 
-    @include mdi(200px, 500px);
-    @include mdi(150px, 400px);
+    @include mdi(150px, 600px);
+    @include mdi(125px, 400px);
     @include mdi(100px, 300px);
   }
 }
