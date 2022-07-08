@@ -11,13 +11,14 @@ export default {
     evening: 'evening',
     night: 'night',
     day: 'day',
-    pubTime: 'publish time',
+    pubTime: 'publish',
   },
   weather: {
     astronomy: {
+      label: 'sun & moon',
       moonphase: 'moon phase',
       illumination: 'illumination',
-      moonPhaseValue: 'moon phase value',
+      moonPhaseValue: 'value',
     },
     wind: {
       speed: 'wind speed',
@@ -99,6 +100,14 @@ export const time: Record<string, Intl.DateTimeFormatOptions> = {
     month: 'short',
     day: 'numeric',
     weekday: 'short',
+    hour: 'numeric',
+    minute: 'numeric',
+  },
+  hour: {
+    hour: 'numeric',
+    hour12: false,
+  },
+  time: {
     hour: 'numeric',
     minute: 'numeric',
   },

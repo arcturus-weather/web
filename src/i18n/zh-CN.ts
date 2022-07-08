@@ -15,6 +15,7 @@ export default {
   },
   weather: {
     astronomy: {
+      label: '日月升落',
       moonphase: '月相',
       illumination: '照明度',
       moonPhaseValue: '月相数值',
@@ -99,6 +100,13 @@ export const time: Record<string, Intl.DateTimeFormatOptions> = {
     month: 'short',
     day: 'numeric',
     weekday: 'short',
+    hour: 'numeric',
+    minute: 'numeric',
+  },
+  hour: {
+    hour: 'numeric',
+  },
+  time: {
     hour: 'numeric',
     minute: 'numeric',
   },
