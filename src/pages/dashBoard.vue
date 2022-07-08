@@ -6,8 +6,8 @@
         <div class="col-xs-12 col-sm-6 col-md-9 q-pa-sm">
           <ice-main :visible="ready" @open-map="openMap = true"></ice-main>
         </div>
-        <!-- aqi panel -->
-        <div class="col-xs-12 col-sm-6 col-md-3 q-pa-sm card">
+        <!-- aqi -->
+        <div class="col-xs-12 col-sm-6 col-md-3 q-pa-sm">
           <ice-air :visible="ready"></ice-air>
         </div>
         <!-- 小时概述 -->
