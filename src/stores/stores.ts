@@ -52,7 +52,11 @@ const weather = new Weather(qweather, 'qWeather');
 // weather.addStrategy(openWeather, 'openWeather');
 
 export const useWeatherStore = defineStore('weather', {
-  state: () => ({
+  state: (): {
+    strategies: string;
+    current: null | IWeather;
+    ready: boolean;
+  } => ({
     strategies: 'qWeather', // 当前数据源
     current: null,
     ready: false, // 数据是否准备完毕
@@ -85,8 +89,6 @@ export const useWeatherStore = defineStore('weather', {
     },
   },
 });
-
-export type Themes = 'lightMode' | 'darkMode' | 'systemMode' | 'autoMode';
 
 export const useSettingStore = defineStore('settings', {
   state: () => ({
@@ -137,12 +139,12 @@ export const useSettingStore = defineStore('settings', {
     },
 
     setDataSource(source: DataSources) {
-      useWeatherStore().changeStrategy(source);
+      useWeatherStore().changeStrategy(source); // 同时修改天气数据源
       this.dataSource = source;
     },
 
     getLanguage() {
-      return LocalStorage.getItem('language') as string | null;
+      return LocalStorage.getItem('language') as Languages | null;
     },
 
     saveLanguage() {
