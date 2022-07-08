@@ -32,7 +32,7 @@ notify.ongoing = (m: string) => {
 };
 
 // 防抖函数
-export function debounce(fn: (e: any) => void, dur = 500) {
+export function debounce(fn: (e: any) => void, dur = 1500) {
   let timer: NodeJS.Timeout;
 
   return function (this: unknown, ...args: any) {
