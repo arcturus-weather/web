@@ -28,7 +28,9 @@
             <!-- 图标 -->
             <q-item-section>
               <i-icon :name="item.icon" :size="40"></i-icon>
-              <div class="text-center">{{ item.description }}</div>
+              <div class="text-center ellipsis" style="width: 100%">
+                {{ item.description }}
+              </div>
             </q-item-section>
           </q-item>
 
@@ -74,17 +76,18 @@ function createGraph(dom: HTMLDivElement | null | string, data: TData[]) {
     yField: ['temp', 'pop'],
     yAxis: {
       pop: {
+        range: [0.15, 1],
         label: null,
         line: null,
         max: 100,
       },
       temp: {
-        range: [0.2, 0.8],
-        tickCount: 3,
-        tickInterval: 10,
+        range: [0.25, 0.8],
+        tickInterval: 3,
         grid: {
           line: {
             style: {
+              stroke: '#EBEEF5',
               opacity: 0.5,
             },
           },
@@ -95,15 +98,17 @@ function createGraph(dom: HTMLDivElement | null | string, data: TData[]) {
       range: [0.01, 0.98],
       label: null,
       line: null,
+      grid: {
+        line: {
+          style: {
+            stroke: '#EBEEF5',
+            opacity: 0.5,
+          },
+        },
+      },
     },
     renderer: 'svg',
     autoFit: true,
-    label: {
-      offset: 15,
-      formatter(text) {
-        return `${text.value}°`;
-      },
-    },
     geometryOptions: [
       {
         geometry: 'line',
@@ -117,6 +122,9 @@ function createGraph(dom: HTMLDivElement | null | string, data: TData[]) {
           formatter(v) {
             return `${v.temp}°`;
           },
+          style: {
+            fill: '#C0C4CC',
+          },
         },
       },
       {
@@ -126,7 +134,11 @@ function createGraph(dom: HTMLDivElement | null | string, data: TData[]) {
           formatter(v) {
             return `${v.pop}%`;
           },
-          offset: 10,
+          position: 'bottom',
+          offset: -15,
+          style: {
+            fill: '#C0C4CC',
+          },
         },
         columnStyle: {
           fill: '#a0cfff',
@@ -192,10 +204,14 @@ export default defineComponent({
   &:not(:last-of-type) {
     margin-right: 5px;
   }
+
+  &:first-of-type {
+    margin-left: 5px;
+  }
 }
 
 .list {
-  $height: 90px; // 折线图高度
+  $height: 120px; // 折线图高度
   position: relative;
 
   .graph {
