@@ -32,10 +32,7 @@
     <!-- 路由 -->
     <q-page-container class="container">
       <router-view v-slot="{ Component }">
-        <ice-transition
-          :enter="$q.screen.xs ? 'fadeInLeft' : 'fadeInUp'"
-          :leave="$q.screen.xs ? 'fadeOutRight' : 'fadeOutUp'"
-        >
+        <ice-transition enter="fadeInUp" leave="fadeOutUp">
           <keep-alive>
             <component :is="Component" />
           </keep-alive>
