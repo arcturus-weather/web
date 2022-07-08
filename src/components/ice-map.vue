@@ -64,11 +64,8 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { DrawQQMap } from 'utils/location/qqMap';
-import { useLocationStore } from 'stores/stores';
 import { debounce } from 'utils/utils';
-import { storeToRefs } from 'pinia';
-
-const { qqMap } = storeToRefs(useLocationStore());
+import { qqMap } from 'stores/stores';
 
 let drawMap: DrawQQMap;
 
@@ -124,7 +121,7 @@ export default defineComponent({
       const el = String(e);
 
       if (el !== '') {
-        qqMap.value
+        qqMap
           .searchSuggestions(el)
           .then((res) => {
             this.poiList = res as unknown as Array<qqMapSuggestionsItem>;
@@ -190,7 +187,15 @@ export default defineComponent({
       city_.value = ''; // 地图选点获取不到城市信息...（ ´д｀）ゞ
     });
 
-    return { map, latitude, city_, poiList, longitude, address, displayList };
+    return {
+      map,
+      latitude,
+      city_,
+      poiList,
+      longitude,
+      address,
+      displayList,
+    };
   },
 });
 </script>

@@ -28,7 +28,7 @@ export class QQMap {
   }
 
   // 获取位置信息
-  addressInfo() {
+  addressInfo(): Promise<IMapData> {
     return new Promise((resolve, reject) => {
       this.geolocation.getLocation(
         (res: geoResult) => {

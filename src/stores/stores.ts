@@ -7,11 +7,12 @@ import { QQMap } from 'utils/location/qqMap';
 import { languageMap, notify } from 'utils/utils';
 import { i18n } from 'src/boot/i18n';
 
+export const qqMap = new QQMap(process.env.VUE_QQMAP_KEY!);
+
 // 地理位置
 export const useLocationStore = defineStore('location', {
   state: (): {
     current: Location;
-    qqMap: QQMap;
   } => ({
     current: new Location({
       // 当前位置
@@ -20,7 +21,6 @@ export const useLocationStore = defineStore('location', {
       city: '北京市',
       address: '天安门',
     }),
-    qqMap: new QQMap(process.env.VUE_QQMAP_KEY!),
   }),
   actions: {
     changeLocation(loc: IMapData) {
@@ -32,7 +32,7 @@ export const useLocationStore = defineStore('location', {
 
     // 获取当前位置
     getLocation() {
-      this.qqMap
+      qqMap
         .addressInfo()
         .then((res: IMapData) => {
           this.changeLocation(res);
