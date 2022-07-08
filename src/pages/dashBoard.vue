@@ -5,7 +5,7 @@
         <div class="row item-stretch">
           <!-- main -->
           <div class="col-8 q-pr-xs">
-            <ice-main :visible="ready" @open-map="mapVisible = true"></ice-main>
+            <ice-main :visible="ready" @open-map="openMap = true"></ice-main>
           </div>
           <!-- aqi panel -->
           <div class="col-4">
@@ -36,22 +36,25 @@
         </div>
       </div>
     </div>
+
+    <!-- 底部悬浮按钮 -->
     <q-page-sticky
+      v-if="!$q.screen.xs"
       style="z-index: 999"
       position="bottom-right"
       :offset="[18, 18]"
     >
-      <q-btn fab icon="search" color="primary" @click="mapVisible = true" />
+      <q-btn fab icon="search" color="primary" @click="openMap = true" />
     </q-page-sticky>
 
-    <!-- 隐藏页面 -->
+    <!-- 地图选点-->
     <ice-map
-      v-model="mapVisible"
+      v-model="openMap"
       @confirm="confirm"
-      :lat="location.latitude"
-      :lng="location.longitude"
-      :addr="location.address"
-      :city="location.city"
+      :lat="loc.latitude"
+      :lng="loc.longitude"
+      :addr="loc.address"
+      :city="loc.city"
     ></ice-map>
   </q-page>
 </template>
@@ -68,7 +71,6 @@ import iceMap from 'src/components/ice-map.vue';
 import { useLocationStore, useWeatherStore } from 'stores/stores';
 
 const location = useLocationStore();
-const weather = useWeatherStore();
 
 export default defineComponent({
   name: 'dashBoardPage',
@@ -82,20 +84,19 @@ export default defineComponent({
   },
 
   setup() {
-    const { ready } = storeToRefs(weather);
+    const { ready } = storeToRefs(useWeatherStore());
+    const { current: loc } = storeToRefs(location);
 
     // location.getLocation();
-    weather.getAllWeather();
+    useWeatherStore().getAllWeather();
 
-    return { ready, mapVisible: ref(false), location };
+    return { ready, openMap: ref(false), loc };
   },
 });
 </script>
 
 <style lang="scss" scoped>
 .skeleton__container {
-  height: 100vh;
-
   .height__100 {
     height: 100%;
   }
