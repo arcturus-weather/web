@@ -4,10 +4,7 @@
       <ice-transition>
         <div v-if="visible" class="row justify-between">
           <!-- 当前位置 -->
-          <div
-            class="row items-center clickable"
-            @click="$emit('openMap')"
-          >
+          <div class="row items-center clickable" @click="$emit('openMap')">
             <q-icon name="room"></q-icon>
             <div class="ellipsis" style="width: 100px">
               {{ currentLocation.address }}
@@ -194,9 +191,8 @@ export default defineComponent({
   computed: {
     // 当前是否降水
     isPrecip() {
-      return currentWeather!.value!.precip.minutely.every(
-        (e: IPrecip) => e.precip !== 0.0
-      );
+      if (currentWeather.value!.precip.minutely.length === 0) return false;
+      else return true;
     },
   },
 
