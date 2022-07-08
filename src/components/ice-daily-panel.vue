@@ -4,19 +4,19 @@
     @update:model-value="(value) => $emit('update:model-value', value)"
   >
     <q-card>
-      <!-- date -->
+      <!-- 时间 -->
       <q-card-section class="row items-center q-pb-none">
         <div class="text-h6">{{ $d(daily!.dateTime, 'long') }}</div>
         <q-space />
         <q-btn icon="close" flat round dense v-close-popup />
       </q-card-section>
 
-      <!-- detail info -->
+      <!-- 详细信息 -->
       <q-card-section class="row items-center">
         <div class="col-12 row justify-center">
-          <!-- day -->
+          <!-- 最高温度 -->
           <div class="col-6 column justify-center items-center q-mb-md">
-            <div class="">{{ $t('weather.max') }}</div>
+            <div>{{ $t('weather.temperature.max') }}</div>
             <i-icon :name="daily!.dayIcon" :size="70"></i-icon>
             <div>{{ daily!.dayDesc }}, {{ daily!.temperature.max }}°</div>
             <q-icon name="air" size="20px"></q-icon>
@@ -26,12 +26,12 @@
               {{ daily!.dayWind.windScale }}
             </div>
           </div>
-          <!-- night -->
+          <!-- 最低温度 -->
           <div
             v-if="daily!.nightIcon"
             class="col-6 column justify-center items-center q-mb-md"
           >
-            <div class="">{{ $t('weather.min') }}</div>
+            <div>{{ $t('weather.temperature.min') }}</div>
             <i-icon :name="daily!.nightIcon" :size="70"></i-icon>
             <div>{{ daily!.dayDesc }}, {{ daily!.temperature.min }}°</div>
             <q-icon name="air" size="20px"></q-icon>
@@ -42,18 +42,18 @@
             </div>
           </div>
         </div>
-        <!-- sun and moon -->
+        <!-- 日出日落时间 -->
         <div class="col-12 row q-my-md">
           <div
             class="col-3 column items-center"
             v-for="(item, idx) in astronomy"
             :key="idx"
           >
-            <q-icon :name="item.icon" size="20px"></q-icon>
-            <div>{{ $d(item.time, 'time2') }}</div>
+            <q-icon :name="item.icon" size="25px"></q-icon>
+            <div>{{ $d(item.time, 'time') }}</div>
           </div>
         </div>
-        <!-- detail info -->
+        <!-- 其他信息 -->
         <div class="grid col-12">
           <div
             class="column justify-center items-center"
@@ -98,7 +98,7 @@ export default defineComponent({
 
   computed: {
     daily() {
-      return current!.value?.daily[this.idx];
+      return current!.value!.daily[this.idx];
     },
 
     astronomy() {
@@ -138,7 +138,7 @@ export default defineComponent({
         },
       ];
 
-      if (d.dewPoint) {
+      if (typeof d.dewPoint !== 'undefined') {
         res.push({
           label: 'dew',
           value: `${d.dewPoint}°`,
@@ -146,15 +146,15 @@ export default defineComponent({
         });
       }
 
-      if (d.clouds) {
+      if (typeof d.clouds !== 'undefined') {
         res.push({
           label: 'coluds',
-          value: d.clouds,
+          value: `${d.clouds}%`,
           icon: 'cloud',
         });
       }
 
-      if (d.uvIndex) {
+      if (typeof d.uvIndex !== 'undefined') {
         res.push({
           label: 'uvIndex',
           value: d.uvIndex,
@@ -162,7 +162,7 @@ export default defineComponent({
         });
       }
 
-      if (d.visibility) {
+      if (typeof d.visibility !== 'undefined') {
         res.push({
           label: 'visibility',
           value: `${d.visibility}km`,
