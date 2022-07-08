@@ -29,3 +29,12 @@ export class WaringColor {
     color: '#FF5353',
   };
 }
+
+export const aqiColor = {
+  excellent: '#56B37F',
+  good: '#FCFF00',
+  lightlyPollution: '#FEC163',
+  ModeratePollution: '#FFAA85',
+  HeavyPollution: '#EE9AE5',
+  SeriousPollution: '#F05F57',
+};

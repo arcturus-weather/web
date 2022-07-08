@@ -17,10 +17,13 @@ const aqiMap = {
 };
 
 // 根据 aqi 获取等级说明
-export function aqiCategory(aqi: number): string {
+export function aqiCategory(aqi: number | undefined): string {
+  if (typeof aqi === 'undefined') return aqiMap[0];
+
   return aqiMap[aqiLevel(aqi)];
 }
 
+// 其实这个可以不需要, 主要是 key 直接使用字符串的形式好丑啊 ˋ( ° ▽、° )
 export const pollutionsMap = {
   co: 'CO',
   no: 'NO',

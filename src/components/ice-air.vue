@@ -4,17 +4,50 @@
       <div
         v-if="visible"
         style="height: inherit"
-        @click="openAirPanel"
         class="column"
       >
-        <div class="clickable click"></div>
         <q-card-section>
-          {{ $t('weather.aqi') }}:
-          {{ $t(`weather.air.${category}`) }}
+          <div>{{ $t('weather.aqi') }}</div>
+          <!-- 发布时间 -->
+          <div class="text-caption">
+            {{ $t('date.pubTime') }}: {{ $d(air!.air.dateTime, 'long') }}
+          </div>
         </q-card-section>
-        <div class="row justify-center" style="flex: 1">
-          <div style="width: 200px" ref="air"></div>
-        </div>
+
+        <q-card-section class="column justify-between" style="flex: 1">
+          <!-- 空气质量 -->
+          <div class="text-h2 text-bold" :style="{ color: aqiColor }">
+            {{ air?.air.aqi }}
+            <span class="text-h5">{{ $t(`weather.air.${category}`) }}</span>
+          </div>
+
+          <!-- 空气质量比例条 -->
+          <div
+            class="bar"
+            :style="{
+              background: `linear-gradient(to right, ${barColor})`,
+            }"
+          >
+            <div
+              class="circle"
+              :style="{
+                left: `${offset}%`,
+              }"
+            ></div>
+          </div>
+
+          <!-- 污染物 -->
+          <div class="row justify-between">
+            <div
+              v-for="(item, idx) in pollutions"
+              :key="idx"
+              class="column items-center"
+            >
+              <div class="text-bold">{{ item.value }}</div>
+              <div class="text-caption">{{ item.label }}</div>
+            </div>
+          </div>
+        </q-card-section>
       </div>
 
       <div v-else style="height: 283px" class="column">
@@ -27,25 +60,22 @@
       </div>
     </ice-transition>
   </q-card>
-
-  <ice-air-panel v-model="open"></ice-air-panel>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watchEffect } from 'vue';
+import { defineComponent, ref } from 'vue';
 import iceTransition from 'components/ice-transition.vue';
-import iceAirPanel from 'components/ice-air-panel.vue';
 import { useWeatherStore } from 'src/stores/stores';
-import { guage } from 'utils/antv';
-import { aqiCategory } from 'utils/weather/tools';
 import { storeToRefs } from 'pinia';
+import { aqiCategory, pollutionsMap } from 'utils/weather/tools';
+import { aqiColor } from 'utils/weather/color';
 
-const weather = useWeatherStore();
+const { current: air } = storeToRefs(useWeatherStore());
 
 export default defineComponent({
   name: 'iceAir',
 
-  components: { iceTransition, iceAirPanel },
+  components: { iceTransition },
 
   props: {
     visible: {
@@ -54,38 +84,57 @@ export default defineComponent({
     },
   },
 
-  methods: {
-    openAirPanel() {
-      this.open = true;
+  computed: {
+    category() {
+      return aqiCategory(air.value?.air.aqi);
+    },
+
+    aqiColor() {
+      return aqiColor[this.category];
+    },
+
+    offset() {
+      return air.value!.air.aqi / 5;
+    },
+
+    pollutions() {
+      return Object.entries(air.value!.air.components).map(([k, v]) => ({
+        label: pollutionsMap[k],
+        value: v,
+      }));
     },
   },
 
   setup() {
-    const air = ref<HTMLElement | null>(null),
-      open = ref(false),
-      category = ref('excellent'),
-      { current } = storeToRefs(weather);
+    const barColor = ref(
+      Object.keys(aqiColor)
+        .map((el) => aqiColor[el])
+        .join(',')
+    );
 
-    watchEffect(() => {
-      if (air.value) {
-        guage(air.value, current!.value!.air.aqi / 500);
-
-        category.value = aqiCategory(current!.value!.air.aqi);
-      }
-    });
-
-    return { air, category, open };
+    return { air, barColor };
   },
 });
 </script>
 
-<style scoped land="scss">
-.click {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 2;
+<style scoped lang="scss">
+.bar {
+  $radius: 10px;
+
+  height: $radius;
+  border-radius: $radius / 2;
+  margin: 10px 0;
+  position: relative;
+
+  .circle {
+    position: absolute;
+    top: 50%;
+    height: $radius * 1.5;
+    width: $radius * 1.5;
+    border: 2px solid #e4e7ed;
+    background: #fff;
+    border-radius: 50%;
+    transform: translateY(-50%);
+  }
 }
 </style>
