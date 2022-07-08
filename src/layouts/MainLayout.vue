@@ -107,7 +107,7 @@ $height: 72px;
 
 .tabbar {
   position: fixed;
-  z-index: 9999;
+  z-index: 99;
   backdrop-filter: blur(20px);
 
   &.dark {
