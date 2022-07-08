@@ -80,9 +80,8 @@ module.exports = configure(function (/* ctx */) {
       },
       // rawDefine: {}
       // ignorePublicFolder: true,
-      // minify: false,
+      minify: 'esbuild',
       // polyfillModulePreload: true,
-      // distDir
 
       // extendViteConf (viteConf) {},
       // viteVuePluginOptions: {},
