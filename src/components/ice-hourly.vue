@@ -47,14 +47,14 @@
         </q-card-section>
 
         <q-scroll-area
-          class="height"
+          class="height q-pb-xs"
           :thumb-style="{
             height: '0',
           }"
         >
           <div class="row no-wrap">
             <q-skeleton
-              class="hour-skeleton height q-mb-xs"
+              class="hour-skeleton height"
               width="60px"
               v-for="i in 20"
               :key="i"
