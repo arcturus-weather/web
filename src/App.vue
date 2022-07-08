@@ -6,7 +6,7 @@
 import { useQuasar } from 'quasar';
 import { defineComponent, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { Themes, useSettingStore } from './stores/stores';
+import { useSettingStore } from './stores/stores';
 import { languageMap, languageMap_ } from 'utils/utils';
 
 if (process.env.NODE_ENV === 'development') {

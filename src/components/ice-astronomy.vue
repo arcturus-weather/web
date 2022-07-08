@@ -11,7 +11,7 @@
         <q-card-section class="text-bold">
           {{ $t('weather.astronomy.label') }}
         </q-card-section>
-        <q-card-section>
+        <q-card-section class="q-pt-none">
           <div
             class="sky"
             :style="{
@@ -60,7 +60,7 @@
           </div>
 
           <!-- 时间 -->
-          <div class="row justify-between">
+          <div class="row justify-between q-pt-md">
             <!-- 日出日落 -->
             <div class="row items-center">
               <q-icon name="sunny" size="25px"></q-icon>
