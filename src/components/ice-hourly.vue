@@ -67,7 +67,6 @@ interface TData {
 
 // 绘制温度折线图
 function createGraph(dom: HTMLDivElement | null | string, data: TData[]) {
-  console.log(data);
   const dualAxes = new DualAxes(dom ?? 'hour', {
     data: [data, data],
     legend: false, // 关闭图例
