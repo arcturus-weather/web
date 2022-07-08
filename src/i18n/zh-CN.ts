@@ -33,7 +33,7 @@ export default {
     humidity: '空气湿度',
     visibility: '能见度',
     coluds: '云量',
-    uvIndex: '紫外线指数',
+    uvIndex: '紫外线',
     precipitation: '降水量',
     precipChance: '降水概率',
     aqi: '空气质量指数',
@@ -96,6 +96,10 @@ export const time: Record<string, Intl.DateTimeFormatOptions> = {
     month: 'short',
     day: 'numeric',
   },
+  day: {
+    month: 'short',
+    day: 'numeric',
+  },
   long: {
     year: 'numeric',
     month: 'short',
@@ -111,5 +115,8 @@ export const time: Record<string, Intl.DateTimeFormatOptions> = {
   time: {
     hour: 'numeric',
     minute: 'numeric',
+  },
+  week: {
+    weekday: 'short',
   },
 };

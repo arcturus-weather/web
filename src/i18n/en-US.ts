@@ -96,6 +96,10 @@ export const time: Record<string, Intl.DateTimeFormatOptions> = {
     month: 'short',
     day: 'numeric',
   },
+  day: {
+    month: 'short',
+    day: 'numeric',
+  },
   long: {
     year: 'numeric',
     month: 'short',
@@ -111,5 +115,8 @@ export const time: Record<string, Intl.DateTimeFormatOptions> = {
   time: {
     hour: 'numeric',
     minute: 'numeric',
+  },
+  week: {
+    weekday: 'short',
   },
 };
