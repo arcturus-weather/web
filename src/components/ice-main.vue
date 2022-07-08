@@ -4,9 +4,12 @@
       <ice-transition>
         <div v-if="visible" class="row justify-between">
           <!-- 当前位置 -->
-          <div class="row items-center clickable" @click="$emit('openMap')">
+          <div
+            class="row items-center clickable"
+            @click="$emit('openMap')"
+          >
             <q-icon name="room"></q-icon>
-            <div class="ellipsis">
+            <div class="ellipsis" style="width: 100px">
               {{ currentLocation.address }}
             </div>
             <q-tooltip>
