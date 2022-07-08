@@ -7,7 +7,7 @@
         class="column"
       >
         <q-card-section>
-          <div>{{ $t('weather.aqi') }}</div>
+          <div class="text-bold">{{ $t('weather.aqi') }}</div>
           <!-- 发布时间 -->
           <div class="text-caption">
             {{ $t('date.pubTime') }}: {{ $d(air!.air.dateTime, 'long') }}
