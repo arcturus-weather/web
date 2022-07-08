@@ -160,6 +160,7 @@ class QWeatherHandler {
         },
         humidity: Number(e.humidity),
         precip: parseFloat(e.precip),
+        pop: 0,
         pressure: Number(e.pressure),
         visibility: Number(e.vis),
         clouds: Number(e.cloud),
