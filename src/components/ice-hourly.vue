@@ -38,7 +38,7 @@
         <!-- 骨架屏 -->
         <div v-else class="row no-wrap">
           <q-skeleton
-            class="margin-right height"
+            class="hour-skeleton height"
             width="60px"
             v-for="i in 20"
             :key="i"
@@ -186,6 +186,12 @@ export default defineComponent({
 <style lang="scss" scoped>
 .height {
   height: 230px; // list 高度
+}
+
+.hour-skeleton {
+  &:not(:last-of-type) {
+    margin-right: 5px;
+  }
 }
 
 .list {
