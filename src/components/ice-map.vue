@@ -13,7 +13,7 @@
 
       <q-card-section>
         <div ref="map" class="map" id="map">
-          <div class="input absolute-top" @click.stop>
+          <div class="input absolute-top" @click.stop @mousemove.stop>
             <!-- 地址输入 -->
             <q-input
               outlined
