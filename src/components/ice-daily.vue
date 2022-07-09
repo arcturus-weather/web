@@ -235,7 +235,7 @@ export default defineComponent({
           });
         });
 
-        createGraph(day.value, d3, [...d1, ...d2]);
+        createGraph(day.value, d3, [...d2, ...d1]);
       }
     });
 
