@@ -17,10 +17,12 @@ const routes: RouteRecordRaw[] = [
       {
         path: '/calendar',
         component: () => import('pages/calendar.vue'),
+        meta: { requiresAuth: true },
       },
       {
         path: '/favorites',
         component: () => import('src/pages/favorites.vue'),
+        meta: { requiresAuth: true },
       },
     ],
   },
@@ -30,6 +32,11 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/:catchAll(.*)*',
     component: () => import('src/pages/notFound.vue'),
+  },
+
+  {
+    path: '/login',
+    component: () => import('sec/pages/login.vue'),
   },
 ];
 
