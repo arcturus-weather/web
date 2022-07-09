@@ -7,6 +7,7 @@ import {
 } from 'vue-router';
 
 import routes from './routes';
+import { isLoggedIn } from 'utils/utils';
 
 /*
  * If not building with SSR mode, you can
@@ -20,7 +21,9 @@ import routes from './routes';
 export default route(function (/* { store, ssrContext } */) {
   const createHistory = process.env.SERVER
     ? createMemoryHistory
-    : (process.env.VUE_ROUTER_MODE === 'history' ? createWebHistory : createWebHashHistory);
+    : process.env.VUE_ROUTER_MODE === 'history'
+    ? createWebHistory
+    : createWebHashHistory;
 
   const Router = createRouter({
     scrollBehavior: () => ({ left: 0, top: 0 }),
@@ -30,6 +33,18 @@ export default route(function (/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> vueRouterMode
     // quasar.conf.js -> build -> publicPath
     history: createHistory(process.env.VUE_ROUTER_BASE),
+  });
+
+  // 路由守卫
+  Router.beforeEach((to) => {
+    if (to.meta.requiresAuth && !isLoggedIn()) {
+      // 检查是否已登录, 如果没有, 则重定向到登录页面
+      return {
+        path: '/login',
+        // 保存我们所在的位置, 以便以后再来
+        query: { redirect: to.fullPath },
+      };
+    }
   });
 
   return Router;
