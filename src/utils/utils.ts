@@ -1,4 +1,4 @@
-import { Notify } from 'quasar';
+import { Notify, LocalStorage } from 'quasar';
 
 export const notify: {
   (m: string, t: string): void;
@@ -61,3 +61,11 @@ export const languageMap_ = (function (map) {
 
   return m;
 })(languageMap);
+
+// 是否登录
+export function isLoggedIn() {
+  const token = LocalStorage.getItem('userName');
+
+  if (token) return true;
+  else return false;
+}
