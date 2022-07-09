@@ -36,7 +36,7 @@ const routes: RouteRecordRaw[] = [
 
   {
     path: '/login',
-    component: () => import('sec/pages/login.vue'),
+    component: () => import('src/pages/login.vue'),
   },
 ];
 
