@@ -51,8 +51,14 @@ export default {
   account: {
     logOut: '退出',
     logIn: '登录',
+    backLogIn: '返回登录',
     signIn: '注册',
     forget: '忘记密码',
+    username: '账号',
+    password: '密码',
+    repeat: '再次输入密码',
+    reset: '重置密码',
+    code: '验证码',
   },
   waring: {
     key: 'key 缺失',
@@ -88,6 +94,7 @@ export default {
   about: '关于',
   favorites: '收藏',
   dashBoard: '仪表盘',
+  back: '返回首页',
 };
 
 export const time: Record<string, Intl.DateTimeFormatOptions> = {

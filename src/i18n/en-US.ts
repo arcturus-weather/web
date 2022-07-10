@@ -51,8 +51,14 @@ export default {
   account: {
     logOut: 'log out',
     logIn: 'log in',
+    backLogIn: 'back to login',
     signIn: 'sign in',
     forget: 'forget password',
+    username: 'username',
+    password: 'password',
+    repeat: 'repeat password',
+    reset: 'reset password',
+    code: 'identifying code',
   },
   waring: {
     key: 'key is missing',
@@ -88,6 +94,7 @@ export default {
   about: 'about',
   favorites: 'favorites',
   dashBoard: 'dashboard',
+  back: 'back to home',
 };
 
 export const time: Record<string, Intl.DateTimeFormatOptions> = {
