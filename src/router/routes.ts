@@ -5,7 +5,11 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     component: () => import('src/layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('src/pages/dashBoard.vue') },
+      {
+        path: '',
+        component: () => import('src/pages/dashBoard.vue'),
+        alias: '/home',
+      },
       {
         path: '/about',
         component: () => import('pages/about.vue'),
@@ -37,6 +41,10 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/login',
     component: () => import('src/pages/login.vue'),
+  },
+  {
+    path: '/reset',
+    component: () => import('src/pages/reset.vue'),
   },
 ];
 
