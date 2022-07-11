@@ -195,7 +195,7 @@ export const useAppInfoStore = defineStore('AppInfo', {
   },
 });
 
-export const userStore = defineStore('user', {
+export const useUserStore = defineStore('user', {
   actions: {
     obtainCode() {
       console.log('发送验证码...');

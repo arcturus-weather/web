@@ -140,8 +140,8 @@ import { notify } from 'utils/utils';
 import { useRouter } from 'vue-router';
 const router = useRouter();
 
-import { userStore } from 'stores/stores';
-const user = userStore();
+import { useUserStore } from 'stores/stores';
+const user = useUserStore();
 
 let timer: NodeJS.Timeout | null = null;
 

@@ -133,8 +133,8 @@ import { i18n } from 'src/boot/i18n';
 import { RouteLocationRaw, useRouter } from 'vue-router';
 const router = useRouter();
 
-import { userStore } from 'stores/stores';
-const user = userStore();
+import { useUserStore } from 'stores/stores';
+const user = useUserStore();
 
 const email = ref(''), // 邮箱
   active = ref(false), // 是否切换表单二
