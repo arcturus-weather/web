@@ -1,4 +1,5 @@
-import { Notify, LocalStorage } from 'quasar';
+import { Notify } from 'quasar';
+import { i18n } from 'src/boot/i18n';
 
 export const notify: {
   (m: string, t: string): void;
@@ -62,10 +63,16 @@ export const languageMap_ = (function (map) {
   return m;
 })(languageMap);
 
-// 是否登录
-export function isLoggedIn() {
-  const token = LocalStorage.getItem('userName');
+// 判断邮箱的正确性
+export function isValidEmail(val: string): string | boolean {
+  const re =
+    /^(?=[a-zA-Z0-9@._%+-]{6,254}$)[a-zA-Z0-9._%+-]{1,64}@(?:[a-zA-Z0-9-]{1,63}\.){1,8}[a-zA-Z]{2,63}$/;
 
-  if (token) return true;
-  else return false;
+  if (val === '') {
+    return i18n.global.t('waring.emailMissing');
+  } else if (!re.test(val)) {
+    return i18n.global.t('waring.emailInvaild');
+  }
+
+  return true;
 }
