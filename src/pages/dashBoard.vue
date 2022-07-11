@@ -82,8 +82,8 @@ export default defineComponent({
     const { ready } = storeToRefs(useWeatherStore());
     const { current: loc } = storeToRefs(location);
 
-    // location.getLocation();
-    useWeatherStore().getAllWeather();
+    location.getLocation();
+    // useWeatherStore().getAllWeather();
 
     return { ready, openMap: ref(false), loc };
   },
