@@ -7,7 +7,7 @@ import {
 } from 'vue-router';
 
 import routes from './routes';
-import { userStore } from 'stores/stores';
+import { useUserStore } from 'stores/stores';
 
 /*
  * If not building with SSR mode, you can
@@ -37,7 +37,7 @@ export default route(function (/* { store, ssrContext } */) {
 
   // 路由守卫
   Router.beforeEach((to) => {
-    const user = userStore();
+    const user = useUserStore();
 
     if (to.meta.requiresAuth && !user.isLoggedIn()) {
       // 检查是否已登录, 如果没有, 则重定向到登录页面
