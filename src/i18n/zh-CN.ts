@@ -55,6 +55,7 @@ export default {
     signIn: '注册',
     forget: '忘记密码',
     username: '账号',
+    email: '邮箱',
     password: '密码',
     repeat: '再次输入密码',
     reset: '重置密码',
@@ -62,6 +63,19 @@ export default {
   },
   waring: {
     key: 'key 缺失',
+    emailMissing: '缺少邮箱',
+    emailInvaild: '无效邮箱',
+    emailExist: '邮箱已存在',
+    passwordMissing: '缺少密码',
+    codeMissing: '缺少验证码',
+    codeInvalid: '验证码错误',
+    passwordInvalid: '密码错误',
+    passwordNotEqual: '两次密码不相等',
+  },
+  success: {
+    password: '密码修改成功',
+    signIn: '注册成功',
+    logIn: '登录成功',
   },
   setting: {
     theme: {

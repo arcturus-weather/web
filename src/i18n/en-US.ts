@@ -55,6 +55,7 @@ export default {
     signIn: 'sign in',
     forget: 'forget password',
     username: 'username',
+    email: 'email',
     password: 'password',
     repeat: 'repeat password',
     reset: 'reset password',
@@ -62,6 +63,19 @@ export default {
   },
   waring: {
     key: 'key is missing',
+    emailMissing: 'email is missing',
+    emailInvaild: 'invalid email',
+    emailExist: 'email already exists',
+    codeMissing: 'identifying code is missing',
+    codeInvalid: 'identifying code is incorrect',
+    passwordMissing: 'password is missing',
+    passwordInvalid: 'password is incorrect',
+    passwordNotEqual: 'the two passwords are not the same',
+  },
+  success: {
+    password: 'Changed password successfully',
+    signIn: 'SignIn successfully',
+    logIn: 'Login successfully',
   },
   setting: {
     theme: {

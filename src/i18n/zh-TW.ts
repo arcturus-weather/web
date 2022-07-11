@@ -55,6 +55,7 @@ export default {
     signIn: '註冊',
     forget: '忘記密碼',
     username: '賬號',
+    email: '郵箱',
     password: '密碼',
     repeat: '再次輸入密碼',
     reset: '重置密碼',
@@ -62,6 +63,19 @@ export default {
   },
   waring: {
     key: 'key 缺失',
+    emailMissing: '缺少郵箱',
+    emailInvaild: '無效郵箱',
+    emailExist: '郵箱已存在',
+    passwordMissing: '缺少密碼',
+    codeMissing: '缺少驗證碼',
+    codeInvalid: '驗證碼錯誤',
+    passwordInvalid: '密碼錯誤',
+    passwordNotEqual: '兩次密碼不相等',
+  },
+  success: {
+    password: '密碼修改成功',
+    signIn: '註冊成功',
+    logIn: '登錄成功',
   },
   setting: {
     theme: {
