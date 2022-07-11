@@ -95,7 +95,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 $logo-height: 64px;
 $logo-margin-bottom: 20px;
 // tabbar 宽高
