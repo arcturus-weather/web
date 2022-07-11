@@ -194,3 +194,84 @@ export const useAppInfoStore = defineStore('AppInfo', {
     },
   },
 });
+
+export const userStore = defineStore('user', {
+  actions: {
+    obtainCode() {
+      console.log('发送验证码...');
+    },
+
+    // 是否登录
+    isLoggedIn() {
+      const token = LocalStorage.getItem('userName');
+
+      if (token) return true;
+      else return false;
+    },
+
+    // 验证验证码是否正确
+    verifyCode(email: string, code: string) {
+      return new Promise((resolve, rejects) => {
+        // 假设两秒后验证码验证成功
+        setTimeout(() => {
+          if (code === '123') {
+            rejects({
+              code: 3003,
+              message: '验证码错误',
+            });
+          }
+
+          resolve({
+            code: 3004,
+          });
+        }, 2000);
+      });
+    },
+
+    // 登录
+    login(account: string, password: string) {
+      return new Promise((resolve, rejects) => {
+        setTimeout(() => {
+          if (password === '123') {
+            rejects({
+              code: 3000,
+              message: '密码错误',
+            });
+          }
+
+          if (account === '123@qq.com') {
+            rejects({
+              code: 3001,
+              message: '账号不存在',
+            });
+          }
+
+          resolve({ code: 200 });
+        }, 2000);
+      });
+    },
+
+    signin(account: string, password: string) {
+      return new Promise((resolve, rejects) => {
+        setTimeout(() => {
+          if (account === '123@qq.com') {
+            rejects({
+              code: 3002,
+              message: '账号已存在',
+            });
+          }
+
+          resolve({ code: 200 });
+        }, 2000);
+      });
+    },
+
+    changePassword(account: string, password: string) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve({ code: 200 });
+        }, 2000);
+      });
+    },
+  },
+});
