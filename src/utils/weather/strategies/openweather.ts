@@ -196,9 +196,9 @@ export default class OpenWeatherStrategies extends Strategies {
     this.lang = openWeatherLangMap[lang];
   }
 
-  request(options: { url: string; data: object }): Promise<any> {
+  request({ url, data }: { url: string; data: object }): Promise<any> {
     return this.http.request({
-      url: `${this.baseUrl}${options.url}`,
+      url,
       method: 'GET',
       data: Object.assign(
         {
@@ -206,7 +206,7 @@ export default class OpenWeatherStrategies extends Strategies {
           unit: 'metric',
           lang: this.lang,
         },
-        options.data
+        data
       ),
     });
   }
@@ -302,3 +302,4 @@ export default class OpenWeatherStrategies extends Strategies {
     });
   }
 }
+

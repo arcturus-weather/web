@@ -6,38 +6,45 @@ import { notify } from 'utils/utils';
 export default class Http {
   ax: AxiosInstance;
 
-  constructor(private options: { baseUrl: string; timeout?: number }) {
-    this.ax = Http.createAxios({
-      baseUrl: this.options.baseUrl,
-      timeout: this.options.timeout ?? 3000,
-    });
+  constructor(options: { baseUrl: string; timeout?: number }) {
+    this.ax = Http.createAxios(options);
   }
 
-  static createAxios(options: { baseUrl: string; timeout: number }) {
+  static createAxios({
+    baseUrl,
+    timeout,
+  }: {
+    baseUrl: string;
+    timeout?: number;
+  }) {
     const ax = axios.create({
-      timeout: options.timeout,
-      baseURL: options.baseUrl,
+      timeout: timeout ?? 3000,
+      baseURL: baseUrl,
     });
 
     return ax;
   }
 
-  request(options: {
+  request({
+    url,
+    method,
+    data,
+  }: {
     url: string;
     method: Method;
     data: Record<string, string>;
   }) {
     const p: { [key: string]: object } = {};
 
-    if (options.method === 'GET') {
-      p.params = options.data;
-    } else if (options.method === 'POST') {
-      p.data = options.data;
+    if (method === 'GET') {
+      p.params = data;
+    } else if (method === 'POST') {
+      p.data = data;
     }
 
     return this.ax({
-      url: options.url,
-      method: options.method,
+      url,
+      method,
       ...p,
     });
   }
@@ -123,4 +130,18 @@ export default class Http {
       }
     });
   }
+
+  // 小冰天气后端
+  static setIceResponseInterceptors(ax: AxiosInstance) {
+    Http.setResponseInterceptors(ax, (resp) => {
+      const data = resp.data;
+      if (data.status === 0) {
+        return Promise.resolve(data.data);
+      } else {
+        notify.negative(qqMapCode[resp.data.status]);
+        return Promise.reject();
+      }
+    });
+  }
 }
+

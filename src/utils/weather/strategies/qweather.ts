@@ -228,16 +228,16 @@ export default class QWeatherStrategies extends Strategies {
     this.lang = qWeatherLangMap[lang];
   }
 
-  request(options: { url: string; data: object }): Promise<any> {
+  request({ url, data }: { url: string; data: object }): Promise<any> {
     return this.http.request({
-      url: `${this.baseUrl}${options.url}`,
+      url,
       method: 'GET',
       data: Object.assign(
         {
           key: this.key,
           lang: this.lang,
         },
-        options.data
+        data
       ),
     });
   }
@@ -371,3 +371,4 @@ export default class QWeatherStrategies extends Strategies {
       .catch(() => {});
   }
 }
+
