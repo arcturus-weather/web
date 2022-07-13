@@ -136,11 +136,10 @@ import iceForm from 'components/ice-form.vue';
 import { isValidEmail } from 'utils/utils';
 import { i18n } from 'src/boot/i18n';
 import { notify } from 'utils/utils';
-
 import { useRouter } from 'vue-router';
-const router = useRouter();
-
 import { useUserStore } from 'stores/stores';
+
+const router = useRouter();
 const user = useUserStore();
 
 let timer: NodeJS.Timeout | null = null;
@@ -287,3 +286,4 @@ $toggle-size: 60px;
   }
 }
 </style>
+

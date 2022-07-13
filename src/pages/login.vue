@@ -129,11 +129,10 @@ import iceForm from 'components/ice-form.vue';
 import { isValidEmail } from 'utils/utils';
 import { notify } from 'utils/utils';
 import { i18n } from 'src/boot/i18n';
-
 import { RouteLocationRaw, useRouter } from 'vue-router';
-const router = useRouter();
-
 import { useUserStore } from 'stores/stores';
+
+const router = useRouter();
 const user = useUserStore();
 
 const email = ref(''), // 邮箱
@@ -276,3 +275,4 @@ $toggle-size: 60px;
   }
 }
 </style>
+
