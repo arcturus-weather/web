@@ -32,7 +32,7 @@ export default class Http {
   }: {
     url: string;
     method: Method;
-    data: Record<string, string>;
+    data: Record<string, any>;
   }) {
     const p: { [key: string]: object } = {};
 
