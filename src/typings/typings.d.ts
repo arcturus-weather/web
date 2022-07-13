@@ -1,6 +1,13 @@
 /* eslint-disable */
 /// <reference types="qqmap-gl-typings" />
 
+interface ILogin {
+  status: number;
+  message?: string;
+  timestamp: number;
+  token?: string;
+}
+
 interface ILocation {
   latitude: number;
   longitude: number;
@@ -202,3 +209,4 @@ interface IWeather {
   daily: Array<IDailyItem>;
   now: IWeatherItem;
 }
+

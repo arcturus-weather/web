@@ -134,13 +134,7 @@ export default class Http {
   // 小冰天气后端
   static setIceResponseInterceptors(ax: AxiosInstance) {
     Http.setResponseInterceptors(ax, (resp) => {
-      const data = resp.data;
-      if (data.status === 0) {
-        return Promise.resolve(data.data);
-      } else {
-        notify.negative(qqMapCode[resp.data.status]);
-        return Promise.reject();
-      }
+      return Promise.resolve(resp.data);
     });
   }
 }

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { LocalStorage, Dark } from 'quasar';
 import Location from 'utils/location/location';
+import Ice from 'utils/ice';
 import QWeatherStrategies from 'utils/weather/strategies/qweather';
 import Weather from 'utils/weather/strategies/weather';
 import { QQMap } from 'utils/location/qqMap';
@@ -195,6 +196,7 @@ export const useAppInfoStore = defineStore('AppInfo', {
   },
 });
 
+const user = new Ice(process.env.VUE_SERVER_BASEURL!);
 export const useUserStore = defineStore('user', {
   actions: {
     obtainCode() {
@@ -203,7 +205,7 @@ export const useUserStore = defineStore('user', {
 
     // 是否登录
     isLoggedIn() {
-      const token = LocalStorage.getItem('userName');
+      const token = LocalStorage.getItem('token');
 
       if (token) return true;
       else return false;
@@ -230,39 +232,41 @@ export const useUserStore = defineStore('user', {
 
     // 登录
     login(account: string, password: string) {
-      return new Promise((resolve, rejects) => {
-        setTimeout(() => {
-          if (password === '123') {
-            rejects({
-              code: 3000,
-              message: '密码错误',
-            });
-          }
-
-          if (account === '123@qq.com') {
-            rejects({
-              code: 3001,
-              message: '账号不存在',
-            });
-          }
-
-          resolve({ code: 200 });
-        }, 2000);
+      return new Promise<void>((resolve, rejects) => {
+        user
+          .login(account, password)
+          .then((res) => {
+            const { status, token } = res;
+            if (status === 200) {
+              // 保存用户 token
+              LocalStorage.set('token', token);
+              resolve();
+            } else {
+              rejects({ code: status });
+            }
+          })
+          .catch((err) => {
+            rejects(err);
+          });
       });
     },
 
     signin(account: string, password: string) {
-      return new Promise((resolve, rejects) => {
-        setTimeout(() => {
-          if (account === '123@qq.com') {
-            rejects({
-              code: 3002,
-              message: '账号已存在',
-            });
-          }
+      return new Promise<void>((resolve, rejects) => {
+        user
+          .signin(account, password)
+          .then((res) => {
+            const { status } = res;
 
-          resolve({ code: 200 });
-        }, 2000);
+            if (status === 200) {
+              resolve();
+            } else {
+              rejects({ code: status });
+            }
+          })
+          .catch((err) => {
+            rejects(err);
+          });
       });
     },
 
@@ -275,3 +279,4 @@ export const useUserStore = defineStore('user', {
     },
   },
 });
+

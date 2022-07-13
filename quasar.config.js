@@ -77,6 +77,7 @@ module.exports = configure(function (/* ctx */) {
         VUE_QQMAP_KEY: process.env.VUE_QQMAP_KEY,
         VUE_QWEATHER_KEY: process.env.VUE_QWEATHER_KEY,
         VUE_APP_NAME: process.env.VUE_APP_NAME,
+        VUE_SERVER_BASEURL: process.env.VUE_SERVER_BASEURL,
       },
       // rawDefine: {}
       // ignorePublicFolder: true,
@@ -229,3 +230,4 @@ module.exports = configure(function (/* ctx */) {
     },
   };
 });
+

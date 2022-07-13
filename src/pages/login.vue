@@ -194,11 +194,13 @@ function onLogin() {
     })
     .catch((err: any) => {
       loginLoading.value = false;
+
+      // 登录失败
       const { code } = err;
-      if (code === 3000) {
+      if (code === 302) {
         passwordError.value = true;
         passwordErrorMsg.value = i18n.global.t('waring.passwordInvalid');
-      } else if (code === 3001) {
+      } else if (code === 303) {
         emailError.value = true;
         emailErrorMsg.value = i18n.global.t('waring.emailInvaild');
       }
@@ -222,7 +224,9 @@ function onSignIn() {
     .catch((err: any) => {
       signInLoading.value = false;
       const { code } = err;
-      if (code === 3002) {
+
+      // 邮箱已被注册
+      if (code === 301) {
         emailError2.value = true;
         emailErrorMsg2.value = i18n.global.t('waring.emailExist');
       }
