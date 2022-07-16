@@ -333,8 +333,19 @@ export const useUserStore = defineStore('user', {
       return user.addFavorite(options);
     },
 
-    deleteFavorite(options: ILocation[]) {
-      return user.deleteFavorite(options);
+    deleteFavorite(options: ILocation[]): Promise<any> {
+      return new Promise((resolve, rejects) => {
+        user.deleteFavorite(options).then((e) => {
+          const { status } = e;
+
+          if (status === 200) {
+            resolve(e.favorites);
+          } else {
+            notify.negative(e.message);
+            rejects();
+          }
+        });
+      });
     },
 
     calendar(): Promise<any> {
