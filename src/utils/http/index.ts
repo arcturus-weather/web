@@ -3,23 +3,24 @@ import axios, { AxiosInstance, AxiosResponse, Method } from 'axios';
 import { i18n } from 'src/boot/i18n';
 import { notify } from 'utils/utils';
 
+interface httpOption {
+  baseUrl: string;
+  timeout?: number;
+  headers?: Record<string, string>;
+}
+
 export default class Http {
   ax: AxiosInstance;
 
-  constructor(options: { baseUrl: string; timeout?: number }) {
+  constructor(options: httpOption) {
     this.ax = Http.createAxios(options);
   }
 
-  static createAxios({
-    baseUrl,
-    timeout,
-  }: {
-    baseUrl: string;
-    timeout?: number;
-  }) {
+  static createAxios({ baseUrl, timeout, headers }: httpOption) {
     const ax = axios.create({
       timeout: timeout ?? 3000,
       baseURL: baseUrl,
+      headers,
     });
 
     return ax;
@@ -27,19 +28,21 @@ export default class Http {
 
   request({
     url,
-    method,
+    method = 'GET',
     data,
   }: {
     url: string;
-    method: Method;
-    data: Record<string, any>;
+    method?: Method;
+    data?: Record<string, any>;
   }) {
     const p: { [key: string]: object } = {};
 
-    if (method === 'GET') {
-      p.params = data;
-    } else if (method === 'POST') {
-      p.data = data;
+    if (data) {
+      if (method === 'GET') {
+        p.params = data;
+      } else if (method === 'POST') {
+        p.data = data;
+      }
     }
 
     return this.ax({
@@ -88,7 +91,7 @@ export default class Http {
         } else if (typeof err.message === 'string') {
           notify.negative(err.message);
         }
-        return Promise.reject(err);
+        return Promise.reject(err.response.data);
       }
     );
   }
@@ -128,13 +131,6 @@ export default class Http {
         notify.negative(qqMapCode[resp.data.status]);
         return Promise.reject();
       }
-    });
-  }
-
-  // 小冰天气后端
-  static setIceResponseInterceptors(ax: AxiosInstance) {
-    Http.setResponseInterceptors(ax, (resp) => {
-      return Promise.resolve(resp.data);
     });
   }
 }
