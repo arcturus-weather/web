@@ -122,6 +122,8 @@ export default defineComponent({
   methods: {
     init() {
       drawMap.init(this.map, this.lat, this.lng);
+      this.latitude = this.lat;
+      this.longitude = this.lng;
       this.address = this.addr;
       this.city_ = this.city;
     },
@@ -131,7 +133,7 @@ export default defineComponent({
       this.$emit('confirm', {
         latitude: this.latitude,
         longitude: this.longitude,
-        city: this.city,
+        city: this.city_,
         address: this.address,
       });
     },
@@ -199,12 +201,25 @@ export default defineComponent({
 
     // 不能把 drawMap 写成 ref 否则会报错
     // 'Failed to execute 'postMessage' on 'Worker': #<t> could not be cloned.'
-    drawMap = new DrawQQMap((res: IMapData) => {
-      latitude.value = res.latitude;
-      longitude.value = res.longitude;
-      address.value = res.address ?? '';
-      city_.value = ''; // 地图选点获取不到城市信息...（ ´д｀）ゞ
-    });
+    drawMap = new DrawQQMap(
+      debounce((res: IMapData) => {
+        latitude.value = res.latitude;
+        longitude.value = res.longitude;
+
+        // 根据纬度获取详细地址
+        qqMap
+          .getLocationDetail(`${latitude.value},${longitude.value}`)
+          .then((e: locationDetail) => {
+            const {
+              address: addr,
+              address_component: { city: c },
+            } = e;
+
+            address.value = addr;
+            city_.value = c;
+          });
+      }, 500)
+    );
 
     return {
       map,
@@ -246,3 +261,4 @@ export default defineComponent({
   }
 }
 </style>
+
