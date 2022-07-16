@@ -74,11 +74,14 @@ export default {
     passwordRequire: '密码不能为空',
     passwordMin: '密码至少3个字符',
     passwordMax: '密码最长30个字符',
+    checkinFail: '打卡失败',
   },
   success: {
     password: '密码修改成功',
     signIn: '注册成功',
     logIn: '登录成功',
+    checkin: '打卡成功',
+    daily: '添加日记成功',
   },
   setting: {
     theme: {
@@ -112,6 +115,9 @@ export default {
   favorites: '收藏',
   dashBoard: '仪表盘',
   back: '返回首页',
+  checkin: '打卡',
+  checkinRecord: '打卡日记',
+  write: '写点什么吗?',
 };
 
 export const time: Record<string, Intl.DateTimeFormatOptions> = {

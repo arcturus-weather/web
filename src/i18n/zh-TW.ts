@@ -74,11 +74,14 @@ export default {
     passwordRequire: '密碼不能為空',
     passwordMin: '密碼至少3個字符',
     passwordMax: '密碼最長30個字符',
+    checkinFail: '打卡失敗',
   },
   success: {
     password: '密碼修改成功',
     signIn: '註冊成功',
     logIn: '登錄成功',
+    checkin: '打卡成功',
+    daily: '添加日記成功',
   },
   setting: {
     theme: {
@@ -112,6 +115,9 @@ export default {
   favorites: '收藏',
   dashBoard: '儀表盤',
   back: '返回首頁',
+  checkin: '打卡',
+  checkinRecord: '打卡日記',
+  write: '寫點什麽嗎?',
 };
 
 export const time: Record<string, Intl.DateTimeFormatOptions> = {
@@ -144,3 +150,4 @@ export const time: Record<string, Intl.DateTimeFormatOptions> = {
     weekday: 'short',
   },
 };
+

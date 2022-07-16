@@ -74,11 +74,14 @@ export default {
     passwordRequire: 'password cannot be empty',
     passwordMin: 'password at least 3 characters',
     passwordMax: 'password up to 30 characters',
+    checkinFail: 'checkin fail',
   },
   success: {
     password: 'Changed password successfully',
     signIn: 'SignIn successfully',
     logIn: 'Login successfully',
+    checkin: 'CheckIn successfully',
+    daily: 'Write successfully',
   },
   setting: {
     theme: {
@@ -112,6 +115,9 @@ export default {
   favorites: 'favorites',
   dashBoard: 'dashboard',
   back: 'back to home',
+  checkin: 'check in',
+  checkinRecord: 'Checkin record',
+  write: 'Write something?',
 };
 
 export const time: Record<string, Intl.DateTimeFormatOptions> = {
