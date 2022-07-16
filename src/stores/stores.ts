@@ -17,13 +17,19 @@ export const useLocationStore = defineStore('location', {
     local: Location | null;
   } => ({
     current: new Location({
+      // 天气的位置
+      latitude: 39.9087,
+      longitude: 116.3974,
+      city: '北京市',
+      address: '天安门',
+    }),
+    local: new Location({
       // 当前位置
       latitude: 39.9087,
       longitude: 116.3974,
       city: '北京市',
       address: '天安门',
-    }), // 天气的位置
-    local: null, // 当前位置
+    }),
   }),
   actions: {
     changeLocation(loc: IMapData, cache = false) {
@@ -81,7 +87,7 @@ export const useWeatherStore = defineStore('weather', {
             this.current = res;
             this.ready = true;
 
-            if (cache) {
+            if (cache || process.env.NODE_ENV === 'development') {
               this.local = res;
             }
           }
@@ -304,7 +310,7 @@ export const useUserStore = defineStore('user', {
       });
     },
 
-    favorites() {
+    favorites(): Promise<any> {
       return new Promise((resolve, rejects) => {
         user.favorites().then((res) => {
           const { status, favorites } = res;
@@ -322,11 +328,11 @@ export const useUserStore = defineStore('user', {
       return user.addFavorite(options);
     },
 
-    deleteFavorite(options: ILocation) {
+    deleteFavorite(options: ILocation[]) {
       return user.deleteFavorite(options);
     },
 
-    caledar() {
+    calendar(): Promise<any> {
       return new Promise((resolve, rejects) => {
         user.calendar().then((res) => {
           const { status, list } = res;
@@ -340,56 +346,17 @@ export const useUserStore = defineStore('user', {
       });
     },
 
-    checkin() {
+    checkin(options: ICheckin): Promise<any> {
       return new Promise((resolve, rejects) => {
-        const weather = useWeatherStore();
-        if (weather.local) {
-          // 这里写的好丑啊 o(TヘTo)
-          const {
-            location,
-            now: {
-              feelsLike: { day: feelsLike = 0 } = {},
-              temperature: { day: temperature = 0 },
-              icon,
-              description,
-              wind: { wind360, windSpeed },
-              humidity = 0,
-              pressure = 0,
-              clouds = 0,
-              visibility = 0,
-              precip = 0,
-            },
-          } = weather.local;
+        user.checkin(options).then((res) => {
+          const { status, item } = res;
 
-          const options = {
-            location,
-            weather: {
-              temperature,
-              feelsLike,
-              icon,
-              description,
-              wind360,
-              windSpeed,
-              humidity,
-              pressure,
-              clouds,
-              visibility,
-              precip,
-            },
-          };
-
-          user.checkin(options).then((res) => {
-            const { status, list } = res;
-
-            if (status === 200) {
-              resolve(list);
-            } else {
-              rejects({ code: status });
-            }
-          });
-        } else {
-          rejects();
-        }
+          if (status === 200) {
+            resolve(item);
+          } else {
+            rejects('waring.checkinFail');
+          }
+        });
       });
     },
   },
