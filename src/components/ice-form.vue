@@ -1,7 +1,7 @@
 <template>
   <q-layout>
     <q-page-container>
-      <q-page class="row items-center justify-center">
+      <q-page class="q-pa-lg row items-center justify-center">
         <div class="container" :class="active ? 'active' : 'deactive'">
           <q-card class="card" flat bordered>
             <q-card-section class="title">
@@ -196,3 +196,4 @@ $toggle-size: 60px;
   }
 }
 </style>
+
