@@ -76,3 +76,17 @@ export function isValidEmail(val: string): string | boolean {
 
   return true;
 }
+
+// 密码有效性
+export function isValidPassword(pwd: string): string | boolean {
+  if (pwd === '') {
+    return i18n.global.t('waring.passwordRequire');
+  } else if (pwd.length < 3) {
+    return i18n.global.t('waring.passwordMin');
+  } else if (pwd.length > 30) {
+    return i18n.global.t('waring.passwordMax');
+  }
+
+  return true;
+}
+
