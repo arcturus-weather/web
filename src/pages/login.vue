@@ -30,6 +30,7 @@
             :error="passwordError"
             @focus="passwordError = false"
             :rules="[isValidPassword]"
+            lazy-rules
           >
             <template v-slot:append>
               <q-icon
@@ -72,6 +73,7 @@
           <q-input
             outlined
             v-model="email"
+            lazy-rules
             :label="$t('account.email')"
             :rules="[isValidEmail]"
             :error-message="emailErrorMsg2"
@@ -87,6 +89,7 @@
             :label="$t('account.password')"
             :rules="[isValidPassword]"
             type="password"
+            lazy-rules
           />
         </q-card-section>
         <!-- 密码二输入框 -->
