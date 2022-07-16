@@ -29,7 +29,7 @@
             :error-message="passwordErrorMsg"
             :error="passwordError"
             @focus="passwordError = false"
-            :rules="[(pwd) => pwd !== '' || $t('waring.passwordMissing')]"
+            :rules="[isValidPassword]"
           >
             <template v-slot:append>
               <q-icon
@@ -73,6 +73,7 @@
             outlined
             v-model="email"
             :label="$t('account.email')"
+            :rules="[isValidEmail]"
             :error-message="emailErrorMsg2"
             :error="emailError2"
             @focus="emailError2 = false"
@@ -84,6 +85,7 @@
             outlined
             v-model="password_1"
             :label="$t('account.password')"
+            :rules="[isValidPassword]"
             type="password"
           />
         </q-card-section>
@@ -126,7 +128,7 @@ export default defineComponent({
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
 import iceForm from 'components/ice-form.vue';
-import { isValidEmail } from 'utils/utils';
+import { isValidEmail, isValidPassword } from 'utils/utils';
 import { notify } from 'utils/utils';
 import { i18n } from 'src/boot/i18n';
 import { RouteLocationRaw, useRouter } from 'vue-router';
@@ -226,7 +228,7 @@ function onSignIn() {
       const { code } = err;
 
       // 邮箱已被注册
-      if (code === 301) {
+      if (code === 403) {
         emailError2.value = true;
         emailErrorMsg2.value = i18n.global.t('waring.emailExist');
       }
