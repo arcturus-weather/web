@@ -98,9 +98,17 @@ function deleteFav() {
 }
 
 onMounted(() => {
-  user.favorites().then((res) => {
-    favorites.value = res;
-  });
+  user
+    .favorites()
+    .then((res) => {
+      favorites.value = res;
+    })
+    .catch(() => {
+      // token 失效
+      user.logout();
+
+      router.push('login');
+    });
 });
 </script>
 

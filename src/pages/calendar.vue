@@ -81,12 +81,15 @@ import { useI18n } from 'vue-i18n';
 import { notify } from 'src/utils/utils';
 import { useUserStore, useWeatherStore } from 'stores/stores';
 import iceWritePanel from 'components/ice-write-panel.vue';
+import { useRouter } from 'vue-router';
+
 const { t } = useI18n();
 
 const loading = ref(false);
 const now = ref(date.formatDate(new Date(), 'YYYY/MM/DD'));
 
 const user = useUserStore();
+const router = useRouter();
 
 const visible = ref(false);
 
@@ -179,9 +182,17 @@ function checkin() {
 }
 
 onMounted(() => {
-  user.calendar().then((res: ICheckInRes[]) => {
-    calendarList.value = res.reverse();
-  });
+  user
+    .calendar()
+    .then((res: ICheckInRes[]) => {
+      calendarList.value = res.reverse();
+    })
+    .catch(() => {
+      // token 失效
+      user.logout();
+
+      router.push('login');
+    });
 });
 </script>
 
