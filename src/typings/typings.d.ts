@@ -1,18 +1,33 @@
 /* eslint-disable */
 /// <reference types="qqmap-gl-typings" />
 
-interface ILogin {
-  status: number;
-  message?: string;
-  timestamp: number;
-  token?: string;
-}
-
 interface ILocation {
   latitude: number;
   longitude: number;
   address?: string;
   city?: string;
+}
+
+interface IDaily {
+  daily: string;
+  id: string;
+}
+
+interface ICheckin {
+  location: ILocation;
+  weather: {
+    temperature: number;
+    feelsLike: number;
+    icon: string;
+    description: string;
+    wind360: number;
+    windSpeed: number;
+    humidity: number;
+    precip: number;
+    pressure: number;
+    visibility: number;
+    clouds: number;
+  };
 }
 
 // 腾讯地图定位
@@ -146,7 +161,7 @@ interface IWeatherItem {
   feelsLike?: ITemperature;
   dewPoint: number;
   description: string;
-  icon: number | string;
+  icon: string;
   wind: IWind;
   visibility?: number;
   pressure: number;

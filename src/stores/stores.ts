@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { LocalStorage, Dark } from 'quasar';
 import Location from 'utils/location/location';
-import Ice from 'utils/ice';
+import Ice from 'src/utils/ice-server';
 import QWeatherStrategies from 'utils/weather/strategies/qweather';
 import Weather from 'utils/weather/strategies/weather';
 import { QQMap } from 'utils/location/qqMap';
@@ -14,6 +14,7 @@ export const qqMap = new QQMap(process.env.VUE_QQMAP_KEY!);
 export const useLocationStore = defineStore('location', {
   state: (): {
     current: Location;
+    local: Location | null;
   } => ({
     current: new Location({
       // 当前位置
@@ -21,14 +22,15 @@ export const useLocationStore = defineStore('location', {
       longitude: 116.3974,
       city: '北京市',
       address: '天安门',
-    }),
+    }), // 天气的位置
+    local: null, // 当前位置
   }),
   actions: {
-    changeLocation(loc: IMapData) {
+    changeLocation(loc: IMapData, cache = false) {
       this.current = new Location(loc);
 
       // 改变地理位置后重新请求天气数据
-      useWeatherStore().getAllWeather();
+      useWeatherStore().getAllWeather(cache);
     },
 
     // 获取当前位置
@@ -36,7 +38,10 @@ export const useLocationStore = defineStore('location', {
       qqMap
         .addressInfo()
         .then((res: IMapData) => {
-          this.changeLocation(res);
+          this.changeLocation(res, true);
+
+          // 缓存当前位置
+          this.local = new Location(res);
         })
         .catch(() => {
           notify.negative(i18n.global.t('map.err'));
@@ -54,15 +59,17 @@ export const useWeatherStore = defineStore('weather', {
   state: (): {
     strategies: string;
     current: null | IWeather;
+    local: null | IWeather;
     ready: boolean;
   } => ({
     strategies: 'qWeather', // 当前数据源
     current: null,
+    local: null,
     ready: false, // 数据是否准备完毕
   }),
 
   actions: {
-    getAllWeather() {
+    getAllWeather(cache = false) {
       const loc = useLocationStore();
 
       this.ready = false; // 开始获取新数据前, 把 ready 置为 false
@@ -73,6 +80,10 @@ export const useWeatherStore = defineStore('weather', {
           if (typeof res !== 'undefined') {
             this.current = res;
             this.ready = true;
+
+            if (cache) {
+              this.local = res;
+            }
           }
         });
     },
@@ -196,13 +207,13 @@ export const useAppInfoStore = defineStore('AppInfo', {
   },
 });
 
-const user = new Ice(process.env.VUE_SERVER_BASEURL!);
+const user = new Ice(
+  process.env.VUE_SERVER_BASEURL!,
+  LocalStorage.getItem('token')
+);
+
 export const useUserStore = defineStore('user', {
   actions: {
-    obtainCode() {
-      console.log('发送验证码...');
-    },
-
     // 是否登录
     isLoggedIn() {
       const token = LocalStorage.getItem('token');
@@ -211,23 +222,9 @@ export const useUserStore = defineStore('user', {
       else return false;
     },
 
-    // 验证验证码是否正确
-    verifyCode(email: string, code: string) {
-      return new Promise((resolve, rejects) => {
-        // 假设两秒后验证码验证成功
-        setTimeout(() => {
-          if (code === '123') {
-            rejects({
-              code: 3003,
-              message: '验证码错误',
-            });
-          }
-
-          resolve({
-            code: 3004,
-          });
-        }, 2000);
-      });
+    // 发送验证码
+    sendCode(email: string) {
+      return user.sendCode(email);
     },
 
     // 登录
@@ -240,17 +237,19 @@ export const useUserStore = defineStore('user', {
             if (status === 200) {
               // 保存用户 token
               LocalStorage.set('token', token);
+              user.token = token;
               resolve();
             } else {
               rejects({ code: status });
             }
           })
           .catch((err) => {
-            rejects(err);
+            rejects({ code: err.status });
           });
       });
     },
 
+    // 注册
     signin(account: string, password: string) {
       return new Promise<void>((resolve, rejects) => {
         user
@@ -270,11 +269,127 @@ export const useUserStore = defineStore('user', {
       });
     },
 
-    changePassword(account: string, password: string) {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve({ code: 200 });
-        }, 2000);
+    // 修改密码
+    changePassword(email: string, password: string, code: string) {
+      return new Promise<void>((resolve, rejects) => {
+        user
+          .changePassword(email, password, code)
+          .then((res) => {
+            const { status } = res;
+
+            if (status === 200) {
+              resolve();
+            } else {
+              rejects({ code: status });
+            }
+          })
+          .catch((err) => {
+            rejects(err);
+          });
+      });
+    },
+
+    // 每日日记
+    daily(id: string, daily: string) {
+      return new Promise<void>((resolve, rejects) => {
+        user.daily({ id, daily }).then((res) => {
+          const { status } = res;
+
+          if (status === 200) {
+            resolve();
+          } else {
+            rejects({ code: status });
+          }
+        });
+      });
+    },
+
+    favorites() {
+      return new Promise((resolve, rejects) => {
+        user.favorites().then((res) => {
+          const { status, favorites } = res;
+
+          if (status === 200) {
+            resolve(favorites);
+          } else {
+            rejects({ code: status });
+          }
+        });
+      });
+    },
+
+    addFavorite(options: ILocation) {
+      return user.addFavorite(options);
+    },
+
+    deleteFavorite(options: ILocation) {
+      return user.deleteFavorite(options);
+    },
+
+    caledar() {
+      return new Promise((resolve, rejects) => {
+        user.calendar().then((res) => {
+          const { status, list } = res;
+
+          if (status === 200) {
+            resolve(list);
+          } else {
+            rejects({ code: status });
+          }
+        });
+      });
+    },
+
+    checkin() {
+      return new Promise((resolve, rejects) => {
+        const weather = useWeatherStore();
+        if (weather.local) {
+          // 这里写的好丑啊 o(TヘTo)
+          const {
+            location,
+            now: {
+              feelsLike: { day: feelsLike = 0 } = {},
+              temperature: { day: temperature = 0 },
+              icon,
+              description,
+              wind: { wind360, windSpeed },
+              humidity = 0,
+              pressure = 0,
+              clouds = 0,
+              visibility = 0,
+              precip = 0,
+            },
+          } = weather.local;
+
+          const options = {
+            location,
+            weather: {
+              temperature,
+              feelsLike,
+              icon,
+              description,
+              wind360,
+              windSpeed,
+              humidity,
+              pressure,
+              clouds,
+              visibility,
+              precip,
+            },
+          };
+
+          user.checkin(options).then((res) => {
+            const { status, list } = res;
+
+            if (status === 200) {
+              resolve(list);
+            } else {
+              rejects({ code: status });
+            }
+          });
+        } else {
+          rejects();
+        }
       });
     },
   },
