@@ -32,14 +32,12 @@ export class QQMap {
     return new Promise((resolve, reject) => {
       this.geolocation.getLocation(
         (res: geoResult) => {
-          const { lat, lng, city, addr, district, province } = res;
+          const { lat, lng, city, addr } = res;
           resolve({
             latitude: lat, // 纬度
             longitude: lng, // 经度
             city: city, // 市
             address: addr, // 具体地址
-            district, // 区
-            province, // 省
           });
         },
         () => {
@@ -54,7 +52,7 @@ export class QQMap {
   }
 
   // 获取搜索建议
-  searchSuggestions(keyword: string, region = '') {
+  searchSuggestions(keyword: string, region = ''): Promise<any> {
     return this.http.request({
       url: '/ws/place/v1/suggestion',
       method: 'GET',
@@ -62,6 +60,30 @@ export class QQMap {
         key: this.key,
         keyword,
         region,
+      },
+    });
+  }
+
+  // 地址解析
+  getAddressDetail(address: string): Promise<any> {
+    return this.http.request({
+      url: '/ws/geocoder/v1',
+      method: 'GET',
+      data: {
+        key: this.key,
+        address,
+      },
+    });
+  }
+
+  // 地址解析
+  getLocationDetail(location: string): Promise<any> {
+    return this.http.request({
+      url: '/ws/geocoder/v1',
+      method: 'GET',
+      data: {
+        key: this.key,
+        location,
       },
     });
   }
@@ -148,3 +170,4 @@ export class DrawQQMap {
     this.map!.setCenter(new TMap.LatLng(latitude, longitude));
   }
 }
+
