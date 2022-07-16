@@ -85,7 +85,7 @@ function deleteFav() {
     // 只有要删除的收藏数不为 0 才发送请求
     if (wantDelete.value.length !== 0) {
       user.deleteFavorite(wantDelete.value).then((res) => {
-        favorites.value = res.favorites;
+        favorites.value = res;
         displayCheckBox.value = false;
         wantDelete.value.length = 0; // 删除后就清空
       });
