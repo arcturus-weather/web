@@ -33,7 +33,12 @@
       </q-select>
     </div>
     <div class="q-ma-lg">
-      <q-btn unelevated color="primary" :label="$t('account.logOut')"></q-btn>
+      <q-btn
+        unelevated
+        color="primary"
+        :label="$t('account.logOut')"
+        @click="user.logout"
+      ></q-btn>
     </div>
   </q-page>
 </template>
@@ -44,8 +49,10 @@ import { useSettingStore } from 'stores/stores';
 import { useI18n } from 'vue-i18n';
 import { languageMap } from 'utils/utils';
 import iceBtnToggle from 'src/components/ice-btn-toggle.vue';
+import { useUserStore } from 'stores/stores';
 
 const setting = useSettingStore();
+const user = useUserStore();
 
 export default defineComponent({
   name: 'SettingsPage',
@@ -129,6 +136,7 @@ export default defineComponent({
       languages: Object.keys(languageMap),
       language: ref(setting.language),
       locale,
+      user,
     };
   },
 });

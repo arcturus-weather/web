@@ -285,6 +285,7 @@ export const useUserStore = defineStore('user', {
         user
           .changePassword(email, password, code)
           .then((res) => {
+            console.log(res);
             const { status } = res;
 
             if (status === 200) {
