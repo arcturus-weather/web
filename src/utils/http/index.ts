@@ -126,7 +126,11 @@ export default class Http {
     Http.setResponseInterceptors(ax, (resp) => {
       const data = resp.data;
       if (data.status === 0) {
-        return Promise.resolve(data.data);
+        if (typeof data.data !== 'undefined') {
+          return Promise.resolve(data.data);
+        } else if (typeof data.result !== 'undefined') {
+          return Promise.resolve(data.result);
+        } else return data;
       } else {
         notify.negative(qqMapCode[resp.data.status]);
         return Promise.reject();
