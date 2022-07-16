@@ -49,7 +49,7 @@ export default {
     },
   },
   account: {
-    logOut: '退出',
+    logOut: '退出登录',
     logIn: '登录',
     backLogIn: '返回登录',
     signIn: '注册',
