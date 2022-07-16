@@ -40,19 +40,19 @@
             :subtitle="$d(new Date(item.date), 'long')"
             icon="fa-solid fa-location-dot"
           >
-            <q-card flat class="clickable" @click="openEditor(item)">
-              <q-card-section class="q-pa-none row items-center">
+            <div class="clickable" @click="openEditor(item)">
+              <div class="row items-center">
                 <span class="q-mr-xs">{{ item.weather.temperature }}°</span>
                 <span class="q-mr-xs">{{ item.weather.description }},</span>
                 <span class="q-mr-xs">
                   {{ $t('weather.aqi') }} {{ item.weather.aqi }}
                 </span>
                 <i-icon :name="item.weather.icon" :size="20"></i-icon>
-              </q-card-section>
-              <q-card-section class="q-px-none" v-if="item.daily">
+              </div>
+              <div v-if="item.daily">
                 {{ item.daily }}
-              </q-card-section>
-            </q-card>
+              </div>
+            </div>
           </q-timeline-entry>
         </q-scroll-area>
       </q-timeline>

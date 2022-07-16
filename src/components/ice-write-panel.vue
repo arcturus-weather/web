@@ -4,7 +4,7 @@
     @update:model-value="(value) => $emit('update:model-value', value)"
     @show="content = origin"
   >
-    <q-card>
+    <q-card class="card">
       <q-card-section class="row items-center q-pb-none">
         <div class="text-h6">{{ $t('write') }}</div>
         <q-space />
@@ -60,5 +60,9 @@ function confirm() {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.card {
+  width: 400px;
+}
+</style>
 
