@@ -27,7 +27,14 @@ interface ICheckin {
     pressure: number;
     visibility: number;
     clouds: number;
+    aqi: number;
   };
+}
+
+interface ICheckInRes extends ICheckin {
+  date: string;
+  id: string;
+  daily?: string;
 }
 
 // 腾讯地图定位
@@ -42,6 +49,19 @@ interface geoResult {
   lat: number; // 火星坐标(gcj02)
   lng: number;
   accuracy: number; //误差范围, 以米为单位
+}
+
+// 逆地址解析结果
+interface locationDetail {
+  address: string;
+  address_component: {
+    nation: string;
+    province: string;
+    city: string;
+    district?: string;
+    street?: string;
+    street_number?: string;
+  };
 }
 
 // 腾讯地图搜索返回, docs: https://lbs.qq.com/service/webService/webServiceGuide/webServiceSearch
@@ -70,8 +90,6 @@ interface IMapData {
   longitude: number;
   address?: string;
   city?: string;
-  district?: string;
-  province?: string;
 }
 
 // 主题
