@@ -32,6 +32,9 @@
         </template>
       </q-select>
     </div>
+    <div class="q-ma-lg">
+      <q-btn unelevated color="primary" :label="$t('account.logOut')"></q-btn>
+    </div>
   </q-page>
 </template>
 
@@ -130,3 +133,4 @@ export default defineComponent({
   },
 });
 </script>
+

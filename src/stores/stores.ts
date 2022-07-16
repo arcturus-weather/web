@@ -228,6 +228,10 @@ export const useUserStore = defineStore('user', {
       else return false;
     },
 
+    logout() {
+      LocalStorage.remove('token');
+    },
+
     // 发送验证码
     sendCode(email: string) {
       return user.sendCode(email);
