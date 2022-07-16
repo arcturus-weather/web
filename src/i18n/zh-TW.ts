@@ -71,6 +71,9 @@ export default {
     codeInvalid: '驗證碼錯誤',
     passwordInvalid: '密碼錯誤',
     passwordNotEqual: '兩次密碼不相等',
+    passwordRequire: '密碼不能為空',
+    passwordMin: '密碼至少3個字符',
+    passwordMax: '密碼最長30個字符',
   },
   success: {
     password: '密碼修改成功',

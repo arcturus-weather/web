@@ -71,6 +71,9 @@ export default {
     passwordMissing: 'password is missing',
     passwordInvalid: 'password is incorrect',
     passwordNotEqual: 'the two passwords are not the same',
+    passwordRequire: 'password cannot be empty',
+    passwordMin: 'password at least 3 characters',
+    passwordMax: 'password up to 30 characters',
   },
   success: {
     password: 'Changed password successfully',
@@ -141,3 +144,4 @@ export const time: Record<string, Intl.DateTimeFormatOptions> = {
     weekday: 'short',
   },
 };
+

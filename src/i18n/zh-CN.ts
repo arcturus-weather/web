@@ -71,6 +71,9 @@ export default {
     codeInvalid: '验证码错误',
     passwordInvalid: '密码错误',
     passwordNotEqual: '两次密码不相等',
+    passwordRequire: '密码不能为空',
+    passwordMin: '密码至少3个字符',
+    passwordMax: '密码最长30个字符',
   },
   success: {
     password: '密码修改成功',
@@ -141,3 +144,4 @@ export const time: Record<string, Intl.DateTimeFormatOptions> = {
     weekday: 'short',
   },
 };
+
