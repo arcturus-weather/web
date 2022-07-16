@@ -1,5 +1,4 @@
 import Http from 'utils/http';
-import { notify } from './utils';
 
 export default class Ice {
   private http: Http;
@@ -28,11 +27,9 @@ export default class Ice {
 
     this.http.ax.interceptors.response.use(
       (resp) => {
-        if (resp.data.status === 200) return resp.data;
-        else notify.negative(resp.data.message);
+        return resp.data;
       },
       (err) => {
-        // notify.positive(err.message);
         return err;
       }
     );
