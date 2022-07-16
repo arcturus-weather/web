@@ -1,4 +1,5 @@
 import Http from 'utils/http';
+import { notify } from './utils';
 
 export default class Ice {
   private http: Http;
@@ -27,10 +28,12 @@ export default class Ice {
 
     this.http.ax.interceptors.response.use(
       (resp) => {
-        return resp.data;
+        if (resp.data.status === 200) return resp.data;
+        else notify.negative(resp.data.message);
       },
       (err) => {
-        return err.response.data;
+        // notify.positive(err.message);
+        return err;
       }
     );
   }
@@ -61,7 +64,7 @@ export default class Ice {
 
   changePassword(email: string, password: string, code: string) {
     return this.http.request({
-      url: '/signin',
+      url: '/reset',
       method: 'POST',
       data: { email, password, code },
     });
@@ -73,7 +76,7 @@ export default class Ice {
     });
   }
 
-  addFavorite(options: ILocation) {
+  addFavorite(options: ILocation): Promise<any> {
     return this.http.request({
       url: '/addFavorites',
       method: 'POST',
@@ -81,11 +84,11 @@ export default class Ice {
     });
   }
 
-  deleteFavorite(options: ILocation) {
+  deleteFavorite(options: ILocation[]): Promise<any> {
     return this.http.request({
       url: '/deleteFavorites',
       method: 'POST',
-      data: { ...options },
+      data: { list: options },
     });
   }
 
@@ -107,7 +110,7 @@ export default class Ice {
 
   calendar(): Promise<any> {
     return this.http.request({
-      url: '/checkin',
+      url: '/calendar',
     });
   }
 }
