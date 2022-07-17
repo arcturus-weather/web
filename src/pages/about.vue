@@ -72,25 +72,27 @@
     </q-scroll-area>
   </q-page>
 </template>
-
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-import { useAppInfoStore } from 'stores/stores';
+import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'AboutPage',
+});
+</script>
 
-  setup() {
-    const AppInfo = useAppInfoStore();
+<script lang="ts" setup>
+import { useAppInfoStore } from 'stores/stores';
+import { storeToRefs } from 'pinia';
 
-    return {
-      logo: AppInfo.logo,
-      version: AppInfo.version,
-      drawer: ref(true),
-      contributors: AppInfo.contributors(),
-      links: AppInfo.links(),
-    };
-  },
+const app = useAppInfoStore();
+const { logo, version } = storeToRefs(app);
+
+const contributors = computed(() => {
+  return app.contributors();
+});
+
+const links = computed(() => {
+  return app.links();
 });
 </script>
 
@@ -113,3 +115,4 @@ export default defineComponent({
   padding: 2em;
 }
 </style>
+

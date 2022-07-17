@@ -1,5 +1,12 @@
 <template>
   <div class="container fullscreen">
+    <q-btn
+      class="absolute-center"
+      flat
+      to="/home"
+      text-color="primary"
+      :label="$t('back')"
+    ></q-btn>
     <!-- 雪景 -->
     <canvas ref="snow" class="snow"></canvas>
     <div class="ground">
@@ -13,8 +20,16 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: 'notFound',
+});
+</script>
+
+<script lang="ts" setup>
 // this page is modified from https://codepen.io/nw/pen/WQmxYY
-import { defineComponent, ref, onMounted, Ref } from 'vue';
+import { ref, onMounted, Ref } from 'vue';
 
 function makeSnow(el: Ref<HTMLCanvasElement | null>) {
   let width = window.innerWidth;
@@ -96,17 +111,10 @@ function makeSnow(el: Ref<HTMLCanvasElement | null>) {
   window.addEventListener('resize', onResize);
 }
 
-export default defineComponent({
-  name: 'notFound',
-  setup() {
-    const snow = ref<HTMLCanvasElement | null>(null);
+const snow = ref<HTMLCanvasElement | null>(null);
 
-    onMounted(() => {
-      makeSnow(snow);
-    });
-
-    return { snow };
-  },
+onMounted(() => {
+  makeSnow(snow);
 });
 </script>
 
@@ -293,3 +301,4 @@ $col-ground: #f6f9fa;
   }
 }
 </style>
+

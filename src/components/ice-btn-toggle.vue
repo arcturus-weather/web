@@ -18,7 +18,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: 'iceBtnToggle',
+});
+</script>
+
+<script lang="ts" setup>
+import { PropType } from 'vue';
 
 interface OPTIONS {
   label?: string;
@@ -27,22 +35,16 @@ interface OPTIONS {
   disable?: boolean;
 }
 
-export default defineComponent({
-  name: 'iceBtnToggle',
-
-  props: {
-    options: Array as PropType<Array<OPTIONS>>,
-    modelValue: String,
-    padding: {
-      type: String,
-      default: '15px 10px',
-    },
+defineProps({
+  options: Array as PropType<Array<OPTIONS>>,
+  modelValue: String,
+  padding: {
+    type: String,
+    default: '15px 10px',
   },
-
-  emits: ['update:model-value'],
-
-  setup() {},
 });
+
+defineEmits(['update:model-value']);
 </script>
 
 <style lang="scss" scoped>
@@ -53,3 +55,4 @@ export default defineComponent({
   justify-content: space-between;
 }
 </style>
+
