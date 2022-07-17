@@ -1,4 +1,5 @@
 import Http from 'utils/http';
+import { notify } from './utils';
 
 export default class Ice {
   private http: Http;
@@ -20,8 +21,8 @@ export default class Ice {
 
         return config;
       },
-      (err) => {
-        return Promise.reject(err);
+      (err: Error) => {
+        return err;
       }
     );
 
@@ -30,6 +31,7 @@ export default class Ice {
         return resp.data;
       },
       (err) => {
+        notify.negative(err.message);
         return err;
       }
     );
