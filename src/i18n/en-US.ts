@@ -118,6 +118,7 @@ export default {
   checkin: 'check in',
   checkinRecord: 'Checkin record',
   write: 'Write something?',
+  visitor: 'visitors today',
 };
 
 export const time: Record<string, Intl.DateTimeFormatOptions> = {
@@ -150,4 +151,3 @@ export const time: Record<string, Intl.DateTimeFormatOptions> = {
     weekday: 'short',
   },
 };
-

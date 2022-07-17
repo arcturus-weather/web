@@ -118,6 +118,7 @@ export default {
   checkin: '打卡',
   checkinRecord: '打卡日记',
   write: '写点什么吗?',
+  visitor: '今日访问人数',
 };
 
 export const time: Record<string, Intl.DateTimeFormatOptions> = {
