@@ -20,11 +20,21 @@ export default defineComponent({
 
     onMounted(() => {
       const setting = useSettingStore();
+      const theme = setting.getTheme();
       // 如果从本地获取失败就使用默认值
-      setting.setTheme(setting.getTheme());
+      setting.setTheme(theme);
+
+      if (theme) {
+        setting.theme = theme;
+      }
 
       // 设置数据源
-      setting.setDataSource(setting.getDataSource());
+      const dataSource = setting.getDataSource();
+      setting.setDataSource(dataSource);
+
+      if (dataSource) {
+        setting.dataSource = dataSource;
+      }
 
       // 修改语言环境
       const $q = useQuasar();
@@ -37,8 +47,10 @@ export default defineComponent({
       // 如果是根据用户语言环境或者存储设置的, 还需要把状态管理上的数据改一下
       if (lang) {
         setting.setLanguage(lang);
+        setting.language = lang;
       } else if (userLang) {
         setting.setLanguage(languageMap_[userLang]);
+        setting.language = languageMap_[userLang];
       }
     });
   },
