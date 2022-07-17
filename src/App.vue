@@ -21,11 +21,10 @@ export default defineComponent({
     onMounted(() => {
       const setting = useSettingStore();
       // 如果从本地获取失败就使用默认值
-      setting.setTheme(setting.getTheme() ?? (setting.theme as Themes));
+      setting.setTheme(setting.getTheme());
 
-      setting.setDataSource(
-        setting.getDataSource() ?? (setting.dataSource as DataSources)
-      );
+      // 设置数据源
+      setting.setDataSource(setting.getDataSource());
 
       // 修改语言环境
       const $q = useQuasar();
@@ -34,9 +33,7 @@ export default defineComponent({
       // 优先使用用户自定义的(从本地存储中获取)
       // 缓存中没有, 则根据用户的语言环境设置
       // 语言环境若获取失败, 则使用默认的
-      locale.value = lang
-        ? languageMap[lang]
-        : userLang ?? languageMap[setting.language];
+      locale.value = lang ? languageMap[lang] : userLang;
       // 如果是根据用户语言环境或者存储设置的, 还需要把状态管理上的数据改一下
       if (lang) {
         setting.setLanguage(lang);
@@ -47,3 +44,4 @@ export default defineComponent({
   },
 });
 </script>
+
