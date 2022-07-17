@@ -1,5 +1,6 @@
 <template>
   <q-page>
+    <div class="absolute-top-right q-pa-md">{{ $t('visitor') }}: {{ visitor }}</div>
     <!-- 项目介绍 -->
     <q-scroll-area
       style="height: 100vh"
@@ -85,7 +86,7 @@ import { useAppInfoStore } from 'stores/stores';
 import { storeToRefs } from 'pinia';
 
 const app = useAppInfoStore();
-const { logo, version } = storeToRefs(app);
+const { logo, version, visitor } = storeToRefs(app);
 
 const contributors = computed(() => {
   return app.contributors();

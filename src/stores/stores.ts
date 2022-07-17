@@ -180,6 +180,7 @@ export const useAppInfoStore = defineStore('AppInfo', {
   state: () => ({
     logo: 'https://s2.loli.net/2022/06/28/XiVhMfmoKWwpdQA.png',
     version: '0.0.1',
+    visitor: 0,
   }),
   actions: {
     contributors() {
@@ -230,6 +231,17 @@ export const useUserStore = defineStore('user', {
     // 发送验证码
     sendCode(email: string) {
       return user.sendCode(email);
+    },
+
+    // 访问
+    visit() {
+      user.visit().then((res) => {
+        const { status, visitor } = res as any;
+        if (status === 200) {
+          const app = useAppInfoStore();
+          app.visitor = visitor;
+        }
+      });
     },
 
     // 登录

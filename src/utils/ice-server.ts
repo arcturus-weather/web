@@ -37,6 +37,12 @@ export default class Ice {
     );
   }
 
+  visit() {
+    return this.http.request({
+      url: '/visit',
+    });
+  }
+
   sendCode(email: string) {
     return this.http.request({
       url: '/sendCode',

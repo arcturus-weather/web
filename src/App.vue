@@ -6,7 +6,7 @@
 import { useQuasar } from 'quasar';
 import { defineComponent, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useSettingStore } from './stores/stores';
+import { useSettingStore, useUserStore } from 'stores/stores';
 import { languageMap, languageMap_ } from 'utils/utils';
 
 if (process.env.NODE_ENV === 'development') {
@@ -17,6 +17,10 @@ export default defineComponent({
   name: 'App',
   setup() {
     const { locale } = useI18n();
+
+    // 获取访问人数
+    const user = useUserStore();
+    user.visit();
 
     onMounted(() => {
       const setting = useSettingStore();
