@@ -46,51 +46,40 @@
     ></ice-map>
   </q-page>
 </template>
-
 <script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: 'dashBoardPage',
+});
+</script>
+
+<script lang="ts" setup>
 import iceMain from 'components/ice-main.vue';
 import iceAir from 'components/ice-air.vue';
 import iceAstronomy from 'components/ice-astronomy.vue';
 import iceHourly from 'components/ice-hourly.vue';
 import iceDaily from 'components/ice-daily.vue';
 import { storeToRefs } from 'pinia';
-import { defineComponent, ref } from 'vue';
+import { ref } from 'vue';
 import iceMap from 'src/components/ice-map.vue';
 import { useLocationStore, useWeatherStore } from 'stores/stores';
 
 const location = useLocationStore();
+const openMap = ref(false);
 
-export default defineComponent({
-  name: 'dashBoardPage',
+function confirm(e: IMapData) {
+  location.changeLocation(e);
+}
 
-  components: {
-    iceMap,
-    iceMain,
-    iceAir,
-    iceAstronomy,
-    iceHourly,
-    iceDaily,
-  },
+const { ready } = storeToRefs(useWeatherStore());
+const { current: loc } = storeToRefs(location);
 
-  methods: {
-    confirm(e: IMapData) {
-      location.changeLocation(e);
-    },
-  },
-
-  setup() {
-    const { ready } = storeToRefs(useWeatherStore());
-    const { current: loc } = storeToRefs(location);
-
-    if (process.env.NODE_ENV === 'development') {
-      useWeatherStore().getAllWeather();
-    } else {
-      location.getLocation();
-    }
-
-    return { ready, openMap: ref(false), loc };
-  },
-});
+if (process.env.NODE_ENV === 'development') {
+  useWeatherStore().getAllWeather();
+} else {
+  location.getLocation();
+}
 </script>
 
 <style lang="scss" scoped>
@@ -118,3 +107,4 @@ export default defineComponent({
   }
 }
 </style>
+
