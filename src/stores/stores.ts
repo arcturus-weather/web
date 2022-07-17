@@ -114,7 +114,7 @@ export const useSettingStore = defineStore('settings', {
   }),
 
   actions: {
-    setTheme(theme: Themes) {
+    setTheme(theme: Themes | null) {
       switch (theme) {
         case 'lightMode':
           Dark.set(false);
@@ -134,8 +134,6 @@ export const useSettingStore = defineStore('settings', {
             Dark.set(true);
           }
       }
-
-      this.theme = theme;
     },
 
     getTheme() {
@@ -154,9 +152,10 @@ export const useSettingStore = defineStore('settings', {
       LocalStorage.set('dataSource', source);
     },
 
-    setDataSource(source: DataSources) {
-      useWeatherStore().changeStrategy(source); // 同时修改天气数据源
-      this.dataSource = source;
+    setDataSource(source: DataSources | null) {
+      if (source) {
+        useWeatherStore().changeStrategy(source); // 同时修改天气数据源
+      }
     },
 
     getLanguage() {
@@ -167,10 +166,11 @@ export const useSettingStore = defineStore('settings', {
       LocalStorage.set('language', this.language);
     },
 
-    setLanguage(lang: string) {
-      this.language = lang;
-      // 修改数据源语言
-      useWeatherStore().changeLanguage(languageMap[lang]);
+    setLanguage(lang: string | null) {
+      if (lang) {
+        // 修改数据源语言
+        useWeatherStore().changeLanguage(languageMap[lang]);
+      }
     },
   },
 });
@@ -182,11 +182,6 @@ export const useAppInfoStore = defineStore('AppInfo', {
     version: '0.0.1',
   }),
   actions: {
-    copyRight() {
-      const year = new Date().getFullYear();
-
-      return `© 2022${year === 2022 ? '' : '-' + year}`;
-    },
     contributors() {
       return [
         {
