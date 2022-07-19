@@ -64,7 +64,7 @@ quasar build --debug
 
 至少代码中不会出现, 而且密钥都是免费的, 应该不会有人不愿意自己申请一个吧
 
-## [demo](https://iceweather.netlify.app/)(未完工...)
+## [demo](https://iceweather.netlify.app/)
 
 ## 小冰天气后端地址
 
