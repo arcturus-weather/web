@@ -18,7 +18,7 @@ export default class Http {
 
   static createAxios({ baseUrl, timeout, headers }: httpOption) {
     const ax = axios.create({
-      timeout: timeout ?? 10000,
+      timeout: timeout ?? 20000,
       baseURL: baseUrl,
       headers,
     });
