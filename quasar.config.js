@@ -9,6 +9,7 @@
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js
 
 const { configure } = require('quasar/wrappers');
+const VueI18nPlugin = require('@intlify/unplugin-vue-i18n/vite');
 const path = require('path');
 
 module.exports = configure(function (/* ctx */) {
@@ -88,23 +89,20 @@ module.exports = configure(function (/* ctx */) {
       // viteVuePluginOptions: {},
 
       vitePlugins: [
-        [
-          '@intlify/vite-plugin-vue-i18n',
-          {
-            // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
-            // compositionOnly: false,
-            runtimeOnly: false,
+        VueI18nPlugin({
+          // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
+          // compositionOnly: false,
+          runtimeOnly: false,
 
-            // you need to set i18n resource including paths !
-            include: path.resolve(__dirname, './src/i18n/**'),
-          },
-        ],
+          // you need to set i18n resource including paths !
+          include: path.resolve(__dirname, './src/i18n/**'),
+        }),
       ],
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
     devServer: {
-      https: true,
+      https: false,
       open: false, // opens browser window automatically
       proxy: {
         // cross-origin
@@ -232,4 +230,3 @@ module.exports = configure(function (/* ctx */) {
     },
   };
 });
-

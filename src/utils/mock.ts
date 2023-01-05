@@ -13,15 +13,6 @@ import warning from '../mock/qweather/warning.json';
 import air from '../mock/qweather/air.json';
 import rain from '../mock/qweather/rain.json';
 
-/***********************
- * openWeather 模拟数据 *
- **********************/
-import oneCall from '../mock/openWeather/onecall.json';
-import weather from '../mock/openWeather/weather.json';
-import air_ from '../mock/openWeather/air.json';
-import airForcast from '../mock/openWeather/airForcast.json';
-import forcast from '../mock/openWeather/forcast.json';
-
 Mock.setup({
   timeout: '0',
 });
@@ -139,29 +130,3 @@ Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/minutely\/5m.*/g, {
   },
 });
 
-// 一次调用
-Mock.mock(/http:\/\/api\.openweathermap\.org\/data\/2\.5\/onecall.*/g, oneCall);
-
-// 当前天气
-Mock.mock(
-  /http:\/\/api\.openweathermap\.org\/data\/2\.5\/\weather.*/g,
-  weather
-);
-
-// 5 天 3 小时预测
-Mock.mock(
-  /http:\/\/api\.openweathermap\.org\/data\/2\.5\/forecast.*/g,
-  forcast
-);
-
-// 空气污染
-Mock.mock(
-  /http:\/\/api\.openweathermap\.org\/data\/2\.5\/air_pollution.*/g,
-  air_
-);
-
-// 空气污染预测
-Mock.mock(
-  /http:\/\/api\.openweathermap\.org\/data\/2\.5\/air_pollution\/forecast.*/g,
-  airForcast
-);
