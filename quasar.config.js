@@ -11,6 +11,7 @@
 const { configure } = require('quasar/wrappers');
 const VueI18nPlugin = require('@intlify/unplugin-vue-i18n/vite');
 const path = require('path');
+const { version, productName } = require('./package.json');
 
 module.exports = configure(function (/* ctx */) {
   require('dotenv').config();
@@ -43,7 +44,7 @@ module.exports = configure(function (/* ctx */) {
     // see docs: https://quasar.dev/vue-components/icon
     extras: [
       // 'ionicons-v4',
-      'mdi-v5',
+      // 'mdi-v5',
       'fontawesome-v6',
       // 'eva-icons',
       // 'themify',
@@ -51,7 +52,7 @@ module.exports = configure(function (/* ctx */) {
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
 
       // 'roboto-font', // optional, you are not bound to it
-      'material-icons', // optional, you are not bound to it
+      // 'material-icons', // optional, you are not bound to it
     ],
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#build
@@ -77,8 +78,9 @@ module.exports = configure(function (/* ctx */) {
       env: {
         VUE_QQMAP_KEY: process.env.VUE_QQMAP_KEY,
         VUE_QWEATHER_KEY: process.env.VUE_QWEATHER_KEY,
-        VUE_APP_NAME: process.env.VUE_APP_NAME,
+        VUE_APP_NAME: productName,
         VUE_SERVER_BASEURL: process.env.VUE_SERVER_BASEURL,
+        VUE_APP_VERSION: version,
       },
       // rawDefine: {}
       // ignorePublicFolder: true,
@@ -102,7 +104,7 @@ module.exports = configure(function (/* ctx */) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
     devServer: {
-      https: false,
+      https: process.env.NODE_ENV === 'development' ? false : true,
       open: false, // opens browser window automatically
       proxy: {
         // cross-origin
@@ -230,3 +232,4 @@ module.exports = configure(function (/* ctx */) {
     },
   };
 });
+

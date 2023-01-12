@@ -21,11 +21,9 @@ pnpm install
 ```
 VUE_QWEATHER_KEY=xxx # 和风天气
 
-VUE_QQMAP_KEY=xxx # 腾讯地图
+VUE_QQMAP_KEY=xxx # 腾讯地图 ( 确保 productName 与腾讯地图的一致 )
 
-VUE_APP_NAME="小冰天气" # 腾讯地图key对应的APP名
-
-VUE_SERVER_BASEURL=xxxx # 小冰天气后端地址
+VUE_SERVER_BASEURL=xxx # 小冰天气后端地址
 ```
 
 ### 运行
@@ -65,3 +63,4 @@ quasar build --debug
 ## 小冰天气后端地址
 
 [点击进入](https://github.com/ice-universes/weather_serve.git)
+
