@@ -151,7 +151,7 @@ export default defineComponent({
     return {
       curveLineColor: ref('#fff'), // the color of curve
       orbRadius: ref(10), // the radius of earth ans moon
-      skyHeight: ref(150), // the background color
+      skyHeight: ref(220), // the background color
       sunDeg,
       moonDeg,
       current,
@@ -192,7 +192,7 @@ export default defineComponent({
     },
 
     curveRadius() {
-      return this.skyHeight * 0.9 - this.orbRadius * 2;
+      return this.skyHeight * 0.7 - this.orbRadius * 2;
     },
   },
 });
