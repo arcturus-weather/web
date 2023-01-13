@@ -15,12 +15,12 @@ import _Q_RAIN_ from '@mock/qweather/rain.json';
 import _C_ALL_ from '@mock/caiyun/all.json';
 
 Mock.setup({
-  timeout: '0',
+  timeout: '2000',
 });
 
 // 彩云天气
 Mock.mock(
-  /https:\/\/api\.caiyunapp\.com\/v2\.6\/.+\/.+\/weather.*/,
+  /https:\/\/api\.caiyunapp\.com\/v2\.6\/.+\/.+\/weather.*/g,
   _C_ALL_
 );
 

@@ -3,15 +3,18 @@ import { useLocationStore } from './location';
 import Location from '@utils/location/location';
 import QWeatherStrategy from '@utils/weather/strategies/qweather';
 import Weather from '@utils/weather/strategies/weather';
+import CaiyunStrategy from '@src/utils/weather/strategies/caiyun';
 
 const qweather = new QWeatherStrategy(
   process.env.VUE_QWEATHER_KEY!,
   process.env.VUE_QWEATHER_ID!
 );
 
+const caiyun = new CaiyunStrategy(process.env.VUE_CAIYUN_KEY!);
+
 const weather = new Weather(qweather, 'qWeather');
 
-// weather.addStrategy(openWeather, 'openWeather');
+weather.addStrategy(caiyun, 'caiyun');
 
 export const useWeatherStore = defineStore('weather', {
   state: (): {
