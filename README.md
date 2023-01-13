@@ -21,9 +21,13 @@ pnpm install
 ```
 VUE_QWEATHER_KEY=xxx # 和风天气
 
-VUE_QQMAP_KEY=xxx # 腾讯地图 ( 确保 productName 与腾讯地图的一致 )
+VUE_QWEATHER_ID=xxx # 和风天气 publicID
 
-VUE_SERVER_BASEURL=xxx # 小冰天气后端地址
+VUE_CAIYUN_KEY=xxx # 彩云天气
+
+VUE_QQMAP_KEY=xxx # 腾讯地图
+
+VUE_SERVER_BASEURL=127.0.0.1:8090 # 小冰天气后端地址
 ```
 
 ### 运行
