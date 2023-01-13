@@ -1,35 +1,36 @@
 import { Notify } from 'quasar';
 import { i18n } from 'src/boot/i18n';
 
+export function mock() {
+  if (process.env.NODE_ENV === 'development') {
+    import('utils/mock');
+  }
+}
+
 export const notify: {
-  (m: string, t: string): void;
+  (m: string, t: string, i: string): void;
   positive(m: string): void;
   negative(m: string): void;
   warning(m: string): void;
   info(m: string): void;
-  ongoing(m: string): void;
-} = function (message: string, type = 'negative') {
-  Notify.create({ type, message });
+} = function (message: string, type = 'negative', icon: string) {
+  Notify.create({ type, message, icon });
 };
 
 notify.positive = (m: string) => {
-  notify(m, 'positive');
+  notify(m, 'positive', 'fa-regular fa-circle-check');
 };
 
 notify.negative = (m: string) => {
-  notify(m, 'negative');
+  notify(m, 'negative', 'fa-solid fa-triangle-exclamation');
 };
 
 notify.warning = (m: string) => {
-  notify(m, 'warning');
+  notify(m, 'warning', 'fa-solid fa-exclamation');
 };
 
 notify.info = (m: string) => {
-  notify(m, 'info');
-};
-
-notify.ongoing = (m: string) => {
-  notify(m, 'ongoing');
+  notify(m, 'info', 'fa-solid fa-circle-exclamation');
 };
 
 // 防抖函数
@@ -47,21 +48,21 @@ export function debounce(fn: (e: any) => void, dur = 1500) {
 
 // 这里的 value 需要和 quasar 获取的语言环境一一对应
 // docs: https://quasar.dev/start/upgrade-guide#quasar-language-packs
-export const languageMap = {
-  简体中文: 'zh-CN',
-  English: 'en-US',
-  繁體中文: 'zh-TW',
+export const languageToOption: Record<Languages, string> = {
+  'zh-CN': '简体中文',
+  'en-US': 'English',
+  'zh-TW': '繁體中文',
 };
 
-export const languageMap_ = (function (map) {
-  const m = {};
+export const optionToLanguage = (function (map) {
+  const m: Record<string, string> = {};
 
   Object.entries(map).forEach((el) => {
     m[el[1]] = el[0];
   });
 
   return m;
-})(languageMap);
+})(languageToOption);
 
 // 判断邮箱的正确性
 export function isValidEmail(val: string): string | boolean {
