@@ -33,8 +33,8 @@ export class WaringColor {
 export const aqiColor = {
   excellent: '#56B37F',
   good: '#FCFF00',
-  lightlyPollution: '#FEC163',
-  ModeratePollution: '#FFAA85',
-  HeavyPollution: '#EE9AE5',
-  SeriousPollution: '#F05F57',
+  lightly: '#FEC163',
+  moderate: '#FFAA85',
+  heavy: '#EE9AE5',
+  serious: '#F05F57',
 };

@@ -8,22 +8,22 @@ export function aqiLevel(aqi: number): number {
 }
 
 const aqiMap = {
+  0: 'unkonwn',
   1: 'excellent',
   2: 'good',
-  3: 'lightlyPollution',
-  4: 'ModeratePollution',
-  5: 'HeavyPollution',
-  6: 'SeriousPollution',
+  3: 'lightly',
+  4: 'moderate',
+  5: 'heavy',
+  6: 'serious',
 };
 
 // 根据 aqi 获取等级说明
 export function aqiCategory(aqi: number | undefined): string {
   if (typeof aqi === 'undefined') return aqiMap[0];
 
-  return aqiMap[aqiLevel(aqi)];
+  return aqiMap[aqiLevel(aqi) as keyof typeof aqiMap];
 }
 
-// 其实这个可以不需要, 主要是 key 直接使用字符串的形式好丑啊 ˋ( ° ▽、° )
 export const pollutionsMap = {
   co: 'CO',
   no: 'NO',
@@ -34,3 +34,4 @@ export const pollutionsMap = {
   pm10: 'PM10',
   nh3: 'NH₃',
 };
+
