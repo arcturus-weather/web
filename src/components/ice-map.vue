@@ -71,9 +71,9 @@ export default defineComponent({
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { DrawQQMap } from 'utils/location/qqMap';
-import { debounce } from 'utils/utils';
-import { qqMap } from 'stores/stores';
+import { DrawQQMap } from '@utils/location/qqMap';
+import { debounce } from '@utils/utils';
+import { qqMap } from '@stores/stores';
 
 let drawMap: DrawQQMap;
 

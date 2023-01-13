@@ -5,8 +5,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import MobileLayout from 'layouts/mobile.vue';
-import PCLayout from 'layouts/pc.vue';
+import MobileLayout from '@layouts/mobile.vue';
+import PCLayout from '@layouts/pc.vue';
 
 export default defineComponent({
   name: 'AppLayout',

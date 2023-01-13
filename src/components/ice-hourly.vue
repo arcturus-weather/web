@@ -70,9 +70,9 @@
 <script lang="ts">
 import { date } from 'quasar';
 import { defineComponent, ref, watchEffect } from 'vue';
-import iceTransition from 'components/ice-transition.vue';
-import iceHourlyPanel from 'components/ice-hourly-panel.vue';
-import { useWeatherStore } from 'stores/stores';
+import iceTransition from '@components/ice-transition.vue';
+import iceHourlyPanel from '@components/ice-hourly-panel.vue';
+import { useWeatherStore } from '@stores/stores';
 import { storeToRefs } from 'pinia';
 import { DualAxes } from '@antv/g2plot';
 

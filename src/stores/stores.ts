@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia';
 import { LocalStorage, Dark } from 'quasar';
-import Location from 'utils/location/location';
-import Ice from 'src/utils/ice-server';
-import QWeatherStrategies from 'utils/weather/strategies/qweather';
-import Weather from 'utils/weather/strategies/weather';
-import { QQMap } from 'utils/location/qqMap';
-import { languageMap, notify } from 'utils/utils';
-import { i18n } from 'src/boot/i18n';
+import Location from '@utils/location/location';
+import Ice from '@src/utils/ice-server';
+import QWeatherStrategies from '@utils/weather/strategies/qweather';
+import Weather from '@utils/weather/strategies/weather';
+import { QQMap } from '@utils/location/qqMap';
+import { notify } from '@utils/utils';
+import { i18n } from '@src/boot/i18n';
 
 export const qqMap = new QQMap(process.env.VUE_QQMAP_KEY!);
 
@@ -56,7 +56,11 @@ export const useLocationStore = defineStore('location', {
   },
 });
 
-const qweather = new QWeatherStrategies(process.env.VUE_QWEATHER_KEY!);
+const qweather = new QWeatherStrategies(
+  process.env.VUE_QWEATHER_KEY!,
+  process.env.VUE_CAIYUN_KEY!
+);
+
 const weather = new Weather(qweather, 'qWeather');
 // 以后在这里添加数据源....
 // weather.addStrategy(openWeather, 'openWeather');
@@ -166,11 +170,9 @@ export const useSettingStore = defineStore('settings', {
       LocalStorage.set('language', this.language);
     },
 
-    setLanguage(lang: string | null) {
-      if (lang) {
-        // 修改数据源语言
-        useWeatherStore().changeLanguage(languageMap[lang]);
-      }
+    setLanguage(lang: Languages) {
+      // 修改数据源语言
+      useWeatherStore().changeLanguage(lang);
     },
   },
 });
@@ -179,7 +181,7 @@ export const useSettingStore = defineStore('settings', {
 export const useAppInfoStore = defineStore('AppInfo', {
   state: () => ({
     logo: 'https://s2.loli.net/2022/06/28/XiVhMfmoKWwpdQA.png',
-    version: '0.0.1',
+    version: process.env.VUE_APP_VERSION,
     visitor: 0,
   }),
   actions: {

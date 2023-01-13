@@ -2,115 +2,100 @@
   <q-card
     flat
     bordered
-    class="clickable"
-    style="height: 100%"
+    class="clickable card-border"
     @click="open = true"
+    style="height: 100%"
   >
-    <ice-transition>
-      <div v-if="visible">
-        <q-card-section class="text-bold">
-          {{ $t('weather.astronomy.label') }}
-        </q-card-section>
-        <q-card-section class="q-pt-none">
-          <div
-            class="sky"
-            :style="{
-              backgroundColor: skyColor,
-              height: `${skyHeight}px`,
-            }"
-          >
-            <!-- track -->
-            <svg>
-              <circle
-                class="curve-line"
-                :stroke="curveLineColor"
-                :r="curveRadius"
-                cx="50%"
-                :cy="skyHeight"
-              />
-            </svg>
-            <!-- sun -->
-            <div
-              class="sun-orbit"
-              :style="{
-                transform: `rotate(${sunDeg}deg)`,
-                top: `${skyHeight - orbRadius}px`,
-                right: '50%',
-                width: `${curveRadius + orbRadius}px`,
-              }"
-            >
-              <div class="sun" :style="sphereStyle">
-                <div class="sun-light" :style="sphereStyle"></div>
-                <div class="sun-light" :style="sphereStyle"></div>
-              </div>
-            </div>
+    <q-card-section class="text-bold">
+      {{ $t('weather.astronomy.label') }}
+    </q-card-section>
 
-            <!-- moon -->
-            <div
-              class="moon-orbit"
-              :style="{
-                transform: `rotate(${moonDeg}deg)`,
-                top: `${skyHeight - orbRadius}px`,
-                right: '50%',
-                width: `${curveRadius + orbRadius}px`,
-              }"
-            >
-              <div class="moon" :style="sphereStyle"></div>
-            </div>
-          </div>
+    <q-card-section class="q-pt-none">
+      <div
+        class="sky"
+        :style="{
+          backgroundColor: skyColor,
+          height: `${skyHeight}px`,
+        }"
+      >
+        <!-- track -->
+        <svg>
+          <circle
+            class="curve-line"
+            :stroke="curveLineColor"
+            :r="curveRadius"
+            cx="50%"
+            :cy="skyHeight"
+          />
+        </svg>
 
-          <!-- 时间 -->
-          <div class="row justify-between q-pt-md">
-            <!-- 日出日落 -->
-            <div class="row items-center">
-              <q-icon name="sunny" size="25px"></q-icon>
-              <div class="q-ml-sm">
-                <div>{{ $d(current.sun.sunRise, 'time') }}↑</div>
-                <div>{{ $d(current.sun.sunSet, 'time') }}↓</div>
-              </div>
-            </div>
-            <!-- 月升月落 -->
-            <div class="row items-center">
-              <div class="q-mr-sm">
-                <div>{{ $d(current.moon.moonRise, 'time') }}↑</div>
-                <div>{{ $d(current.moon.moonSet, 'time') }}↓</div>
-              </div>
-              <q-icon name="dark_mode" size="25px"></q-icon>
-            </div>
+        <!-- sun -->
+        <div
+          class="sun-orbit"
+          :style="{
+            transform: `rotate(${sunDeg}deg)`,
+            top: `${skyHeight - orbRadius}px`,
+            right: '50%',
+            width: `${curveRadius + orbRadius}px`,
+          }"
+        >
+          <div class="sun" :style="sphereStyle">
+            <div class="sun-light" :style="sphereStyle"></div>
+            <div class="sun-light" :style="sphereStyle"></div>
           </div>
-        </q-card-section>
+        </div>
+
+        <!-- moon -->
+        <div
+          class="moon-orbit"
+          :style="{
+            transform: `rotate(${moonDeg}deg)`,
+            top: `${skyHeight - orbRadius}px`,
+            right: '50%',
+            width: `${curveRadius + orbRadius}px`,
+          }"
+        >
+          <div class="moon" :style="sphereStyle"></div>
+        </div>
       </div>
-      <div v-else>
-        <q-card-section>
-          <q-skeleton width="80px" />
-        </q-card-section>
-        <q-card-section>
-          <q-skeleton height="150px" square />
-        </q-card-section>
-        <q-card-section class="row justify-between">
-          <q-skeleton width="80px"></q-skeleton>
-          <q-skeleton width="80px"></q-skeleton>
-        </q-card-section>
+
+      <!-- time -->
+      <div class="row justify-between q-pt-md">
+        <!-- sunrise & sunset -->
+        <div class="row items-center">
+          <q-icon name="fa-solid fa-sun" size="25px"></q-icon>
+          <div class="q-ml-sm">
+            <div>{{ $d(current.sun.sunRise, 'time') }}↑</div>
+            <div>{{ $d(current.sun.sunSet, 'time') }}↓</div>
+          </div>
+        </div>
+        <!-- moonrise & moonset -->
+        <div class="row items-center">
+          <div class="q-mr-sm">
+            <div>{{ $d(current.moon.moonRise, 'time') }}↑</div>
+            <div>{{ $d(current.moon.moonSet, 'time') }}↓</div>
+          </div>
+          <q-icon name="fa-solid fa-moon" size="25px"></q-icon>
+        </div>
       </div>
-    </ice-transition>
+    </q-card-section>
   </q-card>
   <ice-astronomy-panel v-model="open"></ice-astronomy-panel>
 </template>
 
 <script>
 import { defineComponent, ref, watch } from 'vue';
-import { useWeatherStore } from 'stores/stores';
+import { useWeatherStore } from '@stores/stores';
 import { date } from 'quasar';
 import { storeToRefs } from 'pinia';
-import iceTransition from 'components/ice-transition.vue';
-import iceAstronomyPanel from 'components/ice-astronomy-panel.vue';
+import iceAstronomyPanel from '@components/ice-astronomy-panel.vue';
 
 const { current } = storeToRefs(useWeatherStore());
 
 export default defineComponent({
   name: 'ice-astronomy',
 
-  components: { iceTransition, iceAstronomyPanel },
+  components: { iceAstronomyPanel },
 
   props: {
     visible: {

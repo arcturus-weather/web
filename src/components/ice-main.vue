@@ -1,127 +1,80 @@
 <template>
-  <q-card class="row" flat bordered style="height: 100%">
-    <q-card-section class="col-xs-12 col-sm-6 col-md-4 justify-between column">
-      <ice-transition>
-        <div v-if="visible" class="row justify-between">
-          <!-- 当前位置 -->
-          <div class="row items-center clickable" @click="$emit('openMap')">
-            <q-icon name="room"></q-icon>
-            <div class="ellipsis" style="width: 100px">
-              {{ currentLocation.address }}
-            </div>
-            <q-tooltip>
-              {{ currentLocation.address }}
-            </q-tooltip>
-          </div>
-          <!-- 发布时间 -->
-          <div>
-            {{ $t('date.pubTime') }}
-            {{ $d(currentWeather!.now.dateTime, 'time') }}
-          </div>
-        </div>
-        <div v-else class="row justify-between">
-          <q-skeleton width="80px"></q-skeleton>
-          <q-skeleton width="80px"></q-skeleton>
-        </div>
-      </ice-transition>
+  <q-card
+    class="row card-border main-wrapper"
+    flat
+    bordered
+    style="height: 100%"
+  >
+    <div class="search-btn-wrapper">
+      <q-btn
+        fab
+        unelevated
+        icon="fa-solid fa-magnifying-glass"
+        @click="openMap = true"
+      />
+    </div>
 
-      <div class="column items-center justify-center q-my-md">
-        <ice-transition>
-          <!-- 当前温度 -->
-          <div
-            v-if="visible"
-            class="text-h2 q-mb-md text-center text-bold"
-            style="height: 80px; width: 80px; line-height: 80px"
-          >
-            {{ currentWeather!.now.temperature.day }}°
-          </div>
-          <!-- 骨架屏 -->
-          <q-skeleton
-            v-else
-            width="80px"
-            height="80px"
-            class="q-mb-md"
-          ></q-skeleton>
-        </ice-transition>
+    <q-card-section class="justify-between column" style="width: 100%">
+      <div class="column q-mb-md">
+        <i-icon :name="currentWeather!.now.icon" :size="100"></i-icon>
+        <div
+          class="text-h2 q-mb-md text-center text-bold"
+          style="height: 80px; width: 80px; line-height: 80px"
+        >
+          {{ currentWeather!.now.temperature.day }}°
+        </div>
 
-        <ice-transition>
-          <!-- 当前天气情况 -->
-          <div v-if="visible">
-            {{ currentWeather!.now.description }},
-            {{ currentWeather!.now.feelsLike!.day }}
-          </div>
-          <!-- 骨架屏 -->
-          <q-skeleton v-else width="50px"></q-skeleton>
-        </ice-transition>
+        <div>
+          {{ currentWeather!.now.description }},
+          {{ currentWeather!.now.feelsLike?.day }}
+        </div>
       </div>
 
-      <ice-transition>
-        <!-- 大气压, 降水量, 风速 -->
-        <div v-if="visible" class="row items-center justify-between">
-          <div class="row items-center">
-            <q-icon name="air" size="1em" class="q-mr-xs"></q-icon>
-            {{ currentWeather!.now.pressure }}hpa
-          </div>
-          <div class="row items-center">
-            <q-icon name="water_drop" size="1em" class="q-mr-xs"></q-icon>
-            {{ currentWeather!.now.precip }}mm
-          </div>
-          <div class="row items-center">
-            <q-icon name="wind_power" size="1em" class="q-mr-xs"></q-icon>
-            {{ currentWeather!.now.wind.windSpeed }}km/h
-          </div>
+      <q-separator />
+
+      <!-- current location -->
+      <div class="row items-center clickable q-my-md" @click="openMap = true">
+        <q-icon name="fa-solid fa-location-dot" size="20px"></q-icon>
+        <div class="ellipsis q-ml-sm" style="width: 120px">
+          {{ currentLocation.address }}
         </div>
-        <!-- 骨架屏 -->
-        <div v-else class="row items-center justify-between">
-          <q-skeleton width="50px" v-for="i in 3" :key="i"></q-skeleton>
+      </div>
+
+      <!-- public time -->
+      <div class="row items-center">
+        <q-icon name="fa-solid fa-calendar-days" size="20px"></q-icon>
+        <div class="q-ml-sm">
+          {{ $d(currentWeather!.now.dateTime, 'long') }}
         </div>
-      </ice-transition>
+      </div>
     </q-card-section>
 
-    <ice-transition>
-      <q-card-section
-        v-if="visible && isPrecip"
-        class="col-xs-12 col-sm-6 col-md-8"
-      >
-        <!-- 这里放降水图 -->
-        <q-card flat bordered style="height: 100%">
-          <q-card-section>
-            {{ $t('weather.precipitation') }}
-          </q-card-section>
-          <div class="q-px-md" ref="precipPlot" style="height: 130px"></div>
-          <q-card-section>
-            <div class="summary" :class="$q.dark.isActive ? 'dark' : 'light'">
-              {{ currentWeather?.precip.summary }}
-            </div>
-          </q-card-section>
-        </q-card>
+    <!-- 这里放降水图 -->
+    <!-- <q-card flat bordered style="height: 100%">
+      <q-card-section>
+        {{ $t('weather.precipitation') }}
       </q-card-section>
-      <!-- 骨架屏 -->
-      <q-card-section v-else-if="!visible" class="col-xs-12 col-sm-6 col-md-8">
-        <q-card flat bordered style="height: 100%">
-          <q-card-section>
-            <q-skeleton width="80px" />
-          </q-card-section>
-
-          <q-card-section>
-            <q-skeleton height="130px"></q-skeleton>
-          </q-card-section>
-
-          <q-card-section>
-            <q-skeleton></q-skeleton>
-          </q-card-section>
-        </q-card>
+      <div class="q-px-md" ref="precipPlot" style="height: 130px"></div>
+      <q-card-section>
+        <div class="summary" :class="$q.dark.isActive ? 'dark' : 'light'">
+          {{ currentWeather?.precip.summary }}
+        </div>
       </q-card-section>
-    </ice-transition>
+    </q-card> -->
   </q-card>
+
+  <ice-map
+    v-model="openMap"
+    @confirm="confirm"
+    :lat="loc.latitude"
+    :lng="loc.longitude"
+    :addr="loc.address"
+    :city="loc.city"
+  ></ice-map>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watchEffect } from 'vue';
-import { useLocationStore, useWeatherStore } from 'stores/stores';
-import iceTransition from 'components/ice-transition.vue';
-import { storeToRefs } from 'pinia';
-import { date } from 'quasar';
+import { defineComponent } from 'vue';
 import { Area } from '@antv/g2plot';
 
 interface Precip_ {
@@ -177,52 +130,47 @@ export function area(dom: HTMLDivElement | null | string, data: Precip_[]) {
   area.render();
 }
 
+export default defineComponent({
+  name: 'iceMain',
+});
+</script>
+
+<script setup lang="ts">
+import { ref, watchEffect } from 'vue';
+import { useLocationStore, useWeatherStore } from 'stores/stores';
+import { storeToRefs } from 'pinia';
+import { date } from 'quasar';
+import iceMap from 'src/components/ice-map.vue';
+
 const { current: currentLocation } = storeToRefs(useLocationStore());
 const { current: currentWeather } = storeToRefs(useWeatherStore());
 
-export default defineComponent({
-  name: 'iceMain',
+const location = useLocationStore();
 
-  components: { iceTransition },
+function confirm(e: IMapData) {
+  location.changeLocation(e);
+}
 
-  props: {
-    visible: {
-      type: Boolean,
-      default: true,
-    },
-  },
+const { current: loc } = storeToRefs(location);
 
-  emits: ['openMap'],
+// const isPrecip = computed(()=>{
+//   return currentWeather.value!.precip.minutely.length === 0 ? false : true;
+// })
 
-  computed: {
-    // 当前是否降水
-    isPrecip() {
-      if (currentWeather.value!.precip.minutely.length === 0) return false;
-      else return true;
-    },
-  },
+const precipPlot = ref<HTMLDivElement | null>(null);
 
-  setup() {
-    const precipPlot = ref<HTMLDivElement | null>(null);
+const openMap = ref(false);
 
-    watchEffect(() => {
-      if (precipPlot.value) {
-        area(
-          precipPlot.value,
-          currentWeather.value!.precip.minutely.map((e: IPrecip) => ({
-            label: date.formatDate(e.dateTime, 'HH:mm'),
-            precip: e.precip,
-          }))
-        );
-      }
-    });
-
-    return {
-      currentLocation,
-      currentWeather,
-      precipPlot,
-    };
-  },
+watchEffect(() => {
+  if (precipPlot.value) {
+    area(
+      precipPlot.value,
+      currentWeather.value!.precip.minutely.map((e: IPrecip) => ({
+        label: date.formatDate(e.dateTime, 'HH:mm'),
+        precip: e.precip,
+      }))
+    );
+  }
 });
 </script>
 
@@ -243,4 +191,16 @@ export default defineComponent({
     border-left: 2px solid #d5d5d5;
   }
 }
+
+.main-wrapper {
+  position: relative;
+}
+
+.search-btn-wrapper {
+  position: absolute;
+  z-index: 10;
+  right: 12px;
+  top: 12px;
+}
 </style>
+

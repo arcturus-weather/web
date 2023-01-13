@@ -1,8 +1,8 @@
 export default class Location implements ILocation {
   latitude: number;
   longitude: number;
-  address?: string | undefined;
-  city?: string | undefined;
+  address?: string;
+  city?: string;
 
   constructor(options: {
     latitude: number;

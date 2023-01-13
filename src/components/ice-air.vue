@@ -1,5 +1,5 @@
 <template>
-  <q-card flat bordered style="height: 100%">
+  <q-card flat bordered style="height: 100%" class="card-border">
     <ice-transition>
       <div v-if="visible" style="height: 100%" class="column">
         <q-card-section>
@@ -63,11 +63,11 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import iceTransition from 'components/ice-transition.vue';
-import { useWeatherStore } from 'src/stores/stores';
 import { storeToRefs } from 'pinia';
-import { aqiCategory, pollutionsMap } from 'utils/weather/tools';
-import { aqiColor } from 'utils/weather/color';
+import { aqiCategory, pollutionsMap } from '@utils/weather/tools';
+import { aqiColor } from '@utils/weather/color';
+import iceTransition from '@components/ice-transition.vue';
+import { useWeatherStore } from '@src/stores/stores';
 
 const { current: air } = storeToRefs(useWeatherStore());
 

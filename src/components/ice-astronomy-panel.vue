@@ -46,7 +46,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useWeatherStore } from 'src/stores/stores';
+import { useWeatherStore } from '@src/stores/stores';
 import { storeToRefs } from 'pinia';
 
 const { current } = storeToRefs(useWeatherStore());

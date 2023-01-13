@@ -1,4 +1,4 @@
-import Http from 'utils/http';
+import Http from '@utils/http';
 import { notify } from './utils';
 
 export default class Ice {

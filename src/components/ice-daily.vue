@@ -76,9 +76,9 @@
 
 <script lang="ts">
 import { defineComponent, ref, watchEffect } from 'vue';
-import iceTransition from 'components/ice-transition.vue';
-import iceDailyPanel from 'components/ice-daily-panel.vue';
-import { useWeatherStore } from 'stores/stores';
+import iceTransition from '@components/ice-transition.vue';
+import iceDailyPanel from '@components/ice-daily-panel.vue';
+import { useWeatherStore } from '@stores/stores';
 import { storeToRefs } from 'pinia';
 import { DualAxes } from '@antv/g2plot';
 import { date } from 'quasar';

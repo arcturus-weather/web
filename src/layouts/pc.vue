@@ -34,8 +34,8 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { useAppInfoStore } from 'stores/stores';
-import iceTransition from 'components/ice-transition.vue';
+import { useAppInfoStore } from '@stores/stores';
+import iceTransition from '@components/ice-transition.vue';
 
 export default defineComponent({
   name: 'PCLayout',

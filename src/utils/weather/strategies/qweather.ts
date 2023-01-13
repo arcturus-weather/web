@@ -1,7 +1,8 @@
-import Http from 'utils/http';
-import Location from 'utils/location/location';
+import Http, { requestOption } from '@utils/http';
+import Location from '@utils/location/location';
 import { Strategies } from './base';
 import { date } from 'quasar';
+import md5 from 'js-md5';
 
 // 处理请求结果
 class QWeatherHandler {
@@ -196,19 +197,45 @@ class QWeatherHandler {
   }
 }
 
-// docs: https://dev.qweather.com/docs/resource/language/
-// qweather 支持的语言字符串与我们自定义的不一致
-const qWeatherLangMap = {
+const qWeatherLangMap: Record<Languages, string> = {
   'zh-CN': 'zh',
   'zh-TW': 'zh-hant',
   'en-US': 'en',
 };
+
+interface signureOptions {
+  publicID: string;
+  privateKey: string;
+  parameterObject: Record<string, string>;
+}
+
+function getSignature(o: signureOptions) {
+  const keys = Object.keys(o.parameterObject);
+
+  keys.sort();
+
+  let str = '';
+
+  for (const i in keys) {
+    const k = keys[i];
+    str += k + '=' + o.parameterObject[k] + '&';
+  }
+
+  str = str.substring(0, str.length - 1) + o.privateKey;
+
+  return {
+    t: String(Math.round(new Date().getTime() / 1000)),
+    sign: md5(str),
+    publicid: o.publicID,
+  };
+}
 
 export default class QWeatherStrategies extends Strategies {
   private http: Http;
 
   constructor(
     private key: string,
+    private pid: string,
     private lang = 'zh',
     private baseUrl: string = 'https://devapi.qweather.com/v7/'
   ) {
@@ -218,9 +245,8 @@ export default class QWeatherStrategies extends Strategies {
       baseUrl: this.baseUrl,
     });
 
-    // 添加请求拦截器
-    Http.setRequestInterceptors(this.http.ax, 'qWeather');
-    // 添加响应拦截器
+    Http.setRequestInterceptors(this.http.ax);
+
     Http.setQweatherResponseInterceptors(this.http.ax);
   }
 
@@ -228,17 +254,23 @@ export default class QWeatherStrategies extends Strategies {
     this.lang = qWeatherLangMap[lang];
   }
 
-  request({ url, data }: { url: string; data: object }): Promise<any> {
+  request({ url, data, headers }: requestOption): Promise<any> {
     return this.http.request({
       url,
       method: 'GET',
-      data: Object.assign(
-        {
-          key: this.key,
-          lang: this.lang,
-        },
-        data
-      ),
+      headers,
+      data: {
+        params: getSignature({
+          parameterObject: Object.assign(
+            {
+              lang: this.lang,
+            },
+            data
+          ),
+          publicID: this.pid,
+          privateKey: this.key,
+        }),
+      },
     });
   }
 

@@ -1,26 +1,27 @@
-/*************************
- *       腾讯地图         *
- *************************/
-import Http from 'utils/http';
+import Http from '@utils/http';
+import { i18n } from 'src/boot/i18n';
 
 declare const qq: { maps: { Geolocation: any } };
 
 export class QQMap {
-  private baseUrl: string;
   private http: Http;
   private geolocation;
 
   constructor(private key: string) {
-    this.baseUrl = '/qqmap'; // 配合 proxy 实现跨域
-
     this.http = new Http({
-      baseUrl: this.baseUrl,
+      baseUrl: '/qqmap', // 配合 proxy 实现跨域
     });
 
-    Http.setRequestInterceptors(this.http.ax, 'qqMap');
+    Http.setRequestInterceptors(this.http.ax, (config) => {
+      if (typeof config.params.key === 'undefined') {
+        return Promise.reject(`qqMap ${i18n.global.t('waring.key')}`);
+      }
+
+      return config;
+    });
+
     Http.setQQMapResponseInterceptors(this.http.ax);
 
-    // 获取定位
     this.geolocation = new qq.maps.Geolocation(
       this.key,
       process.env.VUE_APP_NAME
@@ -33,6 +34,7 @@ export class QQMap {
       this.geolocation.getLocation(
         (res: geoResult) => {
           const { lat, lng, city, addr } = res;
+
           resolve({
             latitude: lat, // 纬度
             longitude: lng, // 经度
@@ -44,7 +46,7 @@ export class QQMap {
           reject();
         },
         {
-          timeout: 10000, // 超时时间 10s
+          timeout: 20000,
           failTipFlag: true, // 重新授权
         }
       );
@@ -57,9 +59,11 @@ export class QQMap {
       url: '/ws/place/v1/suggestion',
       method: 'GET',
       data: {
-        key: this.key,
-        keyword,
-        region,
+        params: {
+          key: this.key,
+          keyword,
+          region,
+        },
       },
     });
   }
@@ -70,8 +74,10 @@ export class QQMap {
       url: '/ws/geocoder/v1',
       method: 'GET',
       data: {
-        key: this.key,
-        address,
+        params: {
+          key: this.key,
+          address,
+        },
       },
     });
   }
@@ -82,22 +88,23 @@ export class QQMap {
       url: '/ws/geocoder/v1',
       method: 'GET',
       data: {
-        key: this.key,
-        location,
+        params: {
+          key: this.key,
+          location,
+        },
       },
     });
   }
 }
 
-/*************************
- *      腾讯地图绘制       *
- *************************/
-export class DrawQQMap {
-  private maker: TMap.MultiMarker | undefined;
-  private map: TMap.Map | undefined;
-  callback: (res: IMapData) => void;
+type drawQQMapCallback = (res: IMapData) => void;
 
-  constructor(callback: (res: IMapData) => void) {
+export class DrawQQMap {
+  private maker?: TMap.MultiMarker;
+  private map?: TMap.Map;
+  callback: drawQQMapCallback;
+
+  constructor(callback: drawQQMapCallback) {
     this.callback = callback ?? function () {};
   }
 
@@ -105,17 +112,20 @@ export class DrawQQMap {
   init(dom: HTMLElement | null, latitude: number, longitude: number) {
     // 中心点坐标
     const center = new TMap.LatLng(latitude, longitude);
+
     // 初始化地图
     this.map = new TMap.Map(dom ?? 'map', {
       center,
       zoom: 14, // 缩放比例
       viewMode: '2D', // 显示模式
     });
+
     // 绑定地图点击事件
     this.map.on('click', this.select.bind(this));
 
     // 获取缩放控件实例
     const control = this.map.getControl(TMap.constants.DEFAULT_CONTROL_ID.ZOOM);
+    
     // 设置缩放控件位于右下角
     control.setPosition(TMap.constants.CONTROL_POSITION.BOTTOM_RIGHT);
 

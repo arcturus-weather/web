@@ -62,8 +62,17 @@ module.exports = configure(function (/* ctx */) {
         node: 'node16',
       },
       alias: {
-        // path alias: https://quasar.dev/quasar-cli-vite/handling-vite#folder-aliases
-        utils: path.join(__dirname, './src/utils'),
+        // https://quasar.dev/quasar-cli-vite/handling-vite#folder-aliases
+        '@src': path.join(__dirname, './src'),
+        '@app': path.join(__dirname, '.'),
+        '@components': path.join(__dirname, './src/components'),
+        '@layouts': path.join(__dirname, './src/layouts'),
+        '@pages': path.join(__dirname, './src/pages'),
+        '@assets': path.join(__dirname, './src/assets'),
+        '@stores': path.join(__dirname, './src/stores'),
+        '@boot': path.join(__dirname, './src/utils'),
+        '@utils': path.join(__dirname, './src/utils'),
+        '@mock': path.join(__dirname, './src/mock'),
       },
       distDir: 'dist',
       vueRouterMode: 'history', // available values: 'hash', 'history'
@@ -81,6 +90,8 @@ module.exports = configure(function (/* ctx */) {
         VUE_APP_NAME: productName,
         VUE_SERVER_BASEURL: process.env.VUE_SERVER_BASEURL,
         VUE_APP_VERSION: version,
+        VUE_QWEATHER_ID: process.env.VUE_QWEATHER_ID,
+        VUE_CAIYUN_KEY: process.env.VUE_CAIYUN_KEY,
       },
       // rawDefine: {}
       // ignorePublicFolder: true,
@@ -119,7 +130,7 @@ module.exports = configure(function (/* ctx */) {
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
     framework: {
       config: {
-        ripple: true,
+        ripple: false,
       },
 
       // iconSet: 'material-icons', // Quasar icon set

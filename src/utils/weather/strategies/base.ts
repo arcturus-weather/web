@@ -1,6 +1,6 @@
-import Location from 'utils/location/location';
+import Location from '@utils/location/location';
 
-// 策略模式...
+// 策略模式
 export abstract class Strategies {
   abstract getAir(loc: Location): Promise<any>;
   abstract getSunTime(loc: Location, date?: string): Promise<any>;

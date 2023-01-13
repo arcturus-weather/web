@@ -1,28 +1,35 @@
 // 引入 Mock 模块
 import Mock from 'mockjs';
 
-/***********************
- *   和风天气模拟数据   *
- **********************/
-import now from '../mock/qweather/nows.json';
-import sevenDays from '../mock/qweather/sevendays.json';
-import hours from '../mock/qweather/hours.json';
-import moonPhase from '../mock/qweather/moon.json';
-import lifeindex from '../mock/qweather/lifeIndex.json';
-import warning from '../mock/qweather/warning.json';
-import air from '../mock/qweather/air.json';
-import rain from '../mock/qweather/rain.json';
+// qweather
+import _Q_NOW_ from '@mock/qweather/nows.json';
+import _Q_SEVEN_s from '@mock/qweather/sevendays.json';
+import _Q_HOURS_ from '@mock/qweather/hours.json';
+import _Q_MOON_PHASE_ from '@mock/qweather/moon.json';
+import _Q_LIFE_ from '@mock/qweather/lifeIndex.json';
+import _Q_WARNING_ from '@mock/qweather/warning.json';
+import _Q_AIR_ from '@mock/qweather/air.json';
+import _Q_RAIN_ from '@mock/qweather/rain.json';
+
+// caiyun
+import _C_ALL_ from '@mock/caiyun/all.json';
 
 Mock.setup({
   timeout: '0',
 });
+
+// 彩云天气
+Mock.mock(
+  /https:\/\/api\.caiyunapp\.com\/v2\.6\/.+\/.+\/weather.*/,
+  _C_ALL_
+);
 
 // 实时天气
 Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/weather\/now.*/, {
   code: '200',
   updateTime: '2020-06-30T22:00+08:00',
   fxLink: 'http://hfx.link/2ax1',
-  now: now,
+  now: _Q_NOW_,
   refer: {
     sources: ['Weather China'],
     license: ['commercial license'],
@@ -34,7 +41,7 @@ Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/weather\/7d.*/g, {
   code: '200',
   updateTime: '2021-11-15T16:35+08:00',
   fxLink: 'http://hfx.link/2ax1',
-  daily: sevenDays,
+  daily: _Q_SEVEN_s,
   refer: {
     sources: ['QWeather', 'NMC', 'ECMWF'],
     license: ['commercial license'],
@@ -46,7 +53,7 @@ Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/weather\/24h/g, {
   code: '200',
   updateTime: '2021-02-16T13:35+08:00',
   fxLink: 'http://hfx.link/2ax1',
-  hourly: hours,
+  hourly: _Q_HOURS_,
   refer: {
     sources: ['Weather China'],
     license: ['commercial license'],
@@ -58,7 +65,7 @@ Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/indices\/1d/g, {
   code: '200',
   updateTime: '2021-02-06T16:36+08:00',
   fxLink: 'http://hfx.link/2ax2',
-  daily: lifeindex,
+  daily: _Q_LIFE_,
   refer: {
     sources: ['Weather China'],
     license: ['commercial license'],
@@ -70,7 +77,7 @@ Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/warning\/now.*/g, {
   code: '200',
   updateTime: '2021-10-10T12:20+08:00',
   fxLink: 'http://hfx.link/2ax5',
-  warning: warning,
+  warning: _Q_WARNING_,
   refer: {
     sources: ['12379'],
     license: ['commercial license'],
@@ -82,8 +89,8 @@ Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/air\/now.*/g, {
   code: '200',
   updateTime: '2021-02-16T14:42+08:00',
   fxLink: 'http://hfx.link/2ax4',
-  now: air[0],
-  station: air[1],
+  now: _Q_AIR_[0],
+  station: _Q_AIR_[1],
   refer: {
     sources: ['cnemc'],
     license: ['commercial license'],
@@ -110,7 +117,7 @@ Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/astronomy\/moon.*/g, {
   fxLink: 'http://hfx.link/2ax1',
   moonrise: '2022-06-30T13:25+08:00',
   moonset: '2022-07-01T04:42+08:00',
-  moonPhase: moonPhase,
+  moonPhase: _Q_MOON_PHASE_,
   refer: {
     sources: ['QWeather'],
     license: ['commercial license'],
@@ -122,8 +129,8 @@ Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/minutely\/5m.*/g, {
   code: '200',
   updateTime: '2020-08-09T16:30+08:00',
   fxLink: 'http://hfx.link/1',
-  summary: '降雨还将持续120分钟',
-  minutely: rain,
+  summary: '降雨还将持续 120 分钟',
+  minutely: _Q_RAIN_,
   refer: {
     sources: ['Weather China'],
     license: ['commercial license'],

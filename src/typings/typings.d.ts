@@ -92,14 +92,11 @@ interface IMapData {
   city?: string;
 }
 
-// 主题
 type Themes = 'lightMode' | 'darkMode' | 'systemMode' | 'autoMode';
 
-// 语言
 type Languages = 'en-US' | 'zh-TW' | 'zh-CN';
 
-// 数据源
-type DataSources = 'qWeather' | 'openWeather' | 'caiyun';
+type DataSources = 'qWeather' | 'caiyun';
 
 interface IComponents {
   co: number;

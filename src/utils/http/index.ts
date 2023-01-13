@@ -1,11 +1,22 @@
-import { openWeatherCode, qWeatherCode, qqMapCode } from './code';
-import axios, { AxiosInstance, AxiosResponse, Method } from 'axios';
-import { i18n } from 'src/boot/i18n';
-import { notify } from 'utils/utils';
+import { qWeatherCode, qqMapCode } from './code';
+import axios, {
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+  Method,
+} from 'axios';
+import { notify } from '@utils/utils';
 
 interface httpOption {
   baseUrl: string;
   timeout?: number;
+  headers?: Record<string, string>;
+}
+
+export interface requestOption {
+  url: string;
+  method?: Method;
+  data?: Record<string, any>;
   headers?: Record<string, string>;
 }
 
@@ -26,56 +37,25 @@ export default class Http {
     return ax;
   }
 
-  request({
-    url,
-    method = 'GET',
-    data,
-  }: {
-    url: string;
-    method?: Method;
-    data?: Record<string, any>;
-  }) {
-    const p: { [key: string]: object } = {};
+  request({ url, method = 'GET', data = {}, headers = {} }: requestOption) {
+    return this.ax({ url, method, ...data, headers });
+  }
 
-    if (data) {
-      if (method === 'GET') {
-        p.params = data;
-      } else if (method === 'POST') {
-        p.data = data;
-      }
+  static setRequestInterceptors(
+    ax: AxiosInstance,
+    handler?: (
+      value: AxiosRequestConfig
+    ) => AxiosRequestConfig | Promise<AxiosRequestConfig>
+  ) {
+    if (typeof handler === 'undefined') {
+      handler = (config) => config;
     }
 
-    return this.ax({
-      url,
-      method,
-      ...p,
+    ax.interceptors.request.use(handler, (err) => {
+      // 请求失败, 如网络错误等, 会被响应拦截器的第二个参数接收
+      return Promise.reject(err);
     });
   }
-
-  /*************************
-   *       请求拦截器        *
-   *************************/
-
-  static setRequestInterceptors(ax: AxiosInstance, type: string) {
-    ax.interceptors.request.use(
-      (config) => {
-        if (typeof config.params.key === 'undefined') {
-          // 这个 reject 会被抛给响应拦截器
-          return Promise.reject(`${type} ${i18n.global.t('waring.key')}`);
-        }
-
-        return config;
-      },
-      (err) => {
-        // 请求失败, 如网络错误等, 会被响应拦截器的第二个参数接收
-        return Promise.reject(err);
-      }
-    );
-  }
-
-  /*************************
-   *       响应拦截器        *
-   *************************/
 
   static setResponseInterceptors(
     ax: AxiosInstance,
@@ -91,6 +71,7 @@ export default class Http {
         } else if (typeof err.message === 'string') {
           notify.negative(err.message);
         }
+
         return Promise.reject(err.response.data);
       }
     );
@@ -100,39 +81,31 @@ export default class Http {
   static setQweatherResponseInterceptors(ax: AxiosInstance) {
     Http.setResponseInterceptors(ax, (resp) => {
       const res = resp.data;
-      if (res.code === '200') {
+      const code = Number(res.code);
+
+      if (code === 200) {
         return Promise.resolve(res);
       } else {
-        notify.negative(qWeatherCode[res.code]);
+        notify.negative(qWeatherCode[code as keyof typeof qWeatherCode]);
         return Promise.reject();
       }
     });
   }
 
-  // openWeather
-  static setOpenWeatherResponseInterceptors(ax: AxiosInstance) {
-    Http.setResponseInterceptors(ax, (resp) => {
-      if (resp.status === 200) {
-        return Promise.resolve(resp.data);
-      } else {
-        notify.negative(openWeatherCode[resp.status]);
-        return Promise.reject();
-      }
-    });
-  }
-
-  // 腾讯地图
+  // tencent map
   static setQQMapResponseInterceptors(ax: AxiosInstance) {
     Http.setResponseInterceptors(ax, (resp) => {
       const data = resp.data;
-      if (data.status === 0) {
+      const status = data.status as number;
+
+      if (status === 0) {
         if (typeof data.data !== 'undefined') {
           return Promise.resolve(data.data);
         } else if (typeof data.result !== 'undefined') {
           return Promise.resolve(data.result);
         } else return data;
       } else {
-        notify.negative(qqMapCode[resp.data.status]);
+        notify.negative(qqMapCode[status as keyof typeof qqMapCode]);
         return Promise.reject();
       }
     });

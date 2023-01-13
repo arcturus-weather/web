@@ -1,8 +1,8 @@
-import Location from 'utils/location/location';
+import Location from '@utils/location/location';
 import { Strategies } from './base';
 
 export default class Weather {
-  private strategies: { [key: string]: Strategies };
+  private strategies: Record<string, Strategies>;
 
   // 根据不同的策略进行天气信息请求
   public constructor(private current: Strategies, type: string) {
@@ -68,3 +68,4 @@ export default class Weather {
     return this.current.getAllweather(loc);
   }
 }
+
