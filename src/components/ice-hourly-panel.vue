@@ -62,8 +62,6 @@ export default defineComponent({
       default: false,
       type: Boolean,
     },
-    // 这里也可以直接传个对象过来
-    // 但好像直接使用 idx 获取全局状态会更快?
     idx: Number,
   },
 
