@@ -1,4 +1,5 @@
 import { Notify } from 'quasar';
+import { BinaryToTextEncoding, createHash } from 'crypto';
 import { i18n } from 'src/boot/i18n';
 
 export function mock() {
@@ -89,5 +90,13 @@ export function isValidPassword(pwd: string): string | boolean {
   }
 
   return true;
+}
+
+export function md5(str: string, encoding: BinaryToTextEncoding = 'hex') {
+  const hash = createHash('md5');
+
+  hash.update(str);
+
+  return hash.digest(encoding);
 }
 
