@@ -1,7 +1,9 @@
 import Http, { requestOption } from '@utils/http';
 import Location from '@utils/location/location';
-import { Strategies } from './base';
+import { WeatherStrategy } from './base';
 import { date } from 'quasar';
+import { notify } from '@src/utils/utils';
+import { qWeatherCode } from '@src/utils/http/code';
 import md5 from 'js-md5';
 
 // 处理请求结果
@@ -201,6 +203,7 @@ const qWeatherLangMap: Record<Languages, string> = {
   'zh-CN': 'zh',
   'zh-TW': 'zh-hant',
   'en-US': 'en',
+  'en-GB': 'en',
 };
 
 interface signureOptions {
@@ -237,7 +240,7 @@ function getParams(o: signureOptions) {
   };
 }
 
-export default class QWeatherStrategies extends Strategies {
+export default class QWeatherStrategy extends WeatherStrategy {
   private http: Http;
 
   constructor(
@@ -254,7 +257,17 @@ export default class QWeatherStrategies extends Strategies {
 
     Http.setRequestInterceptors(this.http.ax);
 
-    Http.setQweatherResponseInterceptors(this.http.ax);
+    Http.setResponseInterceptors(this.http.ax, (resp) => {
+      const res = resp.data;
+      const code = Number(res.code);
+
+      if (code === 200) {
+        return Promise.resolve(res);
+      } else {
+        notify.negative(qWeatherCode[code as keyof typeof qWeatherCode]);
+        return Promise.reject();
+      }
+    });
   }
 
   set language(lang: Languages) {
@@ -382,8 +395,7 @@ export default class QWeatherStrategies extends Strategies {
     });
   }
 
-  // 一键获取全部天气数据
-  getAllweather(loc: Location): Promise<IWeather | void> {
+  getWeather(loc: Location): Promise<IWeather | void> {
     return Promise.all([
       this.getAir(loc),
       this.getSunTime(loc),
