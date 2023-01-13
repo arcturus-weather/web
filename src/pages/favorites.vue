@@ -55,9 +55,9 @@ export default defineComponent({
 
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import iceMap from 'src/components/ice-map.vue';
+import iceMap from '@src/components/ice-map.vue';
 import { useRouter } from 'vue-router';
-import { useUserStore, useLocationStore } from 'stores/stores';
+import { useUserStore, useLocationStore } from '@stores/stores';
 const user = useUserStore();
 const loc = useLocationStore();
 const router = useRouter();

@@ -127,14 +127,9 @@ const dataSources = computed(() => {
       disable: false,
     },
     {
-      label: t('setting.dataSources.openWeather'),
-      value: 'openWeather',
-      disable: true,
-    },
-    {
       label: t('setting.dataSources.caiyun'),
       value: 'caiyun',
-      disable: true,
+      disable: false,
     },
   ];
 });

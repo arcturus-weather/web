@@ -78,9 +78,9 @@ export default defineComponent({
 import { date } from 'quasar';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { notify } from 'src/utils/utils';
-import { useUserStore, useWeatherStore } from 'stores/stores';
-import iceWritePanel from 'components/ice-write-panel.vue';
+import { notify } from '@src/utils/utils';
+import { useUserStore, useWeatherStore } from '@stores/stores';
+import iceWritePanel from '@components/ice-write-panel.vue';
 import { useRouter } from 'vue-router';
 
 const { t } = useI18n();

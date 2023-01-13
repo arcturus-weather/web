@@ -130,12 +130,12 @@ export default defineComponent({
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
-import iceForm from 'components/ice-form.vue';
-import { isValidEmail, isValidPassword } from 'utils/utils';
-import { notify } from 'utils/utils';
-import { i18n } from 'src/boot/i18n';
 import { RouteLocationRaw, useRouter } from 'vue-router';
-import { useUserStore } from 'stores/stores';
+import { useUserStore } from '@stores/stores';
+import iceForm from '@components/ice-form.vue';
+import { isValidEmail, isValidPassword } from '@utils/utils';
+import { notify } from '@utils/utils';
+import { i18n } from '@src/boot/i18n';
 
 const router = useRouter();
 const user = useUserStore();

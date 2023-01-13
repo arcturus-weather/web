@@ -42,8 +42,7 @@ import iceAstronomy from 'components/ice-astronomy.vue';
 import iceHourly from 'components/ice-hourly.vue';
 import iceDaily from 'components/ice-daily.vue';
 import { storeToRefs } from 'pinia';
-
-import { useLocationStore, useWeatherStore } from 'stores/stores';
+import { useLocationStore, useWeatherStore } from '@stores/stores';
 
 const location = useLocationStore();
 
