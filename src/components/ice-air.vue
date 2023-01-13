@@ -1,118 +1,93 @@
 <template>
   <q-card flat bordered style="height: 100%" class="card-border">
-    <ice-transition>
-      <div v-if="visible" style="height: 100%" class="column">
-        <q-card-section>
-          <div class="text-bold">{{ $t('weather.aqi') }}</div>
-          <!-- 发布时间 -->
-          <div class="text-caption">
-            {{ $t('date.pubTime') }}: {{ $d(air!.air.dateTime, 'long') }}
-          </div>
-        </q-card-section>
-
-        <q-card-section class="column justify-between" style="flex: 1">
-          <!-- 空气质量 -->
-          <div class="text-h2 text-bold" :style="{ color: aqiColor }">
-            {{ air?.air.aqi }}
-            <span class="text-h5">{{ $t(`weather.air.${category}`) }}</span>
-          </div>
-
-          <!-- 空气质量比例条 -->
-          <div
-            class="bar"
-            :style="{
-              background: `linear-gradient(to right, ${barColor})`,
-            }"
-          >
-            <div
-              class="circle"
-              :style="{
-                left: `${offset}%`,
-              }"
-            ></div>
-          </div>
-
-          <!-- 污染物 -->
-          <div class="row justify-between">
-            <div
-              v-for="(item, idx) in pollutions"
-              :key="idx"
-              class="column items-center"
-            >
-              <div class="text-bold">{{ item.value }}</div>
-              <div class="text-caption">{{ item.label }}</div>
-            </div>
-          </div>
-        </q-card-section>
-      </div>
-
-      <div v-else style="height: 100%" class="column justify-between">
-        <q-card-section>
-          <q-skeleton width="80px"></q-skeleton>
-        </q-card-section>
-        <div class="row justify-center items-center" style="flex: 1">
-          <q-skeleton height="175px" width="175px" />
+    <div style="height: 100%" class="column">
+      <q-card-section>
+        <div class="text-bold">{{ $t('weather.aqi') }}</div>
+        <!-- public time -->
+        <div class="text-caption">
+          {{ $t('date.pubTime') }}: {{ $d(air!.air.dateTime, 'long') }}
         </div>
-        <q-card-section class="row justify-between items-center">
-          <q-skeleton v-for="idx in 6" :key="idx" width="30px" />
-        </q-card-section>
-      </div>
-    </ice-transition>
+      </q-card-section>
+
+      <q-card-section class="column justify-between" style="flex: 1">
+        <!-- air quality -->
+        <div class="text-h2 text-bold" :style="{ color: aqiColor }">
+          {{ air?.air.aqi }}
+          <span class="text-h5">{{ $t(`weather.air.${category}`) }}</span>
+        </div>
+
+        <!-- radio -->
+        <div
+          class="bar"
+          :style="{
+            background: `linear-gradient(to right, ${barColor})`,
+          }"
+        >
+          <div
+            class="circle"
+            :style="{
+              left: `${offset}%`,
+            }"
+          ></div>
+        </div>
+
+        <!-- pollutions -->
+        <div class="row justify-between">
+          <div
+            v-for="(item, idx) in pollutions"
+            :key="idx"
+            class="column items-center"
+          >
+            <div class="text-bold">{{ item.value }}</div>
+            <div class="text-caption">{{ item.label }}</div>
+          </div>
+        </div>
+      </q-card-section>
+    </div>
   </q-card>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-import { storeToRefs } from 'pinia';
-import { aqiCategory, pollutionsMap } from '@utils/weather/tools';
-import { aqiColor } from '@utils/weather/color';
-import iceTransition from '@components/ice-transition.vue';
-import { useWeatherStore } from '@src/stores/stores';
-
-const { current: air } = storeToRefs(useWeatherStore());
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'iceAir',
+});
+</script>
 
-  components: { iceTransition },
+<script setup lang="ts">
+import { computed } from 'vue';
+import { ref } from 'vue';
+import { storeToRefs } from 'pinia';
+import { aqiCategory, pollutionsMap } from '@utils/weather/tools';
+import { useWeatherStore } from '@src/stores/stores';
+import { aqiColors } from '@utils/weather/color';
 
-  props: {
-    visible: {
-      type: Boolean,
-      default: false,
-    },
-  },
+const { current: air } = storeToRefs(useWeatherStore());
 
-  computed: {
-    category() {
-      return aqiCategory(air.value?.air.aqi);
-    },
+const barColor = ref(
+  Object.keys(aqiColors)
+    .map((el) => aqiColors[el as keyof typeof aqiColors])
+    .join(',')
+);
 
-    aqiColor() {
-      return aqiColor[this.category];
-    },
+const category = computed(() => {
+  return aqiCategory(air.value?.air.aqi);
+});
 
-    offset() {
-      return air.value!.air.aqi / 5;
-    },
+const aqiColor = computed(() => {
+  return aqiColors[category.value as keyof typeof aqiColors];
+});
 
-    pollutions() {
-      return Object.entries(air.value!.air.components).map(([k, v]) => ({
-        label: pollutionsMap[k],
-        value: v,
-      }));
-    },
-  },
+const offset = computed(() => {
+  return air.value!.air.aqi / 5;
+});
 
-  setup() {
-    const barColor = ref(
-      Object.keys(aqiColor)
-        .map((el) => aqiColor[el])
-        .join(',')
-    );
-
-    return { air, barColor };
-  },
+const pollutions = computed(() => {
+  return Object.entries(air.value!.air.components).map(([k, v]) => ({
+    label: pollutionsMap[k as keyof typeof pollutionsMap],
+    value: v,
+  }));
 });
 </script>
 
@@ -137,3 +112,4 @@ export default defineComponent({
   }
 }
 </style>
+

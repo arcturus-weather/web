@@ -1,82 +1,63 @@
 <template>
   <q-card flat bordered style="height: 100%">
-    <ice-transition>
-      <div v-if="visible">
-        <q-card-section class="text-bold">
-          {{ $t('weather.daily') }}
-        </q-card-section>
+    <q-card-section class="text-bold">
+      {{ $t('weather.daily') }}
+    </q-card-section>
 
-        <q-scroll-area
-          class="height"
-          :thumb-style="{
-            bottom: '2px',
-            borderRadius: '5px',
-            opacity: '0.1',
-          }"
+    <q-scroll-area
+      class="height"
+      :thumb-style="{
+        bottom: '2px',
+        borderRadius: '5px',
+        opacity: '0.1',
+      }"
+    >
+      <q-list class="row no-wrap height list">
+        <q-item
+          v-for="(item, idx) in current!.daily"
+          :key="idx"
+          clickable
+          v-ripple
+          @click="openDailyPanel(idx)"
+          class="list-item q-px-xs column items-center"
         >
-          <q-list class="row no-wrap height list">
-            <q-item
-              v-for="(item, idx) in current!.daily"
-              :key="idx"
-              clickable
-              v-ripple
-              @click="openDailyPanel(idx)"
-              class="list-item q-px-xs column items-center"
-            >
-              <div class="up text-center">
-                <div>{{ $d(item.dateTime, 'week') }}</div>
-                <div class="text-caption">{{ $d(item.dateTime, 'day') }}</div>
+          <div class="up text-center">
+            <div>{{ $d(item.dateTime, 'week') }}</div>
+            <div class="text-caption">{{ $d(item.dateTime, 'day') }}</div>
 
-                <div>
-                  <i-icon :name="item.dayIcon" :size="40"></i-icon>
-                  <div class="text-center">{{ item.dayDesc }}</div>
-                </div>
-              </div>
-
-              <div class="down">
-                <div class="text-center">{{ item.nightDesc }}</div>
-                <i-icon
-                  v-if="item.nightIcon"
-                  :name="item.nightIcon"
-                  :size="40"
-                ></i-icon>
-              </div>
-            </q-item>
-            <!-- 双折线图 -->
-            <div ref="day" class="graph"></div>
-          </q-list>
-        </q-scroll-area>
-      </div>
-      <!-- 骨架屏 -->
-      <div v-else>
-        <q-card-section>
-          <q-skeleton width="80px"></q-skeleton>
-        </q-card-section>
-
-        <q-scroll-area
-          class="height q-pb-xs"
-          :thumb-style="{
-            height: '0',
-          }"
-        >
-          <div class="row no-wrap">
-            <q-skeleton
-              class="day-skeleton height"
-              width="80px"
-              v-for="i in 10"
-              :key="i"
-            />
+            <div>
+              <i-icon :name="item.dayIcon" :size="40"></i-icon>
+              <div class="text-center">{{ item.dayDesc }}</div>
+            </div>
           </div>
-        </q-scroll-area>
-      </div>
-    </ice-transition>
+
+          <div class="down">
+            <div class="text-center">{{ item.nightDesc }}</div>
+            <i-icon
+              v-if="item.nightIcon"
+              :name="item.nightIcon"
+              :size="40"
+            ></i-icon>
+          </div>
+        </q-item>
+        <!-- 双折线图 -->
+        <div ref="day" class="graph"></div>
+      </q-list>
+    </q-scroll-area>
   </q-card>
   <ice-daily-panel v-model="open" :idx="idx"></ice-daily-panel>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watchEffect } from 'vue';
-import iceTransition from '@components/ice-transition.vue';
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: 'iceDaily',
+});
+</script>
+
+<script lang="ts" setup>
+import { ref, watchEffect } from 'vue';
 import iceDailyPanel from '@components/ice-daily-panel.vue';
 import { useWeatherStore } from '@stores/stores';
 import { storeToRefs } from 'pinia';
@@ -94,7 +75,6 @@ interface TData {
   name: string;
 }
 
-// 绘制温度折线图
 function createGraph(
   dom: HTMLDivElement | null | string,
   p: PData[],
@@ -184,63 +164,44 @@ function createGraph(
   dualAxes.render();
 }
 
-export default defineComponent({
-  name: 'iceDaily',
+function openDailyPanel(e: number) {
+  this.idx = e;
+  this.open = true;
+}
 
-  components: { iceTransition, iceDailyPanel },
+const { current } = storeToRefs(useWeatherStore()),
+  idx = ref(0),
+  open = ref(false),
+  day = ref<HTMLDivElement | null>(null);
 
-  props: {
-    visible: {
-      type: Boolean,
-      default: false,
-    },
-  },
+watchEffect(() => {
+  if (day.value) {
+    const d1: TData[] = [],
+      d2: TData[] = [],
+      d3: PData[] = [];
 
-  methods: {
-    openDailyPanel(e: number) {
-      this.idx = e;
-      this.open = true;
-    },
-  },
+    current.value!.daily.forEach((e: IDailyItem) => {
+      const t = date.formatDate(e.dateTime, 'MM-DD');
+      d1.push({
+        x: t,
+        temp: e.temperature.max!,
+        name: 'max',
+      });
 
-  setup() {
-    const { current } = storeToRefs(useWeatherStore()),
-      idx = ref(0),
-      open = ref(false),
-      day = ref<HTMLDivElement | null>(null);
+      d2.push({
+        x: t,
+        temp: e.temperature.min!,
+        name: 'min',
+      });
 
-    watchEffect(() => {
-      if (day.value) {
-        const d1: TData[] = [],
-          d2: TData[] = [],
-          d3: PData[] = [];
-
-        current.value!.daily.forEach((e: IDailyItem) => {
-          const t = date.formatDate(e.dateTime, 'MM-DD');
-          d1.push({
-            x: t,
-            temp: e.temperature.max!,
-            name: 'max',
-          });
-
-          d2.push({
-            x: t,
-            temp: e.temperature.min!,
-            name: 'min',
-          });
-
-          d3.push({
-            x: t,
-            pop: e.pop!,
-          });
-        });
-
-        createGraph(day.value, d3, [...d2, ...d1]);
-      }
+      d3.push({
+        x: t,
+        pop: e.pop!,
+      });
     });
 
-    return { current, open, idx, day };
-  },
+    createGraph(day.value, d3, [...d2, ...d1]);
+  }
 });
 </script>
 
@@ -287,3 +248,4 @@ export default defineComponent({
   }
 }
 </style>
+

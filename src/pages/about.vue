@@ -58,7 +58,7 @@ export default defineComponent({
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { useAppInfoStore } from 'stores/stores';
+import { useAppInfoStore } from '@stores/stores';
 import { storeToRefs } from 'pinia';
 
 const app = useAppInfoStore();

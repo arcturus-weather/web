@@ -1,27 +1,39 @@
 <template>
   <q-page class="page">
     <q-scroll-area style="height: 100vh" :thumb-style="{ width: '0px' }">
-      <div class="row items-stretch home-page__container">
+      <div
+        v-if="!ready"
+        class="loading-wrapper flex justify-center items-center"
+      >
+        <q-circular-progress
+          indeterminate
+          rounded
+          size="50px"
+          color="orange-5"
+          class="q-ma-md"
+        />
+      </div>
+      <div v-else class="row items-stretch home-page-wrapper">
         <!-- main -->
         <div class="col-xs-12 col-sm-6 col-md-3 q-pa-sm">
           <ice-main></ice-main>
         </div>
         <!-- aqi -->
         <div class="col-xs-12 col-sm-6 col-md-3 q-pa-sm">
-          <ice-air :visible="ready"></ice-air>
+          <ice-air></ice-air>
         </div>
         <!-- sun and moon -->
         <div class="col-xs-12 col-sm-6 col-md-3 q-pa-sm card">
-          <ice-astronomy :visible="ready"></ice-astronomy>
+          <ice-astronomy></ice-astronomy>
         </div>
         <!-- hourly -->
         <div class="col-xs-12 col-sm-12 col-md-9 q-pa-sm card">
-          <ice-hourly :visible="ready"></ice-hourly>
+          <ice-hourly></ice-hourly>
         </div>
 
         <!-- daily -->
         <div class="col-xs-12 col-sm-12 col-md-5 q-pa-sm card_2">
-          <ice-daily :visible="ready"></ice-daily>
+          <ice-daily></ice-daily>
         </div>
       </div>
     </q-scroll-area>
@@ -60,7 +72,7 @@ if (process.env.NODE_ENV === 'development') {
   box-sizing: border-box;
 }
 
-.home-page__container {
+.home-page-wrapper {
   $height: 300px;
   $height_2: 360px;
   @include bs;
@@ -78,6 +90,10 @@ if (process.env.NODE_ENV === 'development') {
     height: $height_2;
     @include bs;
   }
+}
+
+.loading-wrapper {
+  height: 100vh;
 }
 </style>
 

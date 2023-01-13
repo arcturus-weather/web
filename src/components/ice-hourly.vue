@@ -1,76 +1,58 @@
 <template>
   <q-card flat bordered style="height: 100%">
-    <ice-transition>
-      <div v-if="visible">
-        <q-card-section class="text-bold">
-          {{ $t('weather.hourly') }}
-        </q-card-section>
-        <q-scroll-area
-          class="height"
-          :thumb-style="{
-            bottom: '2px',
-            borderRadius: '5px',
-            opacity: '0.1',
-          }"
+    <q-card-section class="text-bold">
+      {{ $t('weather.hourly') }}
+    </q-card-section>
+    <q-scroll-area
+      class="height"
+      :thumb-style="{
+        bottom: '2px',
+        borderRadius: '5px',
+        opacity: '0.1',
+      }"
+    >
+      <q-list class="row no-wrap height list">
+        <q-item
+          v-for="(item, idx) in current!.hourly"
+          :key="idx"
+          clickable
+          v-ripple
+          @click="openHourlyPanel(idx)"
+          class="list-item column justify-between items-center q-px-xs"
         >
-          <q-list class="row no-wrap height list">
-            <q-item
-              v-for="(item, idx) in current!.hourly"
-              :key="idx"
-              clickable
-              v-ripple
-              @click="openHourlyPanel(idx)"
-              class="list-item column justify-between items-center q-px-xs"
-            >
-              <!-- 时间 -->
-              <q-item-label class="text-center">
-                {{ $d(item.dateTime, 'hour') }}
-              </q-item-label>
-              <!-- 图标 -->
-              <q-item-section>
-                <i-icon :name="item.icon" :size="40"></i-icon>
-                <div class="text-center ellipsis" style="width: 100%">
-                  {{ item.description }}
-                </div>
-              </q-item-section>
-            </q-item>
+          <!-- time -->
+          <q-item-label class="text-center">
+            {{ $d(item.dateTime, 'hour') }}
+          </q-item-label>
 
-            <!-- 折线图 -->
-            <div ref="hour" class="graph"></div>
-          </q-list>
-        </q-scroll-area>
-      </div>
-      <!-- 骨架屏 -->
-      <div v-else>
-        <q-card-section>
-          <q-skeleton width="80px"></q-skeleton>
-        </q-card-section>
+          <!-- icon -->
+          <q-item-section>
+            <i-icon :name="item.icon" :size="40"></i-icon>
+            <div class="text-center ellipsis" style="width: 100%">
+              {{ item.description }}
+            </div>
+          </q-item-section>
+        </q-item>
 
-        <q-scroll-area
-          class="height q-pb-xs"
-          :thumb-style="{
-            height: '0',
-          }"
-        >
-          <div class="row no-wrap">
-            <q-skeleton
-              class="hour-skeleton height"
-              width="60px"
-              v-for="i in 20"
-              :key="i"
-            />
-          </div>
-        </q-scroll-area>
-      </div>
-    </ice-transition>
+        <!-- line -->
+        <div ref="hour" class="graph"></div>
+      </q-list>
+    </q-scroll-area>
   </q-card>
   <ice-hourly-panel v-model="open" :idx="idx"></ice-hourly-panel>
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: 'iceHourly',
+});
+</script>
+
+<script lang="ts" setup>
 import { date } from 'quasar';
-import { defineComponent, ref, watchEffect } from 'vue';
-import iceTransition from '@components/ice-transition.vue';
+import { ref, watchEffect } from 'vue';
 import iceHourlyPanel from '@components/ice-hourly-panel.vue';
 import { useWeatherStore } from '@stores/stores';
 import { storeToRefs } from 'pinia';
@@ -167,66 +149,37 @@ function createGraph(dom: HTMLDivElement | null | string, data: TData[]) {
   dualAxes.render();
 }
 
-export default defineComponent({
-  name: 'iceHourly',
+function openHourlyPanel(e: number) {
+  this.idx = e;
+  this.open = true;
+}
 
-  components: { iceTransition, iceHourlyPanel },
+const { current } = storeToRefs(useWeatherStore()),
+  idx = ref(0),
+  open = ref(false),
+  hour = ref<HTMLDivElement | null>(null);
 
-  props: {
-    visible: {
-      type: Boolean,
-      default: false,
-    },
-  },
-
-  methods: {
-    openHourlyPanel(e: number) {
-      this.idx = e;
-      this.open = true;
-    },
-  },
-
-  setup() {
-    const { current } = storeToRefs(useWeatherStore()),
-      idx = ref(0),
-      open = ref(false),
-      hour = ref<HTMLDivElement | null>(null);
-
-    watchEffect(() => {
-      if (hour.value) {
-        createGraph(
-          hour.value,
-          current.value!.hourly.map((e: IWeatherItem) => ({
-            x: date.formatDate(e.dateTime, 'HH:mm'),
-            temp: e.temperature.day!,
-            pop: e.pop!,
-          }))
-        );
-      }
-    });
-
-    return { current, open, idx, hour };
-  },
+watchEffect(() => {
+  if (hour.value) {
+    createGraph(
+      hour.value,
+      current.value!.hourly.map((e: IWeatherItem) => ({
+        x: date.formatDate(e.dateTime, 'HH:mm'),
+        temp: e.temperature.day!,
+        pop: e.pop!,
+      }))
+    );
+  }
 });
 </script>
 
 <style lang="scss" scoped>
 .height {
-  height: 230px; // list 高度
-}
-
-.hour-skeleton {
-  &:not(:last-of-type) {
-    margin-right: 5px;
-  }
-
-  &:first-of-type {
-    margin-left: 5px;
-  }
+  height: 230px;
 }
 
 .list {
-  $height: 120px; // 折线图高度
+  $height: 120px;
   position: relative;
 
   .graph {
@@ -243,3 +196,4 @@ export default defineComponent({
   }
 }
 </style>
+
