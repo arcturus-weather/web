@@ -32,7 +32,7 @@
               </div>
               <q-space />
               <!-- 关闭表单按钮 -->
-              <q-btn flat round icon="close" @click="switchToForm1" />
+              <q-btn flat round icon="fa-solid fa-xmark" @click="switchToForm1" />
             </q-card-section>
             <slot name="form2"></slot>
           </q-card>

@@ -4,15 +4,15 @@
     @update:model-value="(value) => $emit('update:model-value', value)"
     @show="init"
   >
-    <q-card>
+    <q-card class="card-border">
       <q-card-section class="row items-center q-pb-none">
         <div class="text-h6">{{ $t('map.select') }}</div>
         <q-space />
-        <q-btn icon="close" flat round dense v-close-popup />
+        <q-btn icon="fa-solid fa-xmark" flat round dense v-close-popup />
       </q-card-section>
 
       <q-card-section>
-        <!-- 地址输入 -->
+        <!-- address input -->
         <q-input
           class="q-mb-md"
           outlined
@@ -21,7 +21,7 @@
           :label="$t('map.placeholder')"
         >
           <template v-slot:append>
-            <q-icon name="search" />
+            <q-icon name="fa-solid fa-magnifying-glass" />
           </template>
 
           <q-menu

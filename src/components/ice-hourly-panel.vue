@@ -3,26 +3,24 @@
     :v-model="visible"
     @update:model-value="(value) => $emit('update:model-value', value)"
   >
-    <q-card>
+    <q-card class="card-border">
       <!-- date -->
       <q-card-section class="row items-center q-pb-none">
         <div class="text-h6">{{ $d(hour!.dateTime, 'long') }}</div>
         <q-space />
-        <q-btn icon="close" flat round dense v-close-popup />
+        <q-btn icon="fa-solid fa-xmark" flat round dense v-close-popup />
       </q-card-section>
 
       <!-- detail info -->
-      <q-card-section
-        class="column items-center"
-        style="width: 350px;"
-      >
+      <q-card-section class="column items-center" style="width: 350px">
         <div class="column justify-center items-center q-mb-md">
           <i-icon :name="hour!.icon" :size="70"></i-icon>
           <div>{{ hour!.description }}, {{ hour!.temperature.day }}°</div>
         </div>
+
         <div class="grid">
           <div class="column justify-center items-center">
-            <q-icon name="air" size="20px"></q-icon>
+            <q-icon name="fa-solid fa-wind" size="20px"></q-icon>
             <div>{{ hour!.wind.windDir }}</div>
             <div>
               {{ hour!.wind.windSpeed }}km/h / {{ hour!.wind.windScale }}
@@ -78,21 +76,22 @@ export default defineComponent({
 
     other() {
       const h = this.hour as IWeatherItem;
+
       const res: Other[] = [
         {
           label: 'dew',
           value: `${h.dewPoint}°`,
-          icon: 'mdi-thermometer-lines',
+          icon: 'fa-solid fa-temperature-low',
         },
         {
           label: 'humidity',
           value: `${h.humidity}%`,
-          icon: 'water_drop',
+          icon: 'fa-solid fa-droplet',
         },
         {
           label: 'pressure',
           value: `${h.pressure}hpa`,
-          icon: 'speed',
+          icon: 'fa-solid fa-gauge',
         },
       ];
 
@@ -100,7 +99,7 @@ export default defineComponent({
         res.push({
           label: 'coluds',
           value: h.clouds,
-          icon: 'cloud',
+          icon: 'fa-solid fa-cloud',
         });
       }
 
@@ -108,7 +107,7 @@ export default defineComponent({
         res.push({
           label: 'uvIndex',
           value: h.uvIndex,
-          icon: 'beach_access',
+          icon: 'fa-solid fa-umbrella-beach',
         });
       }
 
@@ -116,7 +115,7 @@ export default defineComponent({
         res.push({
           label: 'visibility',
           value: `${h.visibility}km`,
-          icon: 'visibility',
+          icon: 'fa-solid fa-eye',
         });
       }
 
@@ -124,7 +123,7 @@ export default defineComponent({
         res.push({
           label: 'precipChance',
           value: `${h.pop}%`,
-          icon: 'mdi-weather-rainy',
+          icon: 'fa-solid fa-percent',
         });
       }
 
@@ -132,7 +131,7 @@ export default defineComponent({
         res.push({
           label: 'precipitation',
           value: `${h.precip}mm`,
-          icon: 'mdi-weather-pouring',
+          icon: 'fa-solid fa-cloud-showers-heavy',
         });
       }
 
@@ -153,3 +152,4 @@ export default defineComponent({
   gap: 15px;
 }
 </style>
+

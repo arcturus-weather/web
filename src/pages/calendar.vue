@@ -1,31 +1,23 @@
 <template>
-  <q-page class="row q-pa-md page__container">
-    <div class="col-xs-12 col-sm-6 col-md-4 column items-center">
-      <!-- 日历 -->
-      <q-date
-        flat
-        bordered
-        v-model="now"
-        event-color="orange"
-        :events="events"
-        style="width: 100%"
-      />
-      <q-btn
-        unelevated
-        class="q-mt-md"
-        color="primary"
-        :loading="loading"
-        :label="$t('checkin')"
-        icon-right="fa-solid fa-award"
-        @click="checkin"
-      />
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-8 q-pa-md timeline column">
-      <div class="text-h5 text-center">{{ $t('checkinRecord') }}</div>
-      <q-timeline
-        color="secondary"
-        :layout="$q.screen.lt.sm ? 'dense' : 'loose'"
+  <q-page class="row q-pa-md page-wrapper">
+    <div class="column items-center col-xs-12 col-sm-8 col-md-9 timeline">
+      <div class="text-h6">{{ $t('checkinRecord') }}</div>
+
+      <q-circular-progress
+        v-if="calendarList.length === 0"
+        indeterminate
+        rounded
+        size="50px"
+        color="orange-5"
+        class="q-ma-md"
         style="flex: 1"
+      />
+
+      <q-timeline
+        v-else
+        color="secondary"
+        style="flex: 1"
+        :layout="$q.screen.lt.sm ? 'dense' : 'loose'"
       >
         <q-scroll-area
           :thumb-style="{
@@ -38,7 +30,6 @@
             :key="item.id"
             :title="item.location.address"
             :subtitle="$d(new Date(item.date), 'long')"
-            icon="fa-solid fa-location-dot"
           >
             <div class="clickable" @click="openEditor(item)">
               <div class="row items-center">
@@ -49,6 +40,7 @@
                 </span>
                 <i-icon :name="item.weather.icon" :size="20"></i-icon>
               </div>
+
               <div v-if="item.daily">
                 {{ item.daily }}
               </div>
@@ -56,6 +48,33 @@
           </q-timeline-entry>
         </q-scroll-area>
       </q-timeline>
+    </div>
+
+    <div class="col-xs-12 col-sm-4 col-md-3 column items-center">
+      <!-- calendar -->
+      <q-date
+        flat
+        bordered
+        minimal
+        v-model="now"
+        event-color="orange-8"
+        color="blue-6"
+        class="card-border"
+        :events="events"
+        style="width: 100%"
+        v-if="!$q.screen.lt.sm"
+      />
+
+      <q-btn
+        unelevated
+        class="q-mt-md card-border"
+        color="blue-6"
+        :loading="loading"
+        :label="$t('checkin')"
+        padding="10px"
+        style="width: 100%"
+        @click="checkin"
+      />
     </div>
 
     <ice-write-panel
@@ -197,14 +216,14 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.page__container {
-  flex-direction: row-reverse;
+.page-wrapper {
+  align-content: flex-start;
 
   @media screen and (max-width: 600px) {
     padding-bottom: 72px; // 这是 tabbar 高度
 
     .timeline {
-      height: calc(100vh - 547px);
+      height: calc(100vh - 160px);
     }
   }
 }

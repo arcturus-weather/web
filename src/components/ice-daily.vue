@@ -1,5 +1,5 @@
 <template>
-  <q-card flat bordered style="height: 100%">
+  <q-card flat bordered style="height: 100%" class="card-border">
     <q-card-section class="text-bold">
       {{ $t('weather.daily') }}
     </q-card-section>
@@ -40,6 +40,7 @@
             ></i-icon>
           </div>
         </q-item>
+
         <!-- 双折线图 -->
         <div ref="day" class="graph"></div>
       </q-list>

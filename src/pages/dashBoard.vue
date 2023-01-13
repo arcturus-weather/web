@@ -22,18 +22,20 @@
         <div class="col-xs-12 col-sm-6 col-md-3 q-pa-sm">
           <ice-air></ice-air>
         </div>
+
         <!-- sun and moon -->
-        <div class="col-xs-12 col-sm-6 col-md-3 q-pa-sm card">
+        <div class="col-xs-12 col-sm-6 col-md-3 q-pa-sm">
           <ice-astronomy></ice-astronomy>
-        </div>
-        <!-- hourly -->
-        <div class="col-xs-12 col-sm-12 col-md-9 q-pa-sm card">
-          <ice-hourly></ice-hourly>
         </div>
 
         <!-- daily -->
-        <div class="col-xs-12 col-sm-12 col-md-5 q-pa-sm card_2">
+        <div class="col-xs-12 col-sm-6 col-md-3 q-pa-sm daily_card">
           <ice-daily></ice-daily>
+        </div>
+
+        <!-- hourly -->
+        <div class="col-xs-12 q-pa-sm hourly_card">
+          <ice-hourly></ice-hourly>
         </div>
       </div>
     </q-scroll-area>
@@ -73,21 +75,21 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 .home-page-wrapper {
-  $height: 300px;
-  $height_2: 360px;
+  $daily_height: 360px;
+  $hourly_height: 300px;
   @include bs;
 
   @media screen and (max-width: 600px) {
     padding-bottom: 72px; // 这是 tabbar 高度
   }
 
-  .card {
-    height: $height;
+  .daily_card {
+    height: $daily_height;
     @include bs;
   }
 
-  .card_2 {
-    height: $height_2;
+  .hourly_card {
+    height: $hourly_height;
     @include bs;
   }
 }

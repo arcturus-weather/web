@@ -7,9 +7,11 @@ import { useQuasar } from 'quasar';
 import { defineComponent, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useSettingStore } from '@stores/stores';
-import { languageToOption, mock } from '@utils/utils';
+import { languageToOption } from '@utils/utils';
 
-mock();
+if (process.env.NODE_ENV === 'development') {
+  import('@utils/mock');
+}
 
 export default defineComponent({
   name: 'App',

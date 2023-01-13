@@ -3,11 +3,11 @@
     :v-model="visible"
     @update:model-value="(value) => $emit('update:model-value', value)"
   >
-    <q-card style="width: 400px">
+    <q-card style="width: 400px" class="card-border">
       <q-card-section class="row items-center q-pb-none">
         <div class="text-h6">{{ $t('weather.astronomy.moonphase') }}</div>
         <q-space />
-        <q-btn icon="close" flat round dense v-close-popup />
+        <q-btn flat round dense v-close-popup icon="fa-solid fa-xmark" />
       </q-card-section>
 
       <q-card-section>
@@ -78,3 +78,4 @@ export default defineComponent({
   },
 });
 </script>
+

@@ -98,22 +98,22 @@ const themes = computed(() => {
     {
       label: t('setting.theme.lightMode'),
       value: 'lightMode',
-      icon: 'mdi-white-balance-sunny',
+      icon: 'fa-solid fa-sun',
     },
     {
       label: t('setting.theme.darkMode'),
       value: 'darkMode',
-      icon: 'mdi-weather-night',
+      icon: 'fa-solid fa-moon',
     },
     {
       label: t('setting.theme.systemMode'),
       value: 'systemMode',
-      icon: 'mdi-weather-night',
+      icon: 'fa-brands fa-windows',
     },
     {
       label: t('setting.theme.autoMode'),
       value: 'autoMode',
-      icon: 'mdi-cellphone-link',
+      icon: 'fa-solid fa-robot',
     },
   ];
 });

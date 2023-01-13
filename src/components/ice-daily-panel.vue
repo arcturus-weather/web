@@ -3,38 +3,45 @@
     :v-model="visible"
     @update:model-value="(value) => $emit('update:model-value', value)"
   >
-    <q-card>
-      <!-- 时间 -->
+    <q-card class="card-border">
+      <!-- public time -->
       <q-card-section class="row items-center q-pb-none">
         <div class="text-h6">{{ $d(daily!.dateTime, 'long') }}</div>
         <q-space />
-        <q-btn icon="close" flat round dense v-close-popup />
+        <q-btn icon="fa-solid fa-xmark" flat round dense v-close-popup />
       </q-card-section>
 
-      <!-- 详细信息 -->
+      <!-- detail info -->
       <q-card-section class="row items-center">
         <div class="col-12 row justify-center">
-          <!-- 最高温度 -->
+          <!-- maximum temperature -->
           <div class="col-6 column justify-center items-center q-mb-md">
             <div>{{ $t('weather.temperature.max') }}</div>
             <i-icon :name="daily!.dayIcon" :size="70"></i-icon>
-            <div>{{ daily!.dayDesc }}, {{ daily!.temperature.max }}°</div>
-            <q-icon name="air" size="20px"></q-icon>
+            <div class="q-mb-sm">
+              {{ daily!.dayDesc }}, {{ daily!.temperature.max }}°
+            </div>
+
+            <q-icon name="fa-solid fa-wind" size="20px"></q-icon>
             <div>{{ daily!.dayWind.windDir }}</div>
             <div>
               {{ daily!.dayWind.windSpeed }}km/h /
               {{ daily!.dayWind.windScale }}
             </div>
           </div>
-          <!-- 最低温度 -->
+
+          <!-- minimum temperature -->
           <div
             v-if="daily!.nightIcon"
             class="col-6 column justify-center items-center q-mb-md"
           >
             <div>{{ $t('weather.temperature.min') }}</div>
             <i-icon :name="daily!.nightIcon" :size="70"></i-icon>
-            <div>{{ daily!.dayDesc }}, {{ daily!.temperature.min }}°</div>
-            <q-icon name="air" size="20px"></q-icon>
+            <div class="q-mb-sm">
+              {{ daily!.dayDesc }}, {{ daily!.temperature.min }}°
+            </div>
+
+            <q-icon name="fa-solid fa-wind" size="20px"></q-icon>
             <div>{{ daily!.dayWind.windDir }}</div>
             <div>
               {{ daily!.dayWind.windSpeed }}km/h /
@@ -42,7 +49,8 @@
             </div>
           </div>
         </div>
-        <!-- 日出日落时间 -->
+
+        <!-- sunrise & sunset time -->
         <div class="col-12 row q-my-md">
           <div
             class="col-3 column items-center"
@@ -53,7 +61,7 @@
             <div>{{ $d(item.time, 'time') }}</div>
           </div>
         </div>
-        <!-- 其他信息 -->
+
         <div class="grid col-12">
           <div
             class="column justify-center items-center"
@@ -129,12 +137,12 @@ export default defineComponent({
         {
           label: 'humidity',
           value: `${d.humidity}%`,
-          icon: 'water_drop',
+          icon: 'fa-solid fa-droplet',
         },
         {
           label: 'pressure',
           value: `${d.pressure}hpa`,
-          icon: 'speed',
+          icon: 'fa-solid fa-gauge',
         },
       ];
 
@@ -142,7 +150,7 @@ export default defineComponent({
         res.push({
           label: 'dew',
           value: `${d.dewPoint}°`,
-          icon: 'mdi-thermometer-lines',
+          icon: 'fa-solid fa-temperature-low',
         });
       }
 
@@ -150,7 +158,7 @@ export default defineComponent({
         res.push({
           label: 'coluds',
           value: `${d.clouds}%`,
-          icon: 'cloud',
+          icon: 'fa-solid fa-cloud',
         });
       }
 
@@ -158,7 +166,7 @@ export default defineComponent({
         res.push({
           label: 'uvIndex',
           value: d.uvIndex,
-          icon: 'beach_access',
+          icon: 'fa-solid fa-umbrella-beach',
         });
       }
 
@@ -166,7 +174,7 @@ export default defineComponent({
         res.push({
           label: 'visibility',
           value: `${d.visibility}km`,
-          icon: 'visibility',
+          icon: 'fa-solid fa-eye',
         });
       }
 
@@ -174,7 +182,7 @@ export default defineComponent({
         res.push({
           label: 'precipChance',
           value: `${d.pop}%`,
-          icon: 'mdi-weather-rainy',
+          icon: 'fa-solid fa-percent',
         });
       }
 
@@ -182,7 +190,7 @@ export default defineComponent({
         res.push({
           label: 'precipitation',
           value: `${d.precip}mm`,
-          icon: 'mdi-weather-pouring',
+          icon: 'fa-solid fa-cloud-showers-heavy',
         });
       }
 
@@ -203,3 +211,4 @@ export default defineComponent({
   gap: 15px;
 }
 </style>
+

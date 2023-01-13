@@ -1,5 +1,5 @@
 <template>
-  <q-card flat bordered style="height: 100%">
+  <q-card flat bordered style="height: 100%" class="card-border">
     <q-card-section class="text-bold">
       {{ $t('weather.hourly') }}
     </q-card-section>
