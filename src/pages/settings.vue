@@ -11,6 +11,7 @@
         :options="themes"
       ></ice-btn-toggle>
     </div>
+
     <!-- 数据源切换 -->
     <div class="q-ma-lg">
       <div class="text-h6 q-mb-md">{{ $t('setting.dataSources.label') }}</div>
@@ -20,6 +21,7 @@
         v-model="dataSource"
       ></ice-btn-toggle>
     </div>
+
     <!-- 语言切换 -->
     <div class="q-ma-lg">
       <div class="text-h6 q-mb-md">
@@ -31,12 +33,14 @@
         v-model="language"
         :options="languages"
         @update:model-value="setLanguages"
+        dropdown-icon="fa-solid fa-caret-down"
       >
         <template v-slot:prepend>
-          <q-icon name="mdi-translate" />
+          <q-icon name="fa-solid fa-language" />
         </template>
       </q-select>
     </div>
+
     <div class="q-ma-lg">
       <q-btn
         unelevated
@@ -59,9 +63,9 @@ export default defineComponent({
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
-import { useSettingStore, useUserStore } from 'stores/stores';
+import { useSettingStore, useUserStore } from '@stores/stores';
 import { useI18n } from 'vue-i18n';
-import { languageMap } from 'utils/utils';
+import { optionToLanguage } from '@utils/utils';
 import { storeToRefs } from 'pinia';
 import iceBtnToggle from 'src/components/ice-btn-toggle.vue';
 
@@ -70,7 +74,7 @@ const user = useUserStore();
 const { locale, t } = useI18n();
 
 const { theme, dataSource, language } = storeToRefs(setting);
-const languages = ref(Object.keys(languageMap));
+const languages = ref(Object.keys(optionToLanguage));
 
 function setTheme(theme: Themes) {
   setting.setTheme(theme);
@@ -83,9 +87,8 @@ function setDataSource(source: DataSources) {
 }
 
 function setLanguages(lang: string) {
-  // lang: '简体中文' | 'English' | '繁体中文'
-  locale.value = languageMap[lang];
-  setting.setLanguage(lang);
+  locale.value = optionToLanguage[lang];
+  setting.setLanguage(optionToLanguage[lang]);
   setting.saveLanguage();
 }
 

@@ -7,7 +7,7 @@ import { useQuasar } from 'quasar';
 import { defineComponent, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useSettingStore } from '@stores/stores';
-import { mock } from '@utils/utils';
+import { languageToOption, mock } from '@utils/utils';
 
 mock();
 
@@ -38,7 +38,7 @@ export default defineComponent({
       const lang = setting.getLanguage() ?? $q.lang.getLocale() ?? 'zh-CN';
       locale.value = lang;
       setting.setLanguage(lang as Languages);
-      setting.language = lang;
+      setting.language = languageToOption[lang as Languages];
     });
   },
 });

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { LocalStorage, Dark } from 'quasar';
 import { useWeatherStore } from './weather';
+import { optionToLanguage } from '@src/utils/utils';
 
 export const useSettingStore = defineStore('settings', {
   state: () => ({
@@ -59,7 +60,7 @@ export const useSettingStore = defineStore('settings', {
     },
 
     saveLanguage() {
-      LocalStorage.set('language', this.language);
+      LocalStorage.set('language', optionToLanguage[this.language]);
     },
 
     setLanguage(lang: Languages) {

@@ -50,15 +50,16 @@ export function debounce(fn: (e: any) => void, dur = 1500) {
 // docs: https://quasar.dev/start/upgrade-guide#quasar-language-packs
 export const languageToOption: Record<Languages, string> = {
   'zh-CN': '简体中文',
-  'en-US': 'English',
   'zh-TW': '繁體中文',
+  'en-US': 'US English',
+  'en-GB': 'UK English',
 };
 
 export const optionToLanguage = (function (map) {
-  const m: Record<string, string> = {};
+  const m: Record<string, Languages> = {};
 
   Object.entries(map).forEach((el) => {
-    m[el[1]] = el[0];
+    m[el[1]] = el[0] as Languages;
   });
 
   return m;

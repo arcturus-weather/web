@@ -94,7 +94,7 @@ interface IMapData {
 
 type Themes = 'lightMode' | 'darkMode' | 'systemMode' | 'autoMode';
 
-type Languages = 'en-US' | 'zh-TW' | 'zh-CN';
+type Languages = 'en-US' | 'zh-TW' | 'zh-CN' | 'en-GB';
 
 type DataSources = 'qWeather' | 'caiyun';
 
