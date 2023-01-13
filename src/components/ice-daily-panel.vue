@@ -58,7 +58,7 @@
             :key="idx"
           >
             <q-icon :name="item.icon" size="25px"></q-icon>
-            <div>{{ $d(item.time, 'time') }}</div>
+            <div>{{ $d(item.time, 'time') }} {{item.type}}</div>
           </div>
         </div>
 
@@ -113,20 +113,24 @@ export default defineComponent({
       const d = this.daily as IDailyItem;
       return [
         {
-          icon: 'mdi-weather-sunset-up',
+          icon: 'fa-solid fa-sun',
           time: d.sun.sunRise,
+          type: '↑'
         },
         {
-          icon: 'mdi-weather-sunset-down',
+          icon: 'fa-solid fa-sun',
           time: d.sun.sunSet,
+          type: '↓'
         },
         {
-          icon: 'mdi-weather-night',
+          icon: 'fa-solid fa-moon',
           time: d.moon.moonRise,
+          type: '↑'
         },
         {
-          icon: 'mdi-weather-night',
+          icon: 'fa-solid fa-moon',
           time: d.moon.moonSet,
+          type: '↓'
         },
       ];
     },
