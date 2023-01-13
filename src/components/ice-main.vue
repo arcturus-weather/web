@@ -137,7 +137,7 @@ export default defineComponent({
 
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue';
-import { useLocationStore, useWeatherStore } from 'stores/stores';
+import { useLocationStore, useWeatherStore } from '@stores/stores';
 import { storeToRefs } from 'pinia';
 import { date } from 'quasar';
 import iceMap from 'src/components/ice-map.vue';
