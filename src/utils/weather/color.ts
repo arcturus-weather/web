@@ -30,7 +30,7 @@ export class WaringColor {
   };
 }
 
-export const aqiColor = {
+export const aqiColors = {
   excellent: '#56B37F',
   good: '#FCFF00',
   lightly: '#FEC163',
