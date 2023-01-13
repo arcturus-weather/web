@@ -209,8 +209,16 @@ interface signureOptions {
   parameterObject: Record<string, string>;
 }
 
-function getSignature(o: signureOptions) {
-  const keys = Object.keys(o.parameterObject);
+// 获取包含签名的请求参数
+function getParams(o: signureOptions) {
+  const timestamp = String(Math.round(new Date().getTime() / 1000));
+
+  const obj = { ...o.parameterObject };
+
+  obj['t'] = timestamp;
+  obj['publicid'] = o.publicID;
+
+  const keys = Object.keys(obj);
 
   keys.sort();
 
@@ -218,15 +226,14 @@ function getSignature(o: signureOptions) {
 
   for (const i in keys) {
     const k = keys[i];
-    str += k + '=' + o.parameterObject[k] + '&';
+    str += k + '=' + obj[k] + '&';
   }
 
   str = str.substring(0, str.length - 1) + o.privateKey;
 
   return {
-    t: String(Math.round(new Date().getTime() / 1000)),
+    ...obj,
     sign: md5(str),
-    publicid: o.publicID,
   };
 }
 
@@ -255,21 +262,23 @@ export default class QWeatherStrategies extends Strategies {
   }
 
   request({ url, data, headers }: requestOption): Promise<any> {
+    const d = {
+      lang: this.lang,
+      ...data,
+    };
+
     return this.http.request({
       url,
       method: 'GET',
       headers,
       data: {
-        params: getSignature({
-          parameterObject: Object.assign(
-            {
-              lang: this.lang,
-            },
-            data
-          ),
-          publicID: this.pid,
-          privateKey: this.key,
-        }),
+        params: {
+          ...getParams({
+            parameterObject: d,
+            publicID: this.pid,
+            privateKey: this.key,
+          }),
+        },
       },
     });
   }
