@@ -18,3 +18,4 @@ export default store((/* { ssrContext } */) => {
 
   return pinia;
 });
+
