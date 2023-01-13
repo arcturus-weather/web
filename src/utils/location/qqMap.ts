@@ -1,5 +1,7 @@
 import Http from '@utils/http';
 import { i18n } from 'src/boot/i18n';
+import { qqMapCode } from '@utils/http/code';
+import { notify } from '@utils/utils';
 
 declare const qq: { maps: { Geolocation: any } };
 
@@ -20,7 +22,21 @@ export class QQMap {
       return config;
     });
 
-    Http.setQQMapResponseInterceptors(this.http.ax);
+    Http.setResponseInterceptors(this.http.ax, (resp) => {
+      const data = resp.data;
+      const status = data.status as number;
+
+      if (status === 0) {
+        if (typeof data.data !== 'undefined') {
+          return Promise.resolve(data.data);
+        } else if (typeof data.result !== 'undefined') {
+          return Promise.resolve(data.result);
+        } else return data;
+      } else {
+        notify.negative(qqMapCode[status as keyof typeof qqMapCode]);
+        return Promise.reject();
+      }
+    });
 
     this.geolocation = new qq.maps.Geolocation(
       this.key,
@@ -125,7 +141,7 @@ export class DrawQQMap {
 
     // 获取缩放控件实例
     const control = this.map.getControl(TMap.constants.DEFAULT_CONTROL_ID.ZOOM);
-    
+
     // 设置缩放控件位于右下角
     control.setPosition(TMap.constants.CONTROL_POSITION.BOTTOM_RIGHT);
 
