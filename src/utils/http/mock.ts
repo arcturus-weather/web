@@ -1,8 +1,6 @@
 import Mock from 'mockjs';
 
-/***********************
- *   和风天气模拟数据   *
- **********************/
+// qweather
 import now from 'mock/qweather/nows.json';
 import sevenDays from 'mock/qweather/sevendays.json';
 import hours from 'mock/qweather/hours.json';
@@ -11,15 +9,6 @@ import lifeindex from 'mock/qweather/lifeIndex.json';
 import warning from 'mock/qweather/warning.json';
 import air from 'mock/qweather/air.json';
 import rain from 'mock/qweather/rain.json';
-
-/***********************
- * openWeather 模拟数据 *
- **********************/
-import oneCall from 'mock/openWeather/onecall.json';
-import weather from 'mock/openWeather/weather.json';
-import air_ from 'mock/openWeather/air.json';
-import airForcast from 'mock/openWeather/airForcast.json';
-import forcast from 'mock/openWeather/forcast.json';
 
 Mock.setup({
   timeout: '0',
@@ -37,7 +26,7 @@ Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/weather\/now.*/, {
   },
 });
 
-// 未来7天
+// 未来 7 天
 Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/weather\/7d.*/g, {
   code: '200',
   updateTime: '2021-11-15T16:35+08:00',
@@ -49,7 +38,7 @@ Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/weather\/7d.*/g, {
   },
 });
 
-// 未来24小时
+// 未来 24 小时
 Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/weather\/24h/g, {
   code: '200',
   updateTime: '2021-02-16T13:35+08:00',
@@ -138,29 +127,3 @@ Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/minutely\/5m.*/g, {
   },
 });
 
-// 一次调用
-Mock.mock(/http:\/\/api\.openweathermap\.org\/data\/2\.5\/onecall.*/g, oneCall);
-
-// 当前天气
-Mock.mock(
-  /http:\/\/api\.openweathermap\.org\/data\/2\.5\/\weather.*/g,
-  weather
-);
-
-// 5 天 3 小时预测
-Mock.mock(
-  /http:\/\/api\.openweathermap\.org\/data\/2\.5\/forecast.*/g,
-  forcast
-);
-
-// 空气污染
-Mock.mock(
-  /http:\/\/api\.openweathermap\.org\/data\/2\.5\/air_pollution.*/g,
-  air_
-);
-
-// 空气污染预测
-Mock.mock(
-  /http:\/\/api\.openweathermap\.org\/data\/2\.5\/air_pollution\/forecast.*/g,
-  airForcast
-);

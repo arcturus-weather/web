@@ -1,8 +1,4 @@
-/*************************
- *   各种 http 状态码     *
- *************************/
-
-// 和风天气
+// qweather
 export const qWeatherCode = {
   204: '所在地区暂无天气数据',
   404: '查询的数据或地区不存在',
@@ -11,12 +7,6 @@ export const qWeatherCode = {
   403: '无权访问',
   429: '超过限定的 QPM',
   500: '接口异常',
-};
-
-// openWeather
-export const openWeatherCode = {
-  400: '无效参数',
-  401: '无效 key',
 };
 
 // 腾讯地图
