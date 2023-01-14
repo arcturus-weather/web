@@ -6,5 +6,5 @@
     "quoteProps": "as-needed",
     "jsxBracketSameLine": true,
     "arrowParens": "always",
-    "endOfLine": "crlf"
+    "endOfLine": "lf"
 }
