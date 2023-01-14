@@ -1,12 +1,6 @@
 import { Notify } from 'quasar';
 import { i18n } from 'src/boot/i18n';
 
-export function mock() {
-  if (process.env.NODE_ENV === 'development') {
-    import('@utils/mock');
-  }
-}
-
 export const notify: {
   (m: string, t: string, i: string): void;
   positive(m: string): void;
