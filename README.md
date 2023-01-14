@@ -2,9 +2,9 @@
 
 <h1>小冰天气</h1>
 
-[![GitHub issues](https://img.shields.io/github/issues/ICE99125/iweather-vue?style=for-the-badge)](https://github.com/ICE99125/iweather-vue/issues) [![GitHub forks](https://img.shields.io/github/forks/ICE99125/iweather-vue?style=for-the-badge)](https://github.com/ICE99125/iweather-vue/network) [![GitHub stars](https://img.shields.io/github/stars/ICE99125/iweather-vue?style=for-the-badge)](https://github.com/ICE99125/iweather-vue/stargazers)![GitHub all releases](https://img.shields.io/github/downloads/arcturus-org/merak/total?style=for-the-badge)
+[![GitHub issues](https://img.shields.io/github/issues/ICE99125/iweather-vue?style=for-the-badge)](https://github.com/ICE99125/iweather-vue/issues) [![GitHub forks](https://img.shields.io/github/forks/ICE99125/iweather-vue?style=for-the-badge)](https://github.com/ICE99125/iweather-vue/network) [![GitHub stars](https://img.shields.io/github/stars/ICE99125/iweather-vue?style=for-the-badge)](https://github.com/ICE99125/iweather-vue/stargazers) ![GitHub all releases](https://img.shields.io/github/downloads/arcturus-org/merak/total?style=for-the-badge)
 
-[demo](https://iceweather.netlify.app/) | [backend](https://github.com/ice-universes/weather_serve)
+[demo](https://iceweather.netlify.app/) | [backend](https://github.com/arcturus-org/weather_serve)
 
 </div>
 
@@ -65,4 +65,3 @@ quasar build --debug
 ## Contributors
 
 [![Contributors](http://contributors.nn.ci/api?repo=arcturus-org/merak)](https://github.com/arcturus-org/merak/graphs/contributors)
-
