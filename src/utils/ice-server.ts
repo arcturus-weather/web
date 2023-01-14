@@ -94,7 +94,7 @@ export default class Ice {
     });
   }
 
-  daily(options: IDaily) {
+  daily(options: ICheckInDaily) {
     return this.http.request({
       url: '/daily',
       method: 'POST',
