@@ -77,14 +77,14 @@ import { qqMap } from '@stores/stores';
 
 let drawMap: DrawQQMap;
 
-const map = ref<HTMLElement | null>(null),
-  latitude = ref(0),
-  longitude = ref(0),
-  address = ref(''),
-  city_ = ref(''),
-  displayList = ref(false),
-  canConfirm = ref(true),
-  poiList = ref<Array<qqMapSuggestionsItem>>([]); // 搜索建议
+const map = ref<HTMLElement | null>(null);
+const latitude = ref(0);
+const longitude = ref(0);
+const address = ref('');
+const city_ = ref('');
+const displayList = ref(false);
+const canConfirm = ref(true);
+const poiList = ref<Array<qqMapSuggestionsItem>>([]); // 搜索建议
 
 const props = defineProps({
   visible: {
@@ -173,8 +173,6 @@ function select(e: qqMapSuggestionsItem) {
   drawMap.setMakerCenter(lat, lng);
 }
 
-// 不能把 drawMap 写成 ref 否则会报错
-// 'Failed to execute 'postMessage' on 'Worker': #<t> could not be cloned.'
 drawMap = new DrawQQMap(
   debounce((res: IMapData) => {
     latitude.value = res.latitude;
@@ -213,4 +211,3 @@ drawMap = new DrawQQMap(
   @include mdi(200px, 300px);
 }
 </style>
-
