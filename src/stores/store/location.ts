@@ -7,12 +7,14 @@ import { i18n } from '@src/boot/i18n';
 
 export const qqMap = new QQMap(process.env.VUE_QQMAP_KEY!);
 
+interface locationState {
+  current: Location;
+  local: Location;
+}
+
 // 地理位置
 export const useLocationStore = defineStore('location', {
-  state: (): {
-    current: Location;
-    local: Location | null;
-  } => ({
+  state: (): locationState => ({
     current: new Location({
       // 天气的位置
       latitude: 39.9087,
@@ -28,6 +30,7 @@ export const useLocationStore = defineStore('location', {
       address: '天安门',
     }),
   }),
+
   actions: {
     changeLocation(loc: IMapData, cache = false) {
       this.current = new Location(loc);
@@ -52,4 +55,3 @@ export const useLocationStore = defineStore('location', {
     },
   },
 });
-

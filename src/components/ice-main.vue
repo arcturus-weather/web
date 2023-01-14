@@ -19,7 +19,7 @@
         round
         unelevated
         icon="fa-solid fa-arrows-rotate"
-        @click="useWeatherStore().getWeather()"
+        @click="refresh"
       />
 
       <q-btn
@@ -69,10 +69,10 @@
   <ice-map
     v-model="openMap"
     @confirm="confirm"
-    :lat="loc.latitude"
-    :lng="loc.longitude"
-    :addr="loc.address"
-    :city="loc.city"
+    :lat="currentLocation.latitude"
+    :lng="currentLocation.longitude"
+    :addr="currentLocation.address"
+    :city="currentLocation.city"
   ></ice-map>
 </template>
 
@@ -91,23 +91,33 @@ import { storeToRefs } from 'pinia';
 import iceMap from 'src/components/ice-map.vue';
 
 const weather = useWeatherStore();
-
-const { current: currentLocation } = storeToRefs(useLocationStore());
-const { current: currentWeather } = storeToRefs(weather);
-
 const location = useLocationStore();
+
+const { current: currentLocation } = storeToRefs(location);
+const { current: currentWeather } = storeToRefs(weather);
 
 function confirm(e: IMapData) {
   location.changeLocation(e);
 }
-
-const { current: loc } = storeToRefs(location);
 
 const openMap = ref(false);
 
 const isPrecip = computed(
   () => currentWeather.value!.precip.minutely.length !== 0
 );
+
+const refresh = function () {
+  if (
+    location.current.latitude === location.local.latitude &&
+    location.current.longitude === location.local.longitude
+  ) {
+    console.log('sss');
+    // 刷新时是当前位置时对天气信息进行缓存
+    weather.getWeather(true);
+  } else {
+    weather.getWeather();
+  }
+};
 </script>
 
 <style lang="scss" scoped>
