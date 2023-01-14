@@ -1,5 +1,6 @@
 import Http from '@utils/http';
 import { notify } from './utils';
+import { AxiosRequestHeaders } from 'axios';
 
 export default class Ice {
   private http: Http;
@@ -12,19 +13,15 @@ export default class Ice {
       },
     });
 
-    this.http.ax.interceptors.request.use(
-      (config) => {
-        if (this.token) {
-          // 只要登录过, 请求就带上 token
-          config.headers.Authorization = `Bearer ${this.token}`;
-        }
-
-        return config;
-      },
-      (err: Error) => {
-        return err;
+    Http.setRequestInterceptors(this.http.ax, (config) => {
+      if (this.token) {
+        (
+          config.headers as AxiosRequestHeaders
+        ).Authorization = `Bearer ${this.token}`;
       }
-    );
+
+      return config;
+    });
 
     this.http.ax.interceptors.response.use(
       (resp) => {
@@ -47,7 +44,7 @@ export default class Ice {
     return this.http.request({
       url: '/sendCode',
       method: 'POST',
-      data: { email },
+      data: { data: { email } },
     });
   }
 
@@ -55,7 +52,7 @@ export default class Ice {
     return this.http.request({
       url: '/login',
       method: 'POST',
-      data: { email, password },
+      data: { data: { email, password } },
     });
   }
 
@@ -63,7 +60,7 @@ export default class Ice {
     return this.http.request({
       url: '/signin',
       method: 'POST',
-      data: { email, password },
+      data: { data: { email, password } },
     });
   }
 
@@ -71,7 +68,7 @@ export default class Ice {
     return this.http.request({
       url: '/reset',
       method: 'POST',
-      data: { email, password, code },
+      data: { data: { email, password, code } },
     });
   }
 
@@ -85,7 +82,7 @@ export default class Ice {
     return this.http.request({
       url: '/addFavorites',
       method: 'POST',
-      data: { ...options },
+      data: { data: { ...options } },
     });
   }
 
@@ -93,7 +90,7 @@ export default class Ice {
     return this.http.request({
       url: '/deleteFavorites',
       method: 'POST',
-      data: { list: options },
+      data: { data: { list: options } },
     });
   }
 
@@ -101,7 +98,7 @@ export default class Ice {
     return this.http.request({
       url: '/daily',
       method: 'POST',
-      data: { ...options },
+      data: { data: { ...options } },
     });
   }
 
@@ -109,7 +106,7 @@ export default class Ice {
     return this.http.request({
       url: '/checkin',
       method: 'POST',
-      data: { ...options },
+      data: { data: { ...options } },
     });
   }
 
@@ -119,4 +116,3 @@ export default class Ice {
     });
   }
 }
-
