@@ -5,9 +5,25 @@
     bordered
     style="height: 100%"
   >
-    <div class="search-btn-wrapper">
+    <div class="search-btn-wrapper q-gutter-md">
       <q-btn
-        fab
+        round
+        unelevated
+        icon="fa-solid fa-droplet"
+        @click="weather.openPrecip = true"
+      >
+        <q-badge rounded color="red" floating v-if="isPrecip" />
+      </q-btn>
+
+      <q-btn
+        round
+        unelevated
+        icon="fa-solid fa-arrows-rotate"
+        @click="useWeatherStore().getWeather()"
+      />
+
+      <q-btn
+        round
         unelevated
         icon="fa-solid fa-magnifying-glass"
         @click="openMap = true"
@@ -21,12 +37,12 @@
           class="text-h2 q-mb-md text-center text-bold"
           style="height: 80px; width: 80px; line-height: 80px"
         >
-          {{ currentWeather!.now.temperature.day }}°
+          {{ currentWeather!.now.temperature }}°
         </div>
 
         <div>
           {{ currentWeather!.now.description }},
-          {{ currentWeather!.now.feelsLike?.day }}
+          {{ currentWeather!.now.feelsLike }}
         </div>
       </div>
 
@@ -48,19 +64,6 @@
         </div>
       </div>
     </q-card-section>
-
-    <!-- 这里放降水图 -->
-    <!-- <q-card flat bordered style="height: 100%">
-      <q-card-section>
-        {{ $t('weather.precipitation') }}
-      </q-card-section>
-      <div class="q-px-md" ref="precipPlot" style="height: 130px"></div>
-      <q-card-section>
-        <div class="summary" :class="$q.dark.isActive ? 'dark' : 'light'">
-          {{ currentWeather?.precip.summary }}
-        </div>
-      </q-card-section>
-    </q-card> -->
   </q-card>
 
   <ice-map
@@ -75,60 +78,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { Area } from '@antv/g2plot';
-
-interface Precip_ {
-  precip: number;
-  label: string;
-}
-
-export function area(dom: HTMLDivElement | null | string, data: Precip_[]) {
-  const area = new Area(dom ?? 'area', {
-    data,
-    yField: 'precip',
-    xField: 'label',
-    startOnZero: false,
-    yAxis: {
-      range: [0.1, 1],
-      grid: {
-        line: {
-          style: {
-            lineDash: [5, 2],
-            stroke: '#EBEEF5',
-            lineWidth: 1,
-          },
-        },
-      },
-    },
-    xAxis: {
-      line: null,
-      range: [0, 1],
-      grid: {
-        line: {
-          style: {
-            lineDash: [5, 2],
-            stroke: '#EBEEF5',
-            lineWidth: 1,
-          },
-        },
-      },
-      label: {
-        offset: 1,
-      },
-      tickCount: 6,
-    },
-    autoFit: true,
-    renderer: 'svg',
-    areaStyle: () => {
-      return {
-        fill: 'l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff',
-      };
-    },
-    smooth: true,
-  });
-
-  area.render();
-}
 
 export default defineComponent({
   name: 'iceMain',
@@ -136,14 +85,15 @@ export default defineComponent({
 </script>
 
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
+import { ref, computed } from 'vue';
 import { useLocationStore, useWeatherStore } from '@stores/stores';
 import { storeToRefs } from 'pinia';
-import { date } from 'quasar';
 import iceMap from 'src/components/ice-map.vue';
 
+const weather = useWeatherStore();
+
 const { current: currentLocation } = storeToRefs(useLocationStore());
-const { current: currentWeather } = storeToRefs(useWeatherStore());
+const { current: currentWeather } = storeToRefs(weather);
 
 const location = useLocationStore();
 
@@ -153,45 +103,14 @@ function confirm(e: IMapData) {
 
 const { current: loc } = storeToRefs(location);
 
-// const isPrecip = computed(()=>{
-//   return currentWeather.value!.precip.minutely.length === 0 ? false : true;
-// })
-
-const precipPlot = ref<HTMLDivElement | null>(null);
-
 const openMap = ref(false);
 
-watchEffect(() => {
-  if (precipPlot.value) {
-    area(
-      precipPlot.value,
-      currentWeather.value!.precip.minutely.map((e: IPrecip) => ({
-        label: date.formatDate(e.dateTime, 'HH:mm'),
-        precip: e.precip,
-      }))
-    );
-  }
-});
+const isPrecip = computed(
+  () => currentWeather.value!.precip.minutely.length !== 0
+);
 </script>
 
 <style lang="scss" scoped>
-.summary {
-  border-radius: 1px;
-  width: 100%;
-  padding: 10px;
-
-  &.dark {
-    color: #000;
-    background-color: #c0c4cc;
-    border-left: 2px solid #909399;
-  }
-
-  &.light {
-    background-color: #f5f5f5;
-    border-left: 2px solid #d5d5d5;
-  }
-}
-
 .main-wrapper {
   position: relative;
 }
@@ -203,4 +122,3 @@ watchEffect(() => {
   top: 12px;
 }
 </style>
-
