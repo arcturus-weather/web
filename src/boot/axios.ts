@@ -15,5 +15,9 @@ declare module '@vue/runtime-core' {
 // for each client)
 
 export default boot(({ app }) => {
+  if (process.env.NODE_ENV === 'development') {
+    import('@utils/mock');
+  }
+
   app.config.globalProperties.$axios = axios;
 });

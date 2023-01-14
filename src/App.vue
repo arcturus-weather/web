@@ -9,18 +9,10 @@ import { useI18n } from 'vue-i18n';
 import { useSettingStore } from '@stores/stores';
 import { languageToOption } from '@utils/utils';
 
-if (process.env.NODE_ENV === 'development') {
-  import('@utils/mock');
-}
-
 export default defineComponent({
   name: 'App',
   setup() {
     const { locale } = useI18n();
-
-    // 获取访问人数
-    // const user = useUserStore();
-    // user.visit();
 
     onMounted(() => {
       const setting = useSettingStore();
@@ -45,4 +37,3 @@ export default defineComponent({
   },
 });
 </script>
-
