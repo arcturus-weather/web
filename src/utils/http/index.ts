@@ -36,7 +36,12 @@ export default class Http {
     return ax;
   }
 
-  request({ url, method = 'GET', data = {}, headers = {} }: requestOption) {
+  request({
+    url,
+    method = 'GET',
+    data = {},
+    headers = {},
+  }: requestOption): Promise<any> {
     return this.ax({ url, method, ...data, headers });
   }
 
@@ -76,4 +81,3 @@ export default class Http {
     );
   }
 }
-
