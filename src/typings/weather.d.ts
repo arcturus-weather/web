@@ -70,7 +70,10 @@ interface ILifeIndex {
 
 interface IPrecip {
   summary: string;
-  minutely: number[];
+  minutely: {
+    dateTime: Date;
+    value: number;
+  }[];
 }
 
 interface INow {

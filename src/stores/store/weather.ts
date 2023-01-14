@@ -16,37 +16,42 @@ const weather = new Weather(qweather, 'qWeather');
 
 weather.addStrategy(caiyun, 'caiyun');
 
+interface weatherState {
+  strategies: string;
+  current: null | IWeather;
+  local: null | IWeather;
+  ready: boolean;
+  openPrecip: boolean;
+}
+
 export const useWeatherStore = defineStore('weather', {
-  state: (): {
-    strategies: string;
-    current: null | IWeather;
-    local: null | IWeather;
-    ready: boolean;
-  } => ({
+  state: (): weatherState => ({
     strategies: 'qWeather', // 当前数据源
     current: null,
     local: null,
     ready: false, // 数据是否准备完毕
+    openPrecip: false,
   }),
 
   actions: {
-    getAllWeather(cache = false) {
+    getWeather(cache = false) {
       const loc = useLocationStore();
 
       this.ready = false;
+      this.openPrecip = false;
 
-      weather
-        .getWeather(loc.current as Location)
-        .then((res: IWeather | undefined) => {
-          if (typeof res !== 'undefined') {
-            this.current = res;
-            this.ready = true;
+      weather.getWeather(loc.current as Location).then((res: IWeather) => {
+        this.current = res;
+        this.ready = true;
 
-            if (cache || process.env.NODE_ENV === 'development') {
-              this.local = res;
-            }
-          }
-        });
+        if (res.precip.minutely.length !== 0) {
+          this.openPrecip = true;
+        }
+
+        if (cache || process.env.NODE_ENV === 'development') {
+          this.local = res;
+        }
+      });
     },
 
     // 修改数据源
@@ -60,4 +65,3 @@ export const useWeatherStore = defineStore('weather', {
     },
   },
 });
-

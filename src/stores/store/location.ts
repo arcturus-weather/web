@@ -33,7 +33,7 @@ export const useLocationStore = defineStore('location', {
       this.current = new Location(loc);
 
       // 改变地理位置后重新请求天气数据
-      useWeatherStore().getAllWeather(cache);
+      useWeatherStore().getWeather(cache);
     },
 
     // 获取当前位置
