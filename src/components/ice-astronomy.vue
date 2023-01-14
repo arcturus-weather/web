@@ -65,15 +65,15 @@
         <div class="row items-center">
           <q-icon name="fa-solid fa-sun" size="25px"></q-icon>
           <div class="q-ml-sm">
-            <div>{{ $d(current.sun.sunRise, 'time') }}↑</div>
-            <div>{{ $d(current.sun.sunSet, 'time') }}↓</div>
+            <div>{{ $d(current.sun.sunrise, 'time') }}↑</div>
+            <div>{{ $d(current.sun.sunset, 'time') }}↓</div>
           </div>
         </div>
         <!-- moonrise & moonset -->
         <div class="row items-center">
           <div class="q-mr-sm">
-            <div>{{ $d(current.moon.moonRise, 'time') }}↑</div>
-            <div>{{ $d(current.moon.moonSet, 'time') }}↓</div>
+            <div>{{ $d(current.moon.moonrise, 'time') }}↑</div>
+            <div>{{ $d(current.moon.moonset, 'time') }}↓</div>
           </div>
           <q-icon name="fa-solid fa-moon" size="25px"></q-icon>
         </div>
@@ -119,26 +119,26 @@ export default defineComponent({
             // by the way, nextTick has no effect
             const diff1 = date.getDateDiff(
               new Date(),
-              current.value.sun.sunRise,
+              current.value.sun.sunrise,
               'seconds'
             );
 
             const diff2 = date.getDateDiff(
-              current.value.sun.sunSet,
-              current.value.sun.sunRise,
+              current.value.sun.sunset,
+              current.value.sun.sunrise,
               'seconds'
             );
             sunDeg.value = 180 * (diff1 / diff2);
 
             const diff3 = date.getDateDiff(
               new Date(),
-              current.value.moon.moonRise,
+              current.value.moon.moonrise,
               'seconds'
             );
 
             const diff4 = date.getDateDiff(
-              current.value.moon.moonSet,
-              current.value.moon.moonRise,
+              current.value.moon.moonset,
+              current.value.moon.moonrise,
               'seconds'
             );
 
@@ -170,13 +170,13 @@ export default defineComponent({
     skyColor() {
       const diff1 = date.getDateDiff(
         new Date(),
-        current.value.sun.sunRise,
+        current.value.sun.sunrise,
         'seconds'
       );
 
       const diff2 = date.getDateDiff(
         new Date(),
-        current.value.sun.sunSet,
+        current.value.sun.sunset,
         'seconds'
       );
 

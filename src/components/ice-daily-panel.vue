@@ -106,37 +106,39 @@ export default defineComponent({
 
   computed: {
     daily() {
-      return current!.value!.daily[this.idx];
+      return current!.value!.dailys[this.idx];
     },
 
     astronomy() {
-      const d = this.daily as IDailyItem;
+      const d = this.daily as IDaily;
+
       return [
         {
           icon: 'fa-solid fa-sun',
-          time: d.sun.sunRise,
+          time: d.sun.sunrise,
           type: '↑'
         },
         {
           icon: 'fa-solid fa-sun',
-          time: d.sun.sunSet,
+          time: d.sun.sunset,
           type: '↓'
         },
         {
           icon: 'fa-solid fa-moon',
-          time: d.moon.moonRise,
+          time: d.moon.moonrise,
           type: '↑'
         },
         {
           icon: 'fa-solid fa-moon',
-          time: d.moon.moonSet,
+          time: d.moon.moonset,
           type: '↓'
         },
       ];
     },
 
     other() {
-      const d = this.daily as IDailyItem;
+      const d = this.daily as IDaily;
+      
       const res: Other[] = [
         {
           label: 'humidity',
@@ -149,14 +151,6 @@ export default defineComponent({
           icon: 'fa-solid fa-gauge',
         },
       ];
-
-      if (typeof d.dewPoint !== 'undefined') {
-        res.push({
-          label: 'dew',
-          value: `${d.dewPoint}°`,
-          icon: 'fa-solid fa-temperature-low',
-        });
-      }
 
       if (typeof d.clouds !== 'undefined') {
         res.push({

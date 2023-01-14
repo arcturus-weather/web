@@ -14,7 +14,7 @@
     >
       <q-list class="row no-wrap height list">
         <q-item
-          v-for="(item, idx) in current!.daily"
+          v-for="(item, idx) in current!.dailys"
           :key="idx"
           clickable
           v-ripple
@@ -181,8 +181,9 @@ watchEffect(() => {
       d2: TData[] = [],
       d3: PData[] = [];
 
-    current.value!.daily.forEach((e: IDailyItem) => {
+    current.value!.dailys.forEach((e) => {
       const t = date.formatDate(e.dateTime, 'MM-DD');
+
       d1.push({
         x: t,
         temp: e.temperature.max!,
@@ -197,7 +198,7 @@ watchEffect(() => {
 
       d3.push({
         x: t,
-        pop: e.pop!,
+        pop: e.pop ?? 0,
       });
     });
 
@@ -249,4 +250,3 @@ watchEffect(() => {
   }
 }
 </style>
-

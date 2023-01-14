@@ -15,7 +15,7 @@
       <q-card-section class="column items-center" style="width: 350px">
         <div class="column justify-center items-center q-mb-md">
           <i-icon :name="hour!.icon" :size="70"></i-icon>
-          <div>{{ hour!.description }}, {{ hour!.temperature.day }}°</div>
+          <div>{{ hour!.description }}, {{ hour!.temperature }}°</div>
         </div>
 
         <div class="grid">
@@ -69,11 +69,11 @@ export default defineComponent({
 
   computed: {
     hour() {
-      return current!.value?.hourly[this.idx];
+      return current.value!.hourlys[this.idx];
     },
 
     other() {
-      const h = this.hour as IWeatherItem;
+      const h = this.hour as IHourly;
 
       const res: Other[] = [
         {
@@ -98,14 +98,6 @@ export default defineComponent({
           label: 'coluds',
           value: h.clouds,
           icon: 'fa-solid fa-cloud',
-        });
-      }
-
-      if (h.uvIndex) {
-        res.push({
-          label: 'uvIndex',
-          value: h.uvIndex,
-          icon: 'fa-solid fa-umbrella-beach',
         });
       }
 

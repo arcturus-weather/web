@@ -44,38 +44,36 @@
     </q-card>
   </q-dialog>
 </template>
+
 <script lang="ts">
 import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: 'iceAstronomyPanel',
+});
+</script>
+
+<script lang="ts" setup>
+import { computed, defineEmits, defineProps } from 'vue';
 import { useWeatherStore } from '@src/stores/stores';
 import { storeToRefs } from 'pinia';
 
 const { current } = storeToRefs(useWeatherStore());
 
-export default defineComponent({
-  name: 'iceAstronomyPanel',
+const moonphase = computed(() => {
+  if (Array.isArray(current.value!.moon!.moonPhase)) {
+    return current.value!.moon!.moonPhase;
+  }
 
-  props: {
-    visible: {
-      default: false,
-      type: Boolean,
-    },
-  },
+  return [];
+});
 
-  emits: ['update:model-value'],
-
-  computed: {
-    moonphase() {
-      if (Array.isArray(current!.value!.moon!.moonPhase)) {
-        return current!.value!.moon!.moonPhase;
-      }
-
-      return [];
-    },
-  },
-
-  setup() {
-    return { current };
+defineProps({
+  visible: {
+    default: false,
+    type: Boolean,
   },
 });
-</script>
 
+defineEmits(['update:model-value']);
+</script>

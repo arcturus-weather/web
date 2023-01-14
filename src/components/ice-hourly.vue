@@ -13,7 +13,7 @@
     >
       <q-list class="row no-wrap height list">
         <q-item
-          v-for="(item, idx) in current!.hourly"
+          v-for="(item, idx) in current!.hourlys"
           :key="idx"
           clickable
           v-ripple
@@ -163,10 +163,10 @@ watchEffect(() => {
   if (hour.value) {
     createGraph(
       hour.value,
-      current.value!.hourly.map((e: IWeatherItem) => ({
+      current.value!.hourlys.map((e) => ({
         x: date.formatDate(e.dateTime, 'HH:mm'),
-        temp: e.temperature.day!,
-        pop: e.pop!,
+        temp: e.temperature,
+        pop: e.pop,
       }))
     );
   }
