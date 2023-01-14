@@ -30,8 +30,8 @@ interface IWarning {
 }
 
 interface ISun {
-  sunrise: Date;
-  sunset: Date;
+  sunrise?: Date;
+  sunset?: Date;
 }
 
 interface IMoonPhase {
@@ -48,8 +48,8 @@ interface IDailyMoonPhase {
 }
 
 interface IMoon {
-  moonrise: Date;
-  moonset: Date;
+  moonrise?: Date;
+  moonset?: Date;
   moonPhase?: IMoonPhase[];
 }
 

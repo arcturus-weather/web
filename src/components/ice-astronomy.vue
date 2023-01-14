@@ -65,15 +65,15 @@
         <div class="row items-center">
           <q-icon name="fa-solid fa-sun" size="25px"></q-icon>
           <div class="q-ml-sm">
-            <div>{{ $d(current.sun.sunrise, 'time') }}↑</div>
-            <div>{{ $d(current.sun.sunset, 'time') }}↓</div>
+            <div>{{ sunrise }}↑</div>
+            <div>{{ sunset }}↓</div>
           </div>
         </div>
         <!-- moonrise & moonset -->
         <div class="row items-center">
           <div class="q-mr-sm">
-            <div>{{ $d(current.moon.moonrise, 'time') }}↑</div>
-            <div>{{ $d(current.moon.moonset, 'time') }}↓</div>
+            <div>{{ moonrise }}↑</div>
+            <div>{{ moonset }}↓</div>
           </div>
           <q-icon name="fa-solid fa-moon" size="25px"></q-icon>
         </div>
@@ -83,118 +83,127 @@
   <ice-astronomy-panel v-model="open"></ice-astronomy-panel>
 </template>
 
-<script>
-import { defineComponent, ref, watch } from 'vue';
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: 'ice-astronomy',
+});
+</script>
+
+<script lang="ts" setup>
+import { ref, computed, onMounted } from 'vue';
 import { useWeatherStore } from '@stores/stores';
 import { date } from 'quasar';
 import { storeToRefs } from 'pinia';
 import iceAstronomyPanel from '@components/ice-astronomy-panel.vue';
+import { i18n } from '@src/boot/i18n';
 
 const { current } = storeToRefs(useWeatherStore());
 
-export default defineComponent({
-  name: 'ice-astronomy',
+const sunDeg = ref(-90);
+const moonDeg = ref(-90);
+const open = ref(false);
+const curveLineColor = ref('#fff'); // the color of curve
+const orbRadius = ref(10); // the radius of earth ans moon
+const skyHeight = ref(220); // the background color
 
-  components: { iceAstronomyPanel },
-
-  props: {
-    visible: {
-      type: Boolean,
-      default: false,
-    },
-  },
-
-  setup(props) {
-    const sunDeg = ref(0),
-      moonDeg = ref(0),
-      open = ref(false);
-
-    watch(
-      () => props.visible,
-      (n) => {
-        if (n) {
-          setTimeout(() => {
-            // one second delay is required here
-            // otherwise, the css animate will not work
-            // by the way, nextTick has no effect
-            const diff1 = date.getDateDiff(
-              new Date(),
-              current.value.sun.sunrise,
-              'seconds'
-            );
-
-            const diff2 = date.getDateDiff(
-              current.value.sun.sunset,
-              current.value.sun.sunrise,
-              'seconds'
-            );
-            sunDeg.value = 180 * (diff1 / diff2);
-
-            const diff3 = date.getDateDiff(
-              new Date(),
-              current.value.moon.moonrise,
-              'seconds'
-            );
-
-            const diff4 = date.getDateDiff(
-              current.value.moon.moonset,
-              current.value.moon.moonrise,
-              'seconds'
-            );
-
-            moonDeg.value = 180 * (diff3 / diff4);
-          }, 1000);
-        }
-      }
+onMounted(() => {
+  if (current.value!.sun.sunrise && current.value!.sun.sunset) {
+    const diff1 = date.getDateDiff(
+      new Date(),
+      current.value!.sun.sunrise,
+      'seconds'
     );
 
-    return {
-      curveLineColor: ref('#fff'), // the color of curve
-      orbRadius: ref(10), // the radius of earth ans moon
-      skyHeight: ref(220), // the background color
-      sunDeg,
-      moonDeg,
-      current,
-      open,
-    };
-  },
+    const diff2 = date.getDateDiff(
+      current.value!.sun.sunset,
+      current.value!.sun.sunrise,
+      'seconds'
+    );
 
-  computed: {
-    sphereStyle() {
-      return {
-        width: `${this.orbRadius * 2}px`,
-        height: `${this.orbRadius * 2}px`,
-      };
-    },
+    sunDeg.value = 180 * (diff1 / diff2);
+  }
 
-    skyColor() {
-      const diff1 = date.getDateDiff(
-        new Date(),
-        current.value.sun.sunrise,
-        'seconds'
-      );
+  if (current.value!.moon?.moonrise && current.value!.moon?.moonset) {
+    const diff3 = date.getDateDiff(
+      new Date(),
+      current.value!.moon.moonrise,
+      'seconds'
+    );
 
-      const diff2 = date.getDateDiff(
-        new Date(),
-        current.value.sun.sunset,
-        'seconds'
-      );
+    const diff4 = date.getDateDiff(
+      current.value!.moon.moonset,
+      current.value!.moon.moonrise,
+      'seconds'
+    );
 
-      if (diff1 < 0 || diff2 > 0) {
-        // sun is not appeared
-        return '#303133';
-      } else if (diff2 > -7200) {
-        // sunset is still two hours away
-        return '#ffcc80';
-      } else {
-        return '#6AB3FF';
-      }
-    },
+    moonDeg.value = 180 * (diff3 / diff4);
+  }
+});
 
-    curveRadius() {
-      return this.skyHeight * 0.7 - this.orbRadius * 2;
-    },
-  },
+const sphereStyle = computed(() => {
+  return {
+    width: `${orbRadius.value * 2}px`,
+    height: `${orbRadius.value * 2}px`,
+  };
+});
+
+const skyColor = computed(() => {
+  let diff1 = 1,
+    diff2 = -10000;
+
+  if (current.value!.sun.sunrise && current.value!.sun.sunset) {
+    diff1 = date.getDateDiff(new Date(), current.value!.sun.sunrise, 'seconds');
+
+    diff2 = date.getDateDiff(new Date(), current.value!.sun.sunset, 'seconds');
+  }
+
+  if (diff1 < 0 || diff2 > 0) {
+    // sun is not appeared
+    return '#303133';
+  } else if (diff2 > -7200) {
+    // sunset is still two hours away
+    return '#ffcc80';
+  } else {
+    return '#6AB3FF';
+  }
+});
+
+const curveRadius = computed(() => {
+  return skyHeight.value * 0.7 - orbRadius.value * 2;
+});
+
+const sunrise = computed(() => {
+  if (current.value!.sun.sunrise) {
+    return i18n.global.d(current.value!.sun.sunrise, 'time');
+  } else {
+    return '-/-';
+  }
+});
+
+const sunset = computed(() => {
+  if (current.value!.sun.sunset) {
+    return i18n.global.d(current.value!.sun.sunset, 'time');
+  } else {
+    return '-/-';
+  }
+});
+
+const moonrise = computed(() => {
+  if (current.value!.moon?.moonrise) {
+    return i18n.global.d(current.value!.moon.moonrise, 'time');
+  } else {
+    return '-/-';
+  }
+});
+
+const moonset = computed(() => {
+  if (current.value!.moon?.moonset) {
+    return i18n.global.d(current.value!.moon?.moonset, 'time');
+  } else {
+    return '-/-';
+  }
 });
 </script>
 
@@ -280,4 +289,3 @@ $moon-mountain-color: #aaa;
   fill: none;
 }
 </style>
-

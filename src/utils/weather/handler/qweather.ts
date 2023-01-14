@@ -30,15 +30,15 @@ const aqiHandler = function (res: QAir): IAir {
 
 const sunHandler = function (res: QSun): ISun {
   return {
-    sunrise: new Date(res.sunrise),
-    sunset: new Date(res.sunset),
+    sunrise: res.sunrise === '' ? undefined : new Date(res.sunrise),
+    sunset: res.sunset === '' ? undefined : new Date(res.sunset),
   };
 };
 
 const moonHandler = function (res: QMoon): IMoon {
   return {
-    moonrise: new Date(res.moonrise),
-    moonset: new Date(res.moonset),
+    moonrise: res.moonrise === '' ? undefined : new Date(res.moonrise),
+    moonset: res.moonset === '' ? undefined : new Date(res.moonset),
     moonPhase: res.moonPhase.map((e): IMoonPhase => {
       return {
         dateTime: new Date(e.fxTime),
