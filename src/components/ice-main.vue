@@ -11,6 +11,7 @@
         unelevated
         icon="fa-solid fa-droplet"
         @click="weather.openPrecip = true"
+        size="10px"
       >
         <q-badge rounded color="red" floating v-if="isPrecip" />
       </q-btn>
@@ -20,6 +21,7 @@
         unelevated
         icon="fa-solid fa-arrows-rotate"
         @click="refresh"
+        size="10px"
       />
 
       <q-btn
@@ -27,6 +29,7 @@
         unelevated
         icon="fa-solid fa-magnifying-glass"
         @click="openMap = true"
+        size="10px"
       />
     </div>
 
