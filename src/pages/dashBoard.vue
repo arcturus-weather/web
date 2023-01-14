@@ -39,6 +39,7 @@
         </div>
       </div>
     </q-scroll-area>
+    <icePrecip v-model="openPrecip"></icePrecip>
   </q-page>
 </template>
 <script lang="ts">
@@ -52,6 +53,7 @@ export default defineComponent({
 <script lang="ts" setup>
 import iceMain from 'components/ice-main.vue';
 import iceAir from 'components/ice-air.vue';
+import icePrecip from '@components/ice-precip.vue';
 import iceAstronomy from 'components/ice-astronomy.vue';
 import iceHourly from 'components/ice-hourly.vue';
 import iceDaily from 'components/ice-daily.vue';
@@ -60,10 +62,10 @@ import { useLocationStore, useWeatherStore } from '@stores/stores';
 
 const location = useLocationStore();
 
-const { ready } = storeToRefs(useWeatherStore());
+const { ready, openPrecip } = storeToRefs(useWeatherStore());
 
 if (process.env.NODE_ENV === 'development') {
-  useWeatherStore().getAllWeather();
+  useWeatherStore().getWeather();
 } else {
   location.getLocation();
 }
@@ -98,4 +100,3 @@ if (process.env.NODE_ENV === 'development') {
   height: 100vh;
 }
 </style>
-
