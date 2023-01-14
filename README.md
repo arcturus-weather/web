@@ -1,8 +1,10 @@
 <div align="center">
 
-<h1>小冰天气(iweather)</h1>
+<h1>小冰天气</h1>
 
-[![GitHub issues](https://img.shields.io/github/issues/ICE99125/iweather-vue?style=for-the-badge)](https://github.com/ICE99125/iweather-vue/issues) [![GitHub forks](https://img.shields.io/github/forks/ICE99125/iweather-vue?style=for-the-badge)](https://github.com/ICE99125/iweather-vue/network) [![GitHub stars](https://img.shields.io/github/stars/ICE99125/iweather-vue?style=for-the-badge)](https://github.com/ICE99125/iweather-vue/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/ICE99125/iweather-vue?style=for-the-badge)](https://github.com/ICE99125/iweather-vue/issues) [![GitHub forks](https://img.shields.io/github/forks/ICE99125/iweather-vue?style=for-the-badge)](https://github.com/ICE99125/iweather-vue/network) [![GitHub stars](https://img.shields.io/github/stars/ICE99125/iweather-vue?style=for-the-badge)](https://github.com/ICE99125/iweather-vue/stargazers)![GitHub all releases](https://img.shields.io/github/downloads/arcturus-org/merak/total?style=for-the-badge)
+
+[demo](https://iceweather.netlify.app/) | [backend](https://github.com/ice-universes/weather_serve)
 
 </div>
 
@@ -36,13 +38,7 @@ VUE_SERVER_BASEURL=127.0.0.1:8090 # 小冰天气后端地址
 quasar dev
 ```
 
-### 格式化文件
-
-```bash
-pnpm run format
-```
-
-### 构建
+### 打包
 
 ```bash
 quasar build
@@ -54,17 +50,19 @@ quasar build
 quasar build --debug
 ```
 
-### 其他
+## 部署
 
-查看 [quasar 配置](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js)
+### Netlify
 
-## 部署 Netlify
+![image-20230114094426588](assets/image-20230114094426588.png)
 
-构建时添加环境变量 VUE_QQMAP_KEY(腾讯地图) 和 VUE_QWEATHER_KEY(和风天气)
+![image-20230114094657770](assets/image-20230114094657770.png)
 
-## [demo](https://iceweather.netlify.app/)
+![image-20230114094231790](assets/image-20230114094231790.png)
 
-## 小冰天气后端地址
+环境变量的填写需要在部署之前, 否则不生效
 
-[点击进入](https://github.com/ice-universes/weather_serve.git)
+## Contributors
+
+[![Contributors](http://contributors.nn.ci/api?repo=arcturus-org/merak)](https://github.com/arcturus-org/merak/graphs/contributors)
 
