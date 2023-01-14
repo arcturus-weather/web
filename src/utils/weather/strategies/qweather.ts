@@ -297,131 +297,130 @@ export default class QWeatherStrategy extends WeatherStrategy {
   }
 
   // 获取 AQI 指数
-  getAir(loc: Location): Promise<IAir> {
-    return this.request({
+  async getAir(loc: Location): Promise<IAir> {
+    const res = await this.request({
       url: 'air/now',
       data: { location: loc.toString() },
-    }).then((res) => {
-      return QWeatherHandler.aqiHandler(res.now);
     });
+    
+    return QWeatherHandler.aqiHandler(res.now);
   }
 
   // 获取日出日落时间
-  getSunTime(loc: Location, date_?: string): Promise<ISun> {
-    return this.request({
+  async getSunTime(loc: Location, date_?: string): Promise<ISun> {
+    const res = await this.request({
       url: 'astronomy/sun',
       data: {
         location: loc.toString(),
         date: date_ ?? date.formatDate(Date.now(), 'YYYYMMDD'),
       },
-    }).then((res) => {
-      return QWeatherHandler.sunHandler(res);
     });
+    
+    return QWeatherHandler.sunHandler(res);
   }
 
   // 获取月升月落
-  getMoonTime(loc: Location, date_?: string): Promise<IMoon> {
-    return this.request({
+  async getMoonTime(loc: Location, date_?: string): Promise<IMoon> {
+    const res = await this.request({
       url: 'astronomy/moon',
       data: {
         location: loc.toString(),
         date: date_ ?? date.formatDate(Date.now(), 'YYYYMMDD'),
       },
-    }).then((res) => {
-      return QWeatherHandler.moonHandler(res);
     });
+    
+    return QWeatherHandler.moonHandler(res);
   }
 
   // 获取灾害预警
-  getDisasterWarning(loc: Location): Promise<Array<IWarning>> {
-    return this.request({
+  async getDisasterWarning(loc: Location): Promise<Array<IWarning>> {
+    const res = await this.request({
       url: 'warning/now',
       data: { location: loc.toString() },
-    }).then((res) => {
-      return QWeatherHandler.warningHandler(res.warning);
     });
+    
+    return QWeatherHandler.warningHandler(res.warning);
   }
 
   // 获取生活指数, 默认获取全部生活指数
-  getLivingIndices(loc: Location, type = 0): Promise<Array<ILivingIndex>> {
-    return this.request({
+  async getLivingIndices(loc: Location, type = 0): Promise<Array<ILivingIndex>> {
+    const res = await this.request({
       url: 'indices/1d',
       data: {
         location: loc.toString(),
         type,
       },
-    }).then((res) => {
-      return QWeatherHandler.indicesHandler(res.daily);
     });
+    
+    return QWeatherHandler.indicesHandler(res.daily);
   }
 
   // 获取 2 小时降水
-  getPrecipitationInTheNextTwoHours(loc: Location): Promise<IFuturePrecip> {
-    return this.request({
+  async getPrecipitationInTheNextTwoHours(loc: Location): Promise<IFuturePrecip> {
+    const res = await this.request({
       url: 'minutely/5m',
       data: { location: loc.toString() },
-    }).then((res) => {
-      return QWeatherHandler.precipHandler(res);
     });
+    
+    return QWeatherHandler.precipHandler(res);
   }
 
   // 获取 24 小时天气预报
-  getWeatherByHours(loc: Location): Promise<Array<IWeatherItem>> {
-    return this.request({
+  async getWeatherByHours(loc: Location): Promise<Array<IWeatherItem>> {
+    const res = await this.request({
       url: 'weather/24h',
       data: { location: loc.toString() },
-    }).then((res) => {
-      return QWeatherHandler.hourlyHandler(res.hourly);
     });
+    
+    return QWeatherHandler.hourlyHandler(res.hourly);
   }
 
   // 获取未来 7 天天气预报
-  getWeatherByDays(loc: Location): Promise<Array<IDailyItem>> {
-    return this.request({
+  async getWeatherByDays(loc: Location): Promise<Array<IDailyItem>> {
+    const res = await this.request({
       url: 'weather/7d',
       data: { location: loc.toString() },
-    }).then((res) => {
-      return QWeatherHandler.dailyHandler(res.daily);
     });
+    
+    return QWeatherHandler.dailyHandler(res.daily);
   }
 
   // 获取实时天气预报
-  getNowWeather(loc: Location): Promise<IWeatherItem> {
-    return this.request({
+  async getNowWeather(loc: Location): Promise<IWeatherItem> {
+    const res = await this.request({
       url: 'weather/now',
       data: { location: loc.toString() },
-    }).then((res) => {
-      return QWeatherHandler.nowWeatherHandler(res.now);
     });
+    
+    return QWeatherHandler.nowWeatherHandler(res.now);
   }
 
-  getWeather(loc: Location): Promise<IWeather | void> {
-    return Promise.all([
-      this.getAir(loc),
-      this.getSunTime(loc),
-      this.getMoonTime(loc),
-      this.getDisasterWarning(loc),
-      this.getLivingIndices(loc),
-      this.getPrecipitationInTheNextTwoHours(loc),
-      this.getWeatherByHours(loc),
-      this.getWeatherByDays(loc),
-      this.getNowWeather(loc),
-    ])
-      .then((values): IWeather => {
-        return {
-          location: loc,
-          air: values[0],
-          sun: values[1],
-          moon: values[2],
-          waring: values[3],
-          livingIndices: values[4],
-          precip: values[5],
-          hourly: values[6],
-          daily: values[7],
-          now: values[8],
-        };
-      })
-      .catch(() => {});
+  async getWeather(loc: Location): Promise<IWeather | void> {
+    try {
+      const values_1 = await Promise.all([
+        this.getAir(loc),
+        this.getSunTime(loc),
+        this.getMoonTime(loc),
+        this.getDisasterWarning(loc),
+        this.getLivingIndices(loc),
+        this.getPrecipitationInTheNextTwoHours(loc),
+        this.getWeatherByHours(loc),
+        this.getWeatherByDays(loc),
+        this.getNowWeather(loc),
+      ]);
+      return {
+        location: loc,
+        air: values_1[0],
+        sun: values_1[1],
+        moon: values_1[2],
+        waring: values_1[3],
+        livingIndices: values_1[4],
+        precip: values_1[5],
+        hourly: values_1[6],
+        daily: values_1[7],
+        now: values_1[8],
+      };
+    } catch { }
   }
 }
 
