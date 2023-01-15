@@ -42,10 +42,10 @@ export default {
     air: {
       excellent: 'excellent',
       good: 'good',
-      lightlyPollution: 'lightly',
-      ModeratePollution: 'moderate',
-      HeavyPollution: 'heavy',
-      SeriousPollution: 'serious',
+      lightly: 'lightly',
+      moderate: 'moderate',
+      heavy: 'heavy',
+      serious: 'serious',
     },
   },
   account: {

@@ -42,10 +42,10 @@ export default {
     air: {
       excellent: '优',
       good: '良',
-      lightlyPollution: '轻度污染',
-      ModeratePollution: '中度污染',
-      HeavyPollution: '重度污染',
-      SeriousPollution: '严重污染',
+      lightly: '轻度污染',
+      moderate: '中度污染',
+      heavy: '重度污染',
+      serious: '严重污染',
     },
   },
   account: {
