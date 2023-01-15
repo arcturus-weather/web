@@ -32,14 +32,17 @@
         </div>
 
         <!-- pollutions -->
-        <div class="row justify-between">
-          <div
-            v-for="(item, idx) in pollutions"
-            :key="idx"
-            class="column items-center"
-          >
-            <div class="text-bold">{{ item.value }}</div>
-            <div class="text-caption">{{ item.label }}</div>
+        <div>
+          <div class="q-mb-md">{{ $t('unit') }}: μg/m³</div>
+          <div class="row justify-between">
+            <div
+              v-for="(item, idx) in pollutions"
+              :key="idx"
+              class="column items-center"
+            >
+              <div class="text-bold">{{ item.value }}</div>
+              <div class="text-caption">{{ item.label }}</div>
+            </div>
           </div>
         </div>
       </q-card-section>
@@ -112,4 +115,3 @@ const pollutions = computed(() => {
   }
 }
 </style>
-

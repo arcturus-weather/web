@@ -119,6 +119,7 @@ export default {
   checkinRecord: 'Checkin record',
   write: 'Write something?',
   visitor: 'visitors today',
+  unit: 'unit',
 };
 
 export const time: Record<string, Intl.DateTimeFormatOptions> = {

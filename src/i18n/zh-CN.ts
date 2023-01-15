@@ -119,6 +119,7 @@ export default {
   checkinRecord: '打卡日记',
   write: '写点什么吗?',
   visitor: '今日访问人数',
+  unit: '单位',
 };
 
 export const time: Record<string, Intl.DateTimeFormatOptions> = {
@@ -151,4 +152,3 @@ export const time: Record<string, Intl.DateTimeFormatOptions> = {
     weekday: 'short',
   },
 };
-
