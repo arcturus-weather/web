@@ -1,10 +1,8 @@
 import Http, { requestOption } from '@utils/http';
 import Location from '@utils/location/location';
 import { WeatherStrategy } from './base';
-
-const caiyunHanlder = function (res: any): IWeather {
-  return res;
-};
+import { CYCaiyunRes } from '@mock/caiyun/type';
+import { caiyunHandler } from '../handler/caiyun';
 
 const caiyunLangMap = {
   'zh-CN': 'zh_CN',
@@ -59,8 +57,8 @@ export default class CaiyunStrategy extends WeatherStrategy {
     });
   }
 
-  async getWeather(loc: Location): Promise<IWeather | void> {
-    const res = await this.request({
+  async getWeather(loc: Location): Promise<IWeather> {
+    const res: CYCaiyunRes = await this.request({
       url: `${this.key}/${loc.toString()}/weather`,
       data: {
         alert: true,
@@ -69,7 +67,6 @@ export default class CaiyunStrategy extends WeatherStrategy {
       },
     });
 
-    return caiyunHanlder(res);
+    return caiyunHandler(res, loc);
   }
 }
-

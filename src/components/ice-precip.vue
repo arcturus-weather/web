@@ -31,7 +31,7 @@ export default defineComponent({
 <script setup lang="ts">
 import { useWeatherStore } from '@src/stores/stores';
 import { storeToRefs } from 'pinia';
-import { defineProps, ref, defineEmits } from 'vue';
+import { ref } from 'vue';
 import { Area } from '@antv/g2plot';
 import { date } from 'quasar';
 

@@ -75,7 +75,7 @@ const barColor = ref(
 );
 
 const category = computed(() => {
-  return aqiCategory(air.value?.air.aqi);
+  return aqiCategory(air.value!.air.aqi);
 });
 
 const aqiColor = computed(() => {

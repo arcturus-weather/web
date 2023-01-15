@@ -44,8 +44,9 @@
         </div>
 
         <div>
-          {{ currentWeather!.now.description }},
-          {{ currentWeather!.now.feelsLike }}
+          {{ $t(`weather.desc.${currentWeather!.now.description}`) }},
+          {{ $t('weather.temperature.feel') }}
+          {{ currentWeather!.now.feelsLike }} °
         </div>
       </div>
 

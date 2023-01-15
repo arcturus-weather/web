@@ -3,7 +3,7 @@
     flat
     bordered
     class="clickable card-border"
-    @click="open = true"
+    @click="openMoonPhase"
     style="height: 100%"
   >
     <q-card-section class="text-bold">
@@ -63,19 +63,29 @@
       <div class="row justify-between q-pt-md">
         <!-- sunrise & sunset -->
         <div class="row items-center">
-          <q-icon name="fa-solid fa-sun" size="25px"></q-icon>
+          <q-icon v-if="showSunIcon" name="fa-solid fa-sun" size="25px" />
+
           <div class="q-ml-sm">
-            <div>{{ sunrise }}↑</div>
-            <div>{{ sunset }}↓</div>
+            <div v-if="current!.sun.sunrise">
+              {{ $d(current!.sun.sunrise, 'time') }}↑
+            </div>
+            <div v-if="current!.sun.sunset">
+              {{ $d(current!.sun.sunset, 'time') }}↓
+            </div>
           </div>
         </div>
+
         <!-- moonrise & moonset -->
         <div class="row items-center">
           <div class="q-mr-sm">
-            <div>{{ moonrise }}↑</div>
-            <div>{{ moonset }}↓</div>
+            <div v-if="current!.moon?.moonrise">
+              {{ $d(current!.moon?.moonrise, 'time') }}↑
+            </div>
+            <div v-if="current!.moon?.moonset">
+              {{ $d(current!.moon?.moonset, 'time') }}↓
+            </div>
           </div>
-          <q-icon name="fa-solid fa-moon" size="25px"></q-icon>
+          <q-icon v-if="showMoonIcon" name="fa-solid fa-moon" size="25px" />
         </div>
       </div>
     </q-card-section>
@@ -85,6 +95,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { isDef } from '@utils/utils';
 
 export default defineComponent({
   name: 'ice-astronomy',
@@ -97,7 +108,6 @@ import { useWeatherStore } from '@stores/stores';
 import { date } from 'quasar';
 import { storeToRefs } from 'pinia';
 import iceAstronomyPanel from '@components/ice-astronomy-panel.vue';
-import { i18n } from '@src/boot/i18n';
 
 const { current } = storeToRefs(useWeatherStore());
 
@@ -174,37 +184,27 @@ const curveRadius = computed(() => {
   return skyHeight.value * 0.7 - orbRadius.value * 2;
 });
 
-const sunrise = computed(() => {
-  if (current.value!.sun.sunrise) {
-    return i18n.global.d(current.value!.sun.sunrise, 'time');
+const showMoonIcon = computed(() => {
+  if (current.value!.moon?.moonrise && current.value!.moon?.moonset) {
+    return true;
   } else {
-    return '-/-';
+    return false;
   }
 });
 
-const sunset = computed(() => {
-  if (current.value!.sun.sunset) {
-    return i18n.global.d(current.value!.sun.sunset, 'time');
+const showSunIcon = computed(() => {
+  if (current.value!.sun.sunrise && current.value!.sun.sunset) {
+    return true;
   } else {
-    return '-/-';
+    return false;
   }
 });
 
-const moonrise = computed(() => {
-  if (current.value!.moon?.moonrise) {
-    return i18n.global.d(current.value!.moon.moonrise, 'time');
-  } else {
-    return '-/-';
+const openMoonPhase = function () {
+  if (isDef(current.value!.moon?.moonPhase)) {
+    open.value = true;
   }
-});
-
-const moonset = computed(() => {
-  if (current.value!.moon?.moonset) {
-    return i18n.global.d(current.value!.moon?.moonset, 'time');
-  } else {
-    return '-/-';
-  }
-});
+};
 </script>
 
 <style lang="scss" scoped>

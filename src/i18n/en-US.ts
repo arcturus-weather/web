@@ -120,6 +120,7 @@ export default {
   write: 'Write something?',
   visitor: 'visitors today',
   unit: 'unit',
+  nothing: 'nothing here.',
 };
 
 export const time: Record<string, Intl.DateTimeFormatOptions> = {

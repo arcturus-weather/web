@@ -5,7 +5,7 @@
   >
     <q-card style="width: 400px" class="card-border">
       <q-card-section class="row items-center q-pb-none">
-        <div class="text-h6">{{ $t('weather.astronomy.moonphase') }}</div>
+        <div class="text-h6">{{ $t('weather.astronomy.moonphase.label') }}</div>
         <q-space />
         <q-btn flat round dense v-close-popup icon="fa-solid fa-xmark" />
       </q-card-section>
@@ -19,9 +19,9 @@
         >
           <q-timeline color="secondary">
             <q-timeline-entry
-              v-for="(item, idx) in moonphase"
+              v-for="(item, idx) in current!.moon?.moonPhase"
               :key="idx"
-              :title="item.name"
+              :title="$t(`weather.astronomy.moonphase.${item.name}`)"
               :subtitle="$d(item.dateTime!, 'long')"
             >
               <div class="row items-center justify-between q-pr-md">
@@ -54,19 +54,10 @@ export default defineComponent({
 </script>
 
 <script lang="ts" setup>
-import { computed, defineEmits, defineProps } from 'vue';
-import { useWeatherStore } from '@src/stores/stores';
+import { useWeatherStore } from '@stores/stores';
 import { storeToRefs } from 'pinia';
 
 const { current } = storeToRefs(useWeatherStore());
-
-const moonphase = computed(() => {
-  if (Array.isArray(current.value!.moon!.moonPhase)) {
-    return current.value!.moon!.moonPhase;
-  }
-
-  return [];
-});
 
 defineProps({
   visible: {

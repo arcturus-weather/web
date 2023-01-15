@@ -86,3 +86,35 @@ export function isValidPassword(pwd: string): string | boolean {
   return true;
 }
 
+export function dateOffset(dst: Date, offset: string) {
+  if (/^([0-1]{1}\d|2[0-3]):([0-5]\d)$/.test(offset)) {
+    const t = offset.split(':');
+
+    const res = new Date(dst);
+
+    res.setHours(dst.getHours() + Number(t[0]));
+    res.setMinutes(dst.getMinutes() + Number(t[1]));
+
+    return res;
+  } else if (/^[0-9]+$/.test(offset)) {
+    const o = Number(offset);
+
+    const res = new Date(dst);
+
+    res.setMinutes(dst.getMinutes() + o);
+
+    return res;
+  }
+
+  return dst;
+}
+
+export function log(res: any) {
+  if (process.env.NODE_ENV === 'development') {
+    console.log(res);
+  }
+}
+
+export function isDef(obj: any) {
+  return typeof obj !== 'undefined' && obj !== null && obj !== '';
+}

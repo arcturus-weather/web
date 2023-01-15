@@ -29,7 +29,7 @@
           <q-item-section>
             <i-icon :name="item.icon" :size="40"></i-icon>
             <div class="text-center ellipsis" style="width: 100%">
-              {{ item.description }}
+              {{ $t(`weather.desc.${item.description}`) }}
             </div>
           </q-item-section>
         </q-item>

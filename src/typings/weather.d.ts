@@ -62,10 +62,10 @@ interface IDailyMoon {
 type ILifeIndexs = ILifeIndex[];
 
 interface ILifeIndex {
+  type: string;
   name: string;
   level: number;
-  category: string;
-  description?: string;
+  description: string;
 }
 
 interface IPrecip {
@@ -80,7 +80,7 @@ interface INow {
   dateTime: Date;
   temperature: number;
   feelsLike: number;
-  dewPoint: number;
+  dewPoint?: number;
   description: string;
   icon: string;
   wind: IWind;
@@ -95,7 +95,7 @@ interface IHourly {
   dateTime: Date;
   temperature: number;
   feelsLike?: number;
-  dewPoint: number;
+  dewPoint?: number;
   description: string;
   icon: string;
   wind: IWind;
@@ -119,7 +119,7 @@ interface IWind {
 interface IDaily {
   dateTime: Date;
   sun: ISun;
-  moon: IDailyMoon;
+  moon?: IDailyMoon;
   dayDesc: string;
   dayIcon: string;
   nightDesc: string;

@@ -4,6 +4,7 @@ import Location from '@utils/location/location';
 import QWeatherStrategy from '@utils/weather/strategies/qweather';
 import Weather from '@utils/weather/strategies/weather';
 import CaiyunStrategy from '@src/utils/weather/strategies/caiyun';
+import { log } from '@utils/utils';
 
 const qweather = new QWeatherStrategy(
   process.env.VUE_QWEATHER_KEY!,
@@ -41,6 +42,8 @@ export const useWeatherStore = defineStore('weather', {
       this.openPrecip = false;
 
       weather.getWeather(loc.current as Location).then((res: IWeather) => {
+        log(res);
+
         this.current = res;
         this.ready = true;
 

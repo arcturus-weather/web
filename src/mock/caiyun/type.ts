@@ -11,7 +11,7 @@ export interface CYCaiyunRes {
   result: CYResult;
 }
 
-interface CYResult {
+export interface CYResult {
   alert: CYAlert;
   realtime: CYRealtime;
   minutely: CYMinutely;
@@ -37,12 +37,12 @@ interface CYContent {
   status: string;
   code: string;
   description: string;
-  regionCYd: string;
+  regionId: string;
   county: string;
   pubtimestamp: number;
   latlon: number[];
   city: string;
-  alertCYd: string;
+  alertId: string;
   title: string;
   adcode: string;
   source: string;
@@ -76,23 +76,25 @@ export interface CYRealtime {
       intensity: number;
     };
   };
-  air_quality: {
-    pm25: number;
-    pm10: number;
-    o3: number;
-    so2: number;
-    no2: number;
-    co: number;
-    aqi: {
-      chn: number;
-      usa: number;
-    };
-    description: {
-      chn: string;
-      usa: string;
-    };
-  };
+  air_quality: CYAqi;
   life_index: CYLifeIndex;
+}
+
+export interface CYAqi {
+  pm25: number;
+  pm10: number;
+  o3: number;
+  so2: number;
+  no2: number;
+  co: number;
+  aqi: {
+    chn: number;
+    usa: number;
+  };
+  description: {
+    chn: string;
+    usa: string;
+  };
 }
 
 export interface CYLifeIndex {
@@ -106,7 +108,7 @@ export interface CYLifeIndex {
   };
 }
 
-interface CYMinutely {
+export interface CYMinutely {
   status: string;
   datasource: string;
   precipitation_2h: number[];
@@ -175,17 +177,9 @@ export interface CYHourly {
   };
 }
 
-interface CYDaily {
+export interface CYDaily {
   status: string;
-  astro: {
-    date: string;
-    sunrise: {
-      time: string;
-    };
-    sunset: {
-      time: string;
-    };
-  }[];
+  astro: CYSun[];
   precipitation_08h_20h: CYPrecipitation08h20h[];
   precipitation_20h_32h: CYPrecipitation20h32h[];
   precipitation: {
@@ -285,6 +279,16 @@ interface CYDaily {
     dressing: CYDressing[];
     comfort: CYComfort[];
     coldRisk: CYColdRisk[];
+  };
+}
+
+export interface CYSun {
+  date: string;
+  sunrise: {
+    time: string;
+  };
+  sunset: {
+    time: string;
   };
 }
 

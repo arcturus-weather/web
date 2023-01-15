@@ -27,12 +27,16 @@
 
             <div>
               <i-icon :name="item.dayIcon" :size="40"></i-icon>
-              <div class="text-center">{{ item.dayDesc }}</div>
+              <div class="text-center">
+                {{ $t(`weather.desc.${item.dayDesc}`) }}
+              </div>
             </div>
           </div>
 
           <div class="down">
-            <div class="text-center">{{ item.nightDesc }}</div>
+            <div class="text-center">
+              {{ $t(`weather.desc.${item.nightDesc}`) }}
+            </div>
             <i-icon
               v-if="item.nightIcon"
               :name="item.nightIcon"
