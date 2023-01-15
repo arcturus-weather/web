@@ -114,7 +114,6 @@ const refresh = function () {
     location.current.latitude === location.local.latitude &&
     location.current.longitude === location.local.longitude
   ) {
-    console.log('sss');
     // 刷新时是当前位置时对天气信息进行缓存
     weather.getWeather(true);
   } else {
