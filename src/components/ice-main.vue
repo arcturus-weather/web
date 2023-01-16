@@ -35,7 +35,12 @@
 
     <q-card-section class="justify-between column" style="width: 100%">
       <div class="column q-mb-md">
-        <i-icon :name="currentWeather!.now.icon" :size="100"></i-icon>
+        <i-icon
+          :name="currentWeather!.now.icon"
+          :size="100"
+          :type="weather.strategies"
+        ></i-icon>
+
         <div
           class="text-h2 q-mb-md text-center text-bold"
           style="height: 80px; width: 80px; line-height: 80px"

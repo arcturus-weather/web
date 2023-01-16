@@ -4,7 +4,7 @@
       <div class="text-h6">{{ $t('checkinRecord') }}</div>
 
       <q-circular-progress
-        v-if="calendarList.length === 0"
+        v-if="loadCalendarList"
         indeterminate
         rounded
         size="50px"
@@ -34,11 +34,19 @@
             <div class="clickable" @click="openEditor(item)">
               <div class="row items-center">
                 <span class="q-mr-xs">{{ item.weather.temperature }}°</span>
-                <span class="q-mr-xs">{{ item.weather.description }},</span>
+                <span class="q-mr-xs">
+                  {{ $t(`weather.desc.${item.weather.description}`) }},
+                </span>
+
                 <span class="q-mr-xs">
                   {{ $t('weather.aqi') }} {{ item.weather.aqi }}
                 </span>
-                <i-icon :name="item.weather.icon" :size="20"></i-icon>
+
+                <i-icon
+                  :name="item.weather.icon"
+                  :size="20"
+                  :type="item.weather.source"
+                ></i-icon>
               </div>
 
               <div v-if="item.daily">
@@ -102,6 +110,8 @@ import { useUserStore, useWeatherStore } from '@stores/stores';
 import iceWritePanel from '@components/ice-write-panel.vue';
 import { useRouter } from 'vue-router';
 
+const weather = useWeatherStore();
+
 const { t } = useI18n();
 
 const loading = ref(false);
@@ -139,15 +149,14 @@ function confirm(e: string) {
 }
 
 function checkin() {
-  const weather = useWeatherStore();
   if (weather.local) {
     loading.value = true;
-    // 这里写的好丑啊 o(TヘTo)
+
     const {
       location,
       now: {
-        feelsLike: { day: feelsLike = 0 } = {},
-        temperature: { day: temperature = 0 },
+        feelsLike,
+        temperature,
         icon,
         description,
         wind: { wind360, windSpeed },
@@ -163,6 +172,7 @@ function checkin() {
     const options = {
       location,
       weather: {
+        source: weather.strategies,
         temperature,
         feelsLike,
         icon,
@@ -200,11 +210,16 @@ function checkin() {
   }
 }
 
+const loadCalendarList = ref(false);
+
 onMounted(() => {
+  loadCalendarList.value = true;
+
   user
     .calendar()
     .then((res: ICheckInRes[]) => {
       calendarList.value = res.reverse();
+      loadCalendarList.value = false;
     })
     .catch(() => {
       // token 失效
@@ -228,4 +243,3 @@ onMounted(() => {
   }
 }
 </style>
-

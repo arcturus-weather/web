@@ -13,7 +13,7 @@ const qweather = new QWeatherStrategy(
 
 const caiyun = new CaiyunStrategy(process.env.VUE_CAIYUN_KEY!);
 
-const weather = new Weather(qweather, 'qWeather');
+const weather = new Weather(qweather, 'qweather');
 
 weather.addStrategy(caiyun, 'caiyun');
 
@@ -27,7 +27,7 @@ interface weatherState {
 
 export const useWeatherStore = defineStore('weather', {
   state: (): weatherState => ({
-    strategies: 'qWeather', // 当前数据源
+    strategies: 'qweather', // 当前数据源
     current: null,
     local: null,
     ready: false, // 数据是否准备完毕
@@ -60,6 +60,7 @@ export const useWeatherStore = defineStore('weather', {
     // 修改数据源
     changeStrategy(strategy: DataSources) {
       weather.changeStrategy(strategy);
+      this.strategies = strategy;
     },
 
     // 修改数据源语言

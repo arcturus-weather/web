@@ -27,7 +27,12 @@
 
           <!-- icon -->
           <q-item-section>
-            <i-icon :name="item.icon" :size="40"></i-icon>
+            <i-icon
+              :name="item.icon"
+              :size="40"
+              :type="weather.strategies"
+            ></i-icon>
+
             <div class="text-center ellipsis" style="width: 100%">
               {{ $t(`weather.desc.${item.description}`) }}
             </div>
@@ -154,10 +159,11 @@ function openHourlyPanel(e: number) {
   this.open = true;
 }
 
-const { current } = storeToRefs(useWeatherStore()),
-  idx = ref(0),
-  open = ref(false),
-  hour = ref<HTMLDivElement | null>(null);
+const weather = useWeatherStore();
+const { current } = storeToRefs(weather);
+const idx = ref(0);
+const open = ref(false);
+const hour = ref<HTMLDivElement | null>(null);
 
 watchEffect(() => {
   if (hour.value) {
@@ -196,4 +202,3 @@ watchEffect(() => {
   }
 }
 </style>
-

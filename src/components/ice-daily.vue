@@ -26,7 +26,11 @@
             <div class="text-caption">{{ $d(item.dateTime, 'day') }}</div>
 
             <div>
-              <i-icon :name="item.dayIcon" :size="40"></i-icon>
+              <i-icon
+                :name="item.dayIcon"
+                :size="40"
+                :type="weather.strategies"
+              ></i-icon>
               <div class="text-center">
                 {{ $t(`weather.desc.${item.dayDesc}`) }}
               </div>
@@ -40,6 +44,7 @@
             <i-icon
               v-if="item.nightIcon"
               :name="item.nightIcon"
+              :type="weather.strategies"
               :size="40"
             ></i-icon>
           </div>
@@ -174,10 +179,12 @@ function openDailyPanel(e: number) {
   this.open = true;
 }
 
-const { current } = storeToRefs(useWeatherStore()),
-  idx = ref(0),
-  open = ref(false),
-  day = ref<HTMLDivElement | null>(null);
+const weather = useWeatherStore();
+const { current } = storeToRefs(weather);
+
+const idx = ref(0);
+const open = ref(false);
+const day = ref<HTMLDivElement | null>(null);
 
 watchEffect(() => {
   if (day.value) {

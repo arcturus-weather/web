@@ -21,7 +21,11 @@
           >
             <div>{{ $t(item.label) }}</div>
 
-            <i-icon :name="item.icon" :size="70"></i-icon>
+            <i-icon
+              :name="item.icon"
+              :size="70"
+              :type="weather.strategies"
+            ></i-icon>
 
             <div class="q-mb-lg">
               {{ $t(item.desc) }}, {{ $t(item.tempLabel) }} {{ item.temp }}°
@@ -78,7 +82,8 @@ import { useWeatherStore } from '@stores/stores';
 import { isDef } from '@utils/utils';
 import { storeToRefs } from 'pinia';
 
-const { current } = storeToRefs(useWeatherStore());
+const weather = useWeatherStore();
+const { current } = storeToRefs(weather);
 
 interface OtherInfo {
   label: string;

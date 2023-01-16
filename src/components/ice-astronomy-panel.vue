@@ -35,7 +35,7 @@
                     {{ item.value }}
                   </div>
                 </div>
-                <i-icon :name="item.icon"></i-icon>
+                <i-icon :name="item.icon" :type="weather.strategies"></i-icon>
               </div>
             </q-timeline-entry>
           </q-timeline>
@@ -57,7 +57,8 @@ export default defineComponent({
 import { useWeatherStore } from '@stores/stores';
 import { storeToRefs } from 'pinia';
 
-const { current } = storeToRefs(useWeatherStore());
+const weather = useWeatherStore();
+const { current } = storeToRefs(weather);
 
 defineProps({
   visible: {

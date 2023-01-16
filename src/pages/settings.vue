@@ -123,7 +123,7 @@ const dataSources = computed(() => {
   return [
     {
       label: t('setting.dataSources.qWeather'),
-      value: 'qWeather',
+      value: 'qweather',
       disable: false,
     },
     {

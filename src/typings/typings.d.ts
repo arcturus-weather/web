@@ -20,6 +20,7 @@ interface ICheckin {
     visibility: number;
     clouds: number;
     aqi: number;
+    source: string;
   };
 }
 

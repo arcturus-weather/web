@@ -6,7 +6,7 @@ import { optionToLanguage } from '@src/utils/utils';
 export const useSettingStore = defineStore('settings', {
   state: () => ({
     theme: 'lightMode',
-    dataSource: 'qWeather',
+    dataSource: 'qweather',
     language: '简体中文',
   }),
 

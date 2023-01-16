@@ -14,8 +14,16 @@
       <!-- detail info -->
       <q-card-section class="column items-center" style="width: 350px">
         <div class="column justify-center items-center q-mb-lg">
-          <i-icon :name="hour.icon" :size="70"></i-icon>
-          <div>{{ $t(`weather.desc.${hour.description}`) }}, {{ hour.temperature }}°</div>
+          <i-icon
+            :name="hour.icon"
+            :size="70"
+            :type="weather.strategies"
+          ></i-icon>
+
+          <div>
+            {{ $t(`weather.desc.${hour.description}`) }},
+            {{ hour.temperature }}°
+          </div>
         </div>
 
         <div class="grid">
@@ -50,7 +58,8 @@ import { computed } from 'vue';
 import { useWeatherStore } from '@src/stores/stores';
 import { storeToRefs } from 'pinia';
 
-const { current } = storeToRefs(useWeatherStore());
+const weather = useWeatherStore();
+const { current } = storeToRefs(weather);
 
 interface Other {
   label: string;
