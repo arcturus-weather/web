@@ -16,7 +16,7 @@
     "@vueuse/core": "^9.10.0",
     "animate.css": "^4.1.1",
     "axios": "^1.2.2",
-    "iweather_icons": "^0.0.5",
+    "iweather_icons": "^1.0.0",
     "js-md5": "^0.7.3",
     "mockjs": "^1.1.0",
     "pinia": "^2.0.28",
