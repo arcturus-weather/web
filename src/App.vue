@@ -23,7 +23,7 @@ export default defineComponent({
       setting.theme = theme;
 
       // set datasource
-      const dataSource = setting.getDataSource() ?? 'qWeather';
+      const dataSource = setting.getDataSource() ?? 'qweather';
       setting.setDataSource(dataSource);
       setting.dataSource = dataSource;
 
