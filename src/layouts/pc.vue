@@ -10,7 +10,6 @@
 
       <q-tabs v-model="tab" :vertical="true" class="tabs">
         <q-route-tab
-          no-caps
           v-for="(item, idx) in _getTab()"
           :key="idx"
           :icon="item.icon"
@@ -88,27 +87,23 @@ export default defineComponent({
 <style lang="scss" scoped>
 $logo-height: 64px;
 $logo-margin-bottom: 24px;
-$width: 56px;
-$margin: 12px;
+$width: 64px;
 
 .tabbar {
-  border-radius: 6px;
   position: fixed;
-  z-index: 99;
+  z-index: 999;
   left: 0;
   top: 0;
   bottom: 0;
   width: $width;
-  margin: $margin;
+  backdrop-filter: blur(50px);
 
   &.dark {
-    background-color: rgb(0, 0, 0);
-    box-shadow: 0 0 6px #141414;
+    background-color: rgb(0, 0, 0, 0.5);
   }
 
   &.light {
-    background-color: rgb(255, 255, 255);
-    box-shadow: 0 0 6px #f0f0f0;
+    background-color: rgb(255, 255, 255, 0.5);
   }
 
   & .tabs {
@@ -122,10 +117,9 @@ $margin: 12px;
 }
 
 .container {
-  padding-left: $width + $margin * 2;
+  padding-left: $width;
   overflow: hidden;
   box-sizing: border-box;
   height: 100vh;
 }
 </style>
-

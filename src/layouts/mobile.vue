@@ -3,7 +3,6 @@
     <div class="tabbar" :class="$q.dark.isActive ? 'dark' : 'light'">
       <q-tabs v-model="tab" :vertical="false" class="tabs">
         <q-route-tab
-          no-caps
           v-for="(item, idx) in _getTab()"
           :key="idx"
           :icon="item.icon"
@@ -79,27 +78,24 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 $height: 56px;
-$margin: 12px;
 
 .tabbar {
   border-radius: 6px;
   position: fixed;
-  z-index: 99;
+  z-index: 999;
   left: 0;
   right: 0;
   bottom: 0;
   height: $height;
-  margin: $margin;
   overflow: hidden;
+  backdrop-filter: blur(50px);
 
   &.dark {
-    background-color: rgb(0, 0, 0);
-    box-shadow: 0 0 6px #141414;
+    background-color: rgb(0, 0, 0, 0.5);
   }
 
   &.light {
-    background-color: rgb(255, 255, 255);
-    box-shadow: 0 0 6px #f0f0f0;
+    background-color: rgb(255, 255, 255, 0.5);
   }
 
   & .tabs {
@@ -112,7 +108,7 @@ $margin: 12px;
   overflow: hidden;
   box-sizing: border-box;
   height: 100vh;
-  padding-bottom: $height + $margin * 2;
+  padding-bottom: $height;
 }
 </style>
 
