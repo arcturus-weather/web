@@ -64,6 +64,62 @@ function area(dom: HTMLDivElement | null | string, data: Precip[]) {
         },
       },
     },
+    annotations: [
+      {
+        type: 'text',
+        position: ['min', '0.031'],
+        content: '小雨/雪',
+        offsetY: -4,
+        style: {
+          textBaseline: 'bottom',
+        },
+      },
+      {
+        type: 'line',
+        start: ['min', '0.031'],
+        end: ['max', '0.031'],
+        style: {
+          stroke: '#9E9E9E',
+          lineDash: [2, 2],
+        },
+      },
+      {
+        type: 'text',
+        position: ['min', '0.25'],
+        content: '中雨/雪',
+        offsetY: -4,
+        style: {
+          textBaseline: 'bottom',
+        },
+      },
+      {
+        type: 'line',
+        start: ['min', '0.25'],
+        end: ['max', '0.25'],
+        style: {
+          stroke: '#9E9E9E',
+          lineDash: [2, 2],
+        },
+      },
+      {
+        type: 'text',
+        position: ['min', '0.35'],
+        content: '大雨/雪',
+        offsetY: -4,
+        style: {
+          textBaseline: 'bottom',
+        },
+      },
+      {
+        type: 'line',
+        start: ['min', '0.35'],
+        end: ['max', '0.35'],
+        style: {
+          stroke: '#9E9E9E',
+          lineDash: [2, 2],
+        },
+      },
+    ],
     xAxis: {
       line: null,
       range: [0, 1],
