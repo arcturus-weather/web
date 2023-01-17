@@ -156,16 +156,18 @@ function createGraph(dom: HTMLDivElement | null | string, data: TData[]) {
   dualAxes.render();
 }
 
-function openHourlyPanel(e: number) {
-  this.idx = e;
-  this.open = true;
-}
+
 
 const weather = useWeatherStore();
 const { current } = storeToRefs(weather);
 const idx = ref(0);
 const open = ref(false);
 const hour = ref<HTMLDivElement | null>(null);
+
+function openHourlyPanel(e: number) {
+  idx.value = e;
+  open.value = true;
+}
 
 watchEffect(() => {
   if (hour.value) {

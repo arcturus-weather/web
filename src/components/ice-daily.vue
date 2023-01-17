@@ -176,10 +176,7 @@ function createGraph(
   dualAxes.render();
 }
 
-function openDailyPanel(e: number) {
-  this.idx = e;
-  this.open = true;
-}
+
 
 const weather = useWeatherStore();
 const { current } = storeToRefs(weather);
@@ -187,6 +184,11 @@ const { current } = storeToRefs(weather);
 const idx = ref(0);
 const open = ref(false);
 const day = ref<HTMLDivElement | null>(null);
+
+function openDailyPanel(e: number) {
+  idx.value = e;
+  open.value = true;
+}
 
 watchEffect(() => {
   if (day.value) {
