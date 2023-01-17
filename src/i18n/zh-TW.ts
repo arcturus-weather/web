@@ -56,8 +56,8 @@ export default {
     },
     temperature: {
       label: '溫度',
-      max: '最高溫度',
-      min: '最低溫度',
+      max: '高溫',
+      min: '低溫',
       feel: '體感溫度',
     },
     pressure: '大氣壓',
@@ -208,8 +208,8 @@ export default {
   checkinRecord: '打卡日記',
   write: '寫點什麽嗎?',
   visitor: '今日訪問人數',
-  unit: '單元',
-  nothing: '這裡什麼都沒有...',
+  unit: '單位',
+  nothing: '這裏什麽都沒有...',
 };
 
 export const time: Record<string, Intl.DateTimeFormatOptions> = {
