@@ -72,7 +72,7 @@ export default defineComponent({
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { DrawQQMap } from '@utils/location/qqMap';
-import { debounce } from '@utils/utils';
+import { debounce, toFixed } from '@utils/utils';
 import { qqMap } from '@stores/stores';
 
 let drawMap: DrawQQMap;
@@ -127,8 +127,8 @@ function init() {
 function confirm() {
   // 用户点击确认后将所选数据传给父组件
   emit('confirm', {
-    latitude: latitude.value,
-    longitude: longitude.value,
+    latitude: toFixed(latitude.value),
+    longitude: toFixed(longitude.value),
     city: city_.value,
     address: address.value,
   });

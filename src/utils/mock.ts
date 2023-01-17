@@ -19,10 +19,7 @@ Mock.setup({
 });
 
 // 彩云天气
-Mock.mock(
-  /https:\/\/api\.caiyunapp\.com\/v2\.6\/.+\/.+\/weather.*/g,
-  _C_ALL_
-);
+Mock.mock(/\/caiyun\/.+\/.+\/weather.*/g, _C_ALL_);
 
 // 实时天气
 Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/weather\/now.*/, {
@@ -136,4 +133,3 @@ Mock.mock(/https:\/\/devapi\.qweather\.com\/v7\/minutely\/5m.*/g, {
     license: ['commercial license'],
   },
 });
-

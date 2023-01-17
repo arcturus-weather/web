@@ -124,6 +124,11 @@ module.exports = configure(function (/* ctx */) {
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/qqmap/, ''),
         },
+        '/caiyun': {
+          target: 'https://api.caiyunapp.com/v2.6',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/caiyun/, ''),
+        }
       },
     },
 

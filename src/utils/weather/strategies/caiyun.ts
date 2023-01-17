@@ -17,7 +17,7 @@ export default class CaiyunStrategy extends WeatherStrategy {
   constructor(
     private key: string,
     private lang = 'zh_CN',
-    private baseUrl: string = 'https://api.caiyunapp.com/v2.6/'
+    private baseUrl: string = '/caiyun'
   ) {
     super();
 
@@ -59,10 +59,10 @@ export default class CaiyunStrategy extends WeatherStrategy {
 
   async getWeather(loc: Location): Promise<IWeather> {
     const res: CYCaiyunRes = await this.request({
-      url: `${this.key}/${loc.toString()}/weather`,
+      url: `/${this.key}/${loc.toString()}/weather`,
       data: {
         alert: true,
-        dailysteps: 1,
+        dailysteps: 15,
         hourlysteps: 24,
       },
     });

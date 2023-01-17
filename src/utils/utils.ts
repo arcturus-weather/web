@@ -118,3 +118,7 @@ export function log(res: any) {
 export function isDef(obj: any) {
   return typeof obj !== 'undefined' && obj !== null && obj !== '';
 }
+
+export function toFixed(n: number, f = 4) {
+  return Number(n.toFixed(f));
+}
