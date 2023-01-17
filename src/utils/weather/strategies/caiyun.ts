@@ -64,6 +64,7 @@ export default class CaiyunStrategy extends WeatherStrategy {
         alert: true,
         dailysteps: 15,
         hourlysteps: 24,
+        unit: 'metric:v2',
       },
     });
 
