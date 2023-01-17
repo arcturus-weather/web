@@ -76,6 +76,7 @@ function createGraph(dom: HTMLDivElement | null | string, data: TData[]) {
     legend: false, // 关闭图例
     xField: 'x',
     yField: ['temp', 'pop'],
+    padding: [0, 15],
     yAxis: {
       pop: {
         range: [0.15, 1],
@@ -97,7 +98,7 @@ function createGraph(dom: HTMLDivElement | null | string, data: TData[]) {
       },
     },
     xAxis: {
-      range: [0.01, 0.98],
+      range: [0, 1],
       label: null,
       line: null,
       grid: {
@@ -114,6 +115,7 @@ function createGraph(dom: HTMLDivElement | null | string, data: TData[]) {
     geometryOptions: [
       {
         geometry: 'line',
+        smooth: true,
         lineStyle: {
           lineWidth: 2,
         },

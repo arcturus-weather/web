@@ -95,6 +95,7 @@ function createGraph(
     legend: false, // 关闭图例
     xField: 'x',
     yField: ['temp', 'pop'],
+    padding: [0, 20],
     yAxis: {
       pop: {
         range: [0.15, 1],
@@ -116,7 +117,7 @@ function createGraph(
       },
     },
     xAxis: {
-      range: [0.04, 0.93],
+      range: [0, 1],
       label: null,
       line: null,
       grid: {
@@ -134,6 +135,7 @@ function createGraph(
       {
         geometry: 'line',
         seriesField: 'name',
+        smooth: true,
         lineStyle: {
           lineWidth: 2,
         },
