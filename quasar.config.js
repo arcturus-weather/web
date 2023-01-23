@@ -128,7 +128,7 @@ module.exports = configure(function (/* ctx */) {
           target: 'https://api.caiyunapp.com/v2.6',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/caiyun/, ''),
-        }
+        },
       },
     },
 
@@ -248,4 +248,3 @@ module.exports = configure(function (/* ctx */) {
     },
   };
 });
-
