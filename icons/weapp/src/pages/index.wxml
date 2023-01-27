@@ -1,0 +1,5 @@
+<view class="container">
+    <i-icon size="{{60}}" name="100" />
+    <i-icon size="60px" name="CLEAR_NIGHT" type="caiyun" />
+    <i-icon size="{{60}}" name="warnings-1001" />
+</view>

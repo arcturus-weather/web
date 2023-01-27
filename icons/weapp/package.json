@@ -1,0 +1,39 @@
+{
+  "name": "iweather_icon_weapp",
+  "version": "1.0.0",
+  "description": "小程序天气图标",
+  "scripts": {
+    "build": "export NODE_OPTIONS=--openssl-legacy-provider && mpflow-service build",
+    "dev": "export NODE_OPTIONS=--openssl-legacy-provider && mpflow-service dev",
+    "dev:open": "export NODE_OPTIONS=--openssl-legacy-provider && mpflow-service dev --open"
+  },
+  "keywords": [
+    "qweather",
+    "weather icons",
+    "icons",
+    "weapp icons",
+    "svg icons",
+    "caiyun weather"
+  ],
+  "miniprogram": "dist",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iceweather/iweather_icons.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://github.com/iceweather/iweather_icons/tree/main/weapp",
+  "dependencies": {
+    "@mpflow/plugin-babel": "^0.0.37",
+    "@mpflow/plugin-css": "^0.0.33",
+    "@mpflow/plugin-typescript": "^0.0.33",
+    "@mpflow/service": "^0.0.33",
+    "miniprogram-api-typings": "^3.9.0"
+  },
+  "devDependencies": {
+    "@babel/runtime": "^7.11.2",
+    "@types/wechat-miniprogram": "^2.11.0",
+    "typescript": "^3.9.7"
+  }
+}
