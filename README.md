@@ -4,6 +4,8 @@
 
 使用 vue 和 nestjs 实现的全栈项目
 
+建议手机查看, 电脑定位不准
+
 <a href="https://github.com/ICE99125/iweather-vue/issues">
     <img alt="issues" src="https://img.shields.io/github/issues/arcturus-org/weather">
 </a>
