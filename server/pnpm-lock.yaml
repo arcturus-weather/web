@@ -10,18 +10,18 @@ specifiers:
   '@nestjs/mongoose': ^9.2.0
   '@nestjs/passport': ^9.0.0
   '@nestjs/platform-express': ^9.0.0
-  '@nestjs/schematics': ^9.0.0
-  '@nestjs/testing': ^9.0.0
+  '@nestjs/schematics': ^9.0.1
+  '@nestjs/testing': ^9.0.2
   '@types/express': ^4.17.13
   '@types/jest': 28.1.4
-  '@types/node': ^16.0.0
-  '@types/supertest': ^2.0.11
-  '@typescript-eslint/eslint-plugin': ^5.0.0
-  '@typescript-eslint/parser': ^5.0.0
+  '@types/node': ^16.11.43
+  '@types/supertest': ^2.0.12
+  '@typescript-eslint/eslint-plugin': ^5.30.6
+  '@typescript-eslint/parser': ^5.30.6
   ejs: ^3.1.8
-  eslint: ^8.0.1
-  eslint-config-prettier: ^8.3.0
-  eslint-plugin-prettier: ^4.0.0
+  eslint: ^8.19.0
+  eslint-config-prettier: ^8.5.0
+  eslint-plugin-prettier: ^4.2.1
   jest: 28.1.2
   joi: ^17.6.0
   mongoose: ^6.4.4
@@ -31,14 +31,14 @@ specifiers:
   prettier: ^2.3.2
   reflect-metadata: ^0.1.13
   rimraf: ^3.0.2
-  rxjs: ^7.2.0
-  source-map-support: ^0.5.20
-  supertest: ^6.1.3
+  rxjs: ^7.5.6
+  source-map-support: ^0.5.21
+  supertest: ^6.2.4
   ts-jest: 28.0.5
-  ts-loader: ^9.2.3
-  ts-node: ^10.0.0
+  ts-loader: ^9.3.1
+  ts-node: ^10.8.2
   tsconfig-paths: 4.0.0
-  typescript: ^4.3.5
+  typescript: ^4.7.4
 
 dependencies:
   '@nestjs-modules/mailer': 1.7.1_kvdkx6vofs6t7goww2akedfyfa
@@ -61,7 +61,7 @@ dependencies:
 
 devDependencies:
   '@nestjs/cli': 9.0.0
-  '@nestjs/schematics': 9.0.1_nobats3jkocaued6l3papcxri4
+  '@nestjs/schematics': 9.0.1_typescript@4.7.4
   '@nestjs/testing': 9.0.2_hcykwrqddffqd4ecobanjogwlq
   '@types/express': 4.17.13
   '@types/jest': 28.1.4
@@ -92,6 +92,22 @@ packages:
       '@jridgewell/trace-mapping': 0.3.14
     dev: true
 
+  /@angular-devkit/core/14.0.5:
+    resolution: {integrity: sha512-/CUGi6QLwh79FvsOY7M+1LQL3asZsbQW/WBd5f1iu5y7TLNqCwo+wOb0ZXLDNPw45vYBxFajtt3ob3U7qx3jNg==}
+    engines: {node: ^14.15.0 || >=16.10.0, npm: ^6.11.0 || ^7.5.6 || >=8.0.0, yarn: '>= 1.13.0'}
+    peerDependencies:
+      chokidar: ^3.5.2
+    peerDependenciesMeta:
+      chokidar:
+        optional: true
+    dependencies:
+      ajv: 8.11.0
+      ajv-formats: 2.1.1_ajv@8.11.0
+      jsonc-parser: 3.0.0
+      rxjs: 6.6.7
+      source-map: 0.7.3
+    dev: true
+
   /@angular-devkit/core/14.0.5_chokidar@3.5.3:
     resolution: {integrity: sha512-/CUGi6QLwh79FvsOY7M+1LQL3asZsbQW/WBd5f1iu5y7TLNqCwo+wOb0ZXLDNPw45vYBxFajtt3ob3U7qx3jNg==}
     engines: {node: ^14.15.0 || >=16.10.0, npm: ^6.11.0 || ^7.5.6 || >=8.0.0, yarn: '>= 1.13.0'}
@@ -102,7 +118,7 @@ packages:
         optional: true
     dependencies:
       ajv: 8.11.0
-      ajv-formats: 2.1.1
+      ajv-formats: 2.1.1_ajv@8.11.0
       chokidar: 3.5.3
       jsonc-parser: 3.0.0
       rxjs: 6.6.7
@@ -120,6 +136,19 @@ packages:
       inquirer: 8.2.4
       symbol-observable: 4.0.0
       yargs-parser: 21.0.1
+    transitivePeerDependencies:
+      - chokidar
+    dev: true
+
+  /@angular-devkit/schematics/14.0.5:
+    resolution: {integrity: sha512-sufxITBkn2MvgEREt9JQ3QCKHS+sue1WsVzLE+TWqG5MC/RPk0f9tQ5VoHk6ZTzDKUvOtSoc7G+n0RscQsyp5g==}
+    engines: {node: ^14.15.0 || >=16.10.0, npm: ^6.11.0 || ^7.5.6 || >=8.0.0, yarn: '>= 1.13.0'}
+    dependencies:
+      '@angular-devkit/core': 14.0.5
+      jsonc-parser: 3.0.0
+      magic-string: 0.26.1
+      ora: 5.4.1
+      rxjs: 6.6.7
     transitivePeerDependencies:
       - chokidar
     dev: true
@@ -995,6 +1024,21 @@ packages:
       - chokidar
     dev: true
 
+  /@nestjs/schematics/9.0.1_typescript@4.7.4:
+    resolution: {integrity: sha512-QU7GbnQvADFXdumcdADmv4vil3bhnYl2IFHWKieRt0MgIhghgBxIB7kDKWhswcuZ0kZztVbyYjo9aCrlf62fcw==}
+    peerDependencies:
+      typescript: ^4.3.5
+    dependencies:
+      '@angular-devkit/core': 14.0.5
+      '@angular-devkit/schematics': 14.0.5
+      fs-extra: 10.1.0
+      jsonc-parser: 3.0.0
+      pluralize: 8.0.0
+      typescript: 4.7.4
+    transitivePeerDependencies:
+      - chokidar
+    dev: true
+
   /@nestjs/testing/9.0.2_hcykwrqddffqd4ecobanjogwlq:
     resolution: {integrity: sha512-PccUbrAeItajWtGuqYa7IQJBbDz5AW5i4YYuSTAqDKjl8KkZ8PG19xZ3QCsdMyxczTTI82Z+9QZaFZb+mC98Ug==}
     peerDependencies:
@@ -1597,8 +1641,10 @@ packages:
       - supports-color
     dev: false
 
-  /ajv-formats/2.1.1:
+  /ajv-formats/2.1.1_ajv@8.11.0:
     resolution: {integrity: sha512-Wx0Kx52hxE7C18hkMEggYlEifqWZtYaRgouJor+WMdPnQyEK13vgEWyVNup7SoeeoLMsr4kf5h6dOW11I15MUA==}
+    peerDependencies:
+      ajv: ^8.0.0
     peerDependenciesMeta:
       ajv:
         optional: true
