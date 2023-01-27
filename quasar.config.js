@@ -219,7 +219,7 @@ module.exports = configure(function (/* ctx */) {
 
       inspectPort: 5858,
 
-      bundler: 'packager', // 'packager' or 'builder'
+      bundler: 'builder', // 'packager' or 'builder'
 
       packager: {
         // https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
@@ -234,8 +234,26 @@ module.exports = configure(function (/* ctx */) {
 
       builder: {
         // https://www.electron.build/configuration/configuration
-
-        appId: 'iweather',
+        appId: 'com.iweather.app',
+        productName: '小冰天气',
+        copyright: 'MIT Copyright © 2022-2023 ARCTURUS',
+        directories: {
+          output: 'electron',
+        },
+        win: {
+          target: 'nsis',
+        },
+        nsis: {
+          allowToChangeInstallationDirectory: true,
+          oneClick: false, // 不进行一件安装
+          menuCategory: true,
+          allowElevation: false,
+        },
+        linux: {
+          target: ['deb', 'AppImage'],
+          category: 'iweather',
+        },
+        
       },
     },
 
