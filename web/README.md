@@ -51,3 +51,13 @@ quasar build --debug
 ![image-20230114094231790](../assets/image-20230114094231790.png)
 
 环境变量的填写需要在部署之前, 否则不会生效
+
+### docker
+
+```bash
+docker build -t weather-image .
+```
+
+```bash
+docker run -p 80:80 --name weather weather-image
+```
