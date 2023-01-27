@@ -1,0 +1,92 @@
+env:
+  jest: true
+  node: true
+  es2021: true
+root: true
+extends:
+  - 'plugin:@typescript-eslint/recommended'
+  - 'plugin:prettier/recommended'
+parser: '@typescript-eslint/parser'
+parserOptions:
+  sourceType: module
+  project: 'tsconfig.json'
+plugins:
+  - '@typescript-eslint/eslint-plugin'
+rules:
+  quotes:
+    - warn
+    - single
+    - avoidEscape: true
+  eqeqeq:
+    - error
+    - always
+  no-console: off
+  no-await-in-loop: error
+  no-empty-function: off
+  no-unused-vars:
+    - warn
+    - args: none
+  no-void: error
+  require-await: off
+  no-unused-expressions: error
+  no-new-func: error
+  no-new-wrappers: error
+  no-param-reassign: warn
+  class-methods-use-this: off
+  prefer-promise-reject-errors: off
+  no-extra-boolean-cast:
+    - error
+    - enforceForLogicalOperands: true
+  '@typescript-eslint/no-misused-promises':
+    - error
+    - checksVoidReturn: false
+  '@typescript-eslint/no-confusing-void-expression':
+    - warn
+    - ignoreArrowShorthand: true
+  '@typescript-eslint/explicit-function-return-type': off
+  '@typescript-eslint/no-var-requires': error
+  '@typescript-eslint/no-explicit-any': off
+  '@typescript-eslint/no-empty-function': off
+  '@typescript-eslint/no-non-null-assertion': off
+  '@typescript-eslint/comma-dangle': off
+  '@typescript-eslint/ban-ts-comment': off
+  '@typescript-eslint/no-floating-promises': off
+  '@typescript-eslint/semi': [error, always]
+  '@typescript-eslint/strict-boolean-expressions': off
+  '@typescript-eslint/member-delimiter-style':
+    - warn
+    - multiline:
+        delimiter: semi
+        requireLast: true
+      singleline:
+        delimiter: semi
+        requireLast: false
+  '@typescript-eslint/space-before-function-paren': off
+  space-before-function-paren: off
+  block-spacing:
+    - error
+    - always
+  max-len:
+    - warn
+    - code: 80
+      tabWidth: 2
+  brace-style:
+    - error
+    - 1tbs
+  camelcase:
+    - error
+    - properties: never
+      ignoreDestructuring: true
+  comma-dangle:
+    - error
+    - arrays: only-multiline
+      objects: only-multiline
+      imports: only-multiline
+      exports: never
+      functions: never
+  linebreak-style:
+    - error
+    - unix
+  new-cap: off
+  no-tabs: error
+  no-duplicate-imports: error

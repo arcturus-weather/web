@@ -1,0 +1,34 @@
+<div
+  style="
+    max-width: 600px;
+    min-width: 300px;
+    margin: 40px auto;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    padding: 20px;
+    background-color: #4c83ff;
+    border-radius: 3px;
+    color: #fff;
+  "
+>
+  <h3 style="margin-bottom: 40px">Hi! 亲爱的用户:</h3>
+  <p>您正在进行邮箱验证, 本次请求的验证码为:</p>
+  <p>
+    <strong style="color: #ffc107; font-size: 24px">
+      <%= locals.code %>
+    </strong>
+    <span>(为了保障您帐号的安全性, 请在 30 分钟内完成验证)</span>
+  </p>
+  <p>
+    <span>快速访问: </span>
+    <a
+      href="https://iceweather.netlify.app/"
+      style="color: #fff"
+      target="_blank"
+      rel="noopener noreferrer"
+      >https://iceweather.netlify.app/</a
+    >
+  </p>
+  <p style="margin-top: 40px; text-align: right"><%= locals.sign %></p>
+  <p style="text-align: right"><%= locals.date %></p>
+</div>

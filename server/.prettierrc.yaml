@@ -1,0 +1,14 @@
+printWidth: 80 # 单行长度
+tabWidth: 2 # 缩进长度
+useTabs: false # 使用空格代替 tab
+semi: true # 句末分号
+singleQuote: true # 使用单引号
+jsxSingleQuote: false # jsx 中不使用单引号
+bracketSpacing: true # 对象括号间添加空格
+endOfLine: lf
+bracketSameLine: false # html 结束标签 > 单独一行
+quoteProps: 'as-needed' # 仅在必须时为对象的 key 加引号
+jsxBracketSameLine: false # jsx 的结束标签 > 单独一行
+arrowParens: always # 单参数箭头函数参数周围使用圆括号
+proseWrap: preserve
+trailingComma: es5 # 使用尾随逗号
