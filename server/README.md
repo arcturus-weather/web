@@ -19,7 +19,7 @@ pnpm install
 
 ### 运行
 
-创建 `.env` 并填写 
+创建 `.env` 并填写
 
 ```
 MONGODB_URI=mongodb://root:root@mongodb:27017/users?authSource=admin&readPreference=primary # mongodb 地址
@@ -89,71 +89,6 @@ pnpm run start:prod
 最后修改环境变量并手动部署
 
 ![image-20230124124810539](../assets/image-20230124124810539.png)
-
-### Docker 部署
-
-安装 docker
-
-```bash
-sudo curl -sSL get.docker.com | sh
-```
-
-修改国内镜像源
-
-```bash
-sudo mkdir -p /etc/docker
-```
-
-```bash
-sudo vim /etc/docker/daemon.json
-```
-
-```
-{
-  "registry-mirrors": [
-     "https://docker.mirrors.ustc.edu.cn",
-     "https://mirror.ccs.tencentyun.com",
-     "https://hub-mirror.c.163.com",
-     "https://reg-mirror.qiniu.com"
-  ]
-}
-```
-
-```bash
-systemctl daemon-reload
-```
-
-```bash
-systemctl restart docker
-```
-
-测试安装是否成功
-
-```bash
-sudo docker run hello-world
-```
-
-安装 docker-compose
-
-```bash
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-```
-
-```bash
-sudo chmod +x /usr/local/bin/docker-compose
-```
-
-测试安装是否成功
-
-```bash
-docker-compose --version
-```
-
-运行
-
-```bash
-sudo docker-compose up
-```
 
 ## 免费 mongodb 集群
 
