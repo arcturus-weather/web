@@ -10,6 +10,8 @@ COPY . .
 RUN npm config set registry https://registry.npmmirror.com
 RUN npm install
 
+RUN npm run build
+
 EXPOSE 3000
 
 # start the server
