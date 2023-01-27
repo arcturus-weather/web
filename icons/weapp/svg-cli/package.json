@@ -1,6 +1,6 @@
 {
   "name": "ice-weapp-svg-cli",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "SVG 生成小程序自定义组件",
   "exports": "./index.ts",
   "bin": {
@@ -15,9 +15,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/arcturus-org/iweather_icons.git"
+    "url": "https://github.com/arcturus-org/weather.git"
   },
-  "homepage": "https://github.com/iceweather/iweather_icons/tree/main/weapp/svg-cli",
+  "homepage": "https://github.com/arcturus-org/weather/tree/main/icons/weapp/svg-cli",
   "keywords": [
     "svg",
     "weapp"

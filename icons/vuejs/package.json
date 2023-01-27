@@ -1,13 +1,13 @@
 {
   "name": "iweather_icons",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": "ARCTURUS",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/iceweather/iweather_icons.git"
+    "url": "https://github.com/arcturus-org/weather.git"
   },
-  "homepage": "https://github.com/iceweather/iweather_icons/tree/main/vuejs",
+  "homepage": "https://iweather-icons.netlify.app/",
   "keywords": [
     "qweather",
     "weather icons",

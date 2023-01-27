@@ -1,6 +1,6 @@
 {
   "name": "iweather_icon_weapp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "小程序天气图标",
   "scripts": {
     "build": "export NODE_OPTIONS=--openssl-legacy-provider && mpflow-service build",
@@ -18,12 +18,12 @@
   "miniprogram": "dist",
   "repository": {
     "type": "git",
-    "url": "https://github.com/iceweather/iweather_icons.git"
+    "url": "https://github.com/arcturus-org/weather.git"
   },
   "files": [
     "dist"
   ],
-  "homepage": "https://github.com/iceweather/iweather_icons/tree/main/weapp",
+  "homepage": "https://iweather-icons.netlify.app/",
   "dependencies": {
     "@mpflow/plugin-babel": "^0.0.37",
     "@mpflow/plugin-css": "^0.0.33",
