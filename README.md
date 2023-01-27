@@ -17,6 +17,6 @@
     <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/arcturus-org/weather">
 </a>
 
-[demo](https://iceweather.netlify.app/) | [backend](./server) | [frontend](./web) | [icons](https://iweather-icons.netlify.app)
+[demo](https://ice-weather.netlify.app/) | [backend](./server) | [frontend](./web) | [icons](https://iweather-icons.netlify.app)
 
 </div>
