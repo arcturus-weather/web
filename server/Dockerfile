@@ -1,9 +1,9 @@
 FROM node:18-buster-slim
 
 # create work direction
-RUN mkdir -p /usr/src/weather-server
+RUN mkdir -p /usr/src/server
 
-WORKDIR /usr/src/weather-server
+WORKDIR /usr/src/server
 
 COPY . .
 

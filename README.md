@@ -85,3 +85,5 @@ docker-compose --version
 ```bash
 sudo docker-compose up
 ```
+
+访问地址 `http://localhost`

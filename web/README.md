@@ -19,7 +19,7 @@ VUE_CAIYUN_KEY=xxx # 彩云天气
 
 VUE_QQMAP_KEY=xxx # 腾讯地图
 
-VUE_SERVER_BASEURL=127.0.0.1:8090 # 小冰天气后端地址
+VUE_SERVER_BASEURL=api # 小冰天气后端地址
 ```
 
 ### 运行
