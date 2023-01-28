@@ -2,6 +2,7 @@ import Http from '@utils/http';
 import { i18n } from 'src/boot/i18n';
 import { qqMapCode } from '@utils/http/code';
 import { notify } from '@utils/utils';
+import { log } from '@utils/utils';
 
 declare const qq: { maps: { Geolocation: any } };
 
@@ -49,13 +50,15 @@ export class QQMap {
     return new Promise((resolve, reject) => {
       this.geolocation.getLocation(
         (res: geoResult) => {
+          log(res);
+
           const { lat, lng, city, addr } = res;
 
           resolve({
             latitude: lat, // 纬度
             longitude: lng, // 经度
             city: city, // 市
-            address: addr, // 具体地址
+            address: addr === '' ? city : addr, // 具体地址
           });
         },
         () => {
@@ -196,4 +199,3 @@ export class DrawQQMap {
     this.map!.setCenter(new TMap.LatLng(latitude, longitude));
   }
 }
-
