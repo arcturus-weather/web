@@ -1,0 +1,15 @@
+<swiper class="swiper" indicator-dots indicator-color="{{dotColor}}" indicator-active-color="{{activeDotColor}}">
+  <swiper-item class="swiper-i" wx:for="{{twoDimArray}}" wx:for-item="i" wx:key="index">
+    <view class="swiper-j-container">
+      <view class="swiper-j" wx:for="{{i}}" wx:for-item="j" wx:key="index">
+      <!-- 图标 -->
+      <life name="{{j.type}}" class="icon"/>
+      <!-- 简介 -->
+      <view class="desc">
+        <view class="name">{{j.name}}</view>
+        <view class="category">{{j.category}}</view>
+      </view>
+    </view>
+    </view>
+  </swiper-item>
+</swiper>

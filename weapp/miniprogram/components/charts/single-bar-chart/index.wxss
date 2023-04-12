@@ -1,0 +1,32 @@
+.bar-container {
+  height: 8em;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.bar {
+  border-radius: 4px;
+  width: 8px;
+  margin: 3px 0;
+}
+
+.line {
+  height: 100%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  border-right: 2px dotted #eee;
+  z-index: 1;
+}
+
+.bar-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}

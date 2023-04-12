@@ -1,0 +1,52 @@
+/* 导航栏 */
+.nav-bar-container {
+  z-index: 100;
+  transition: background-color 0.2s linear;
+  width: 100%;
+}
+
+.nav-bar {
+  padding-left: 1em;
+  box-sizing: border-box;
+  display: flex;
+}
+
+/* 导航图标 */
+.nav-icon-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.nav-icon {
+  margin-right: 0.5em;
+}
+
+/* 导航栏标题 */
+.title {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.title > .navTitle {
+  font-weight: bold;
+  width: 100%;
+  overflow: hidden;
+  /* 文本不换行 */
+  white-space: nowrap;
+  /* 超出显示省略号 */
+  text-overflow: ellipsis;
+}
+
+.title > .subTitle {
+  font-size: 0.6em;
+  width: 100%;
+  overflow: hidden;
+  /* 文本不换行 */
+  white-space: nowrap;
+  /* 超出显示省略号 */
+  text-overflow: ellipsis;
+}

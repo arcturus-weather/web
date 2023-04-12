@@ -1,0 +1,33 @@
+{
+    "pages": [
+        "pages/home/index",
+        "pages/aqi/index",
+        "pages/warn/index",
+        "pages/like/index",
+        "pages/search/index",
+        "pages/test/test"
+    ],
+    "lazyCodeLoading": "requiredComponents",
+    "usingComponents": {
+        "nav-bar": "/components/navbar/index",
+        "card": "/components/card/index",
+        "drawer": "/components/drawer/index",
+        "qweather": "/assets/icons/qweather/qweather",
+        "disasters": "/assets/icons/disasters/disasters",
+        "life": "/assets/icons/life/life",
+        "common": "/assets/icons/common/common",
+        "aqi": "/assets/icons/aqi/aqi",
+        "loading": "/components/loading/index"
+    },
+    "window": {
+        "navigationStyle": "custom",
+        "navigationBarTextStyle": "black"
+    },
+    "sitemapLocation": "sitemap.json",
+    "permission": {
+        "scope.userLocation": {
+            "desc": "位置信息将用于当前天气的请求"
+        }
+    },
+    "resizable": true
+}

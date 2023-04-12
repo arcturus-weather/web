@@ -1,0 +1,29 @@
+<view
+  class="nav-bar-container"
+  style="padding-top:{{statusBarHeight}}px; color: {{textColor}}; background-color: {{backgroundColor}}; {{isFixed? 'position: fixed;' : ''}}"
+>
+  <view class="nav-bar" style="height: {{navHeight}}px;width: {{navWidth}}px">
+    <!-- 导航栏左边图标 -->
+    <view class="nav-icon-container">
+      <common
+        class="nav-icon"
+        name="{{navLeftIcon}}"
+        wx:if="{{navLeftIcon}}"
+        bindtap="left"
+        color="{{textColor}}"
+      />
+      <common
+        class="nav-icon"
+        name="{{navRightIcon}}"
+        wx:if="{{navRightIcon}}"
+        bindtap="right"
+        color="{{textColor}}" 
+      />
+    </view>
+    <!-- 导航栏文字 -->
+    <view class="title">
+      <view wx:if="{{navTitle}}" class="navTitle">{{navTitle}}</view>
+      <view wx:if="{{subTitle}}" class="subTitle">{{subTitle}}</view>
+    </view>
+  </view>
+</view>

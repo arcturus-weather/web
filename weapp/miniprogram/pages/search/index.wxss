@@ -1,0 +1,113 @@
+.search-container {
+  box-sizing: border-box;
+  background-color: #f4f8f9;
+  height: 100vh;
+}
+
+.padding {
+  padding: 0.5em 1em;
+}
+
+.input-map-container {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.input-container {
+  display: flex;
+  flex: 4;
+  margin-right: 0.5em;
+  align-items: center;
+  background-color: #f2f6fc;
+  border-radius: 10px;
+  padding: 0.5em;
+}
+
+.search-icon {
+  margin-right: 0.5em;
+}
+
+/* 地图按钮 */
+.btn-map {
+  flex: 1;
+  background-color: #f2f6fc;
+  padding: 0.5em;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 热门城市 */
+.hot-cities .title,
+.history .title {
+  margin: 0.8em 0;
+  font-weight: bold;
+}
+
+.cites-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 100px);
+  justify-content: space-between;
+  grid-gap: 10px;
+}
+
+.history-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.cites-item,
+.history-item {
+  text-align: center;
+  border-radius: 5px;
+  line-height: 2.5em;
+  background-color: #ebeef5;
+  color: #909399;
+}
+
+.history-item {
+  margin-right: 10px;
+  margin-top: 10px;
+  padding: 0 10px;
+}
+
+/* 城市建议弹窗 */
+.cities-right .cites-item {
+  height: 100%;
+}
+
+.cities-bottom .cities-item {
+  /* 字体+padding */
+  max-height: calc(80vh - 1.8em - 20px);
+}
+
+.cities .title {
+  margin-bottom: 0.8em;
+  font-weight: bold;
+}
+
+.city-name {
+  line-height: 2em;
+  height: 2em;
+}
+
+.city-detail {
+  font-size: 0.9em;
+  color: #909399;
+}
+
+.city-container {
+  padding: 0.5em 0;
+  display: flex;
+  align-items: center;
+}
+
+.city-container:not(:last-of-type) {
+  border-bottom: 1px solid #ebeef5;
+}
+
+.city-container > view:first-child {
+  flex: 1;
+}

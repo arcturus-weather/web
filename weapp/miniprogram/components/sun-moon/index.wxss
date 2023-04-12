@@ -1,0 +1,126 @@
+.sun-moon-container {
+  --curve-height: 120px; /* 轨道半径 */
+  --chart-height: 150px; /* 画布半径 */
+  --sun-diameter: 30px; /* 太阳直径 */
+  --moon-diameter: 30px; /* 月亮直径*/
+}
+
+.sun-moon-container {
+  /* 这里防止轨道看不见 */
+  min-width: 300px;
+}
+
+.time-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 画布 */
+.chart-container {
+  height: var(--chart-height);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 0.5em;
+}
+
+/* 轨道 */
+.curve {
+  height: var(--curve-height);
+  width: calc(var(--curve-height) * 2);
+  box-sizing: border-box;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  border: 2px dotted #e4e7ed;
+  border-bottom: none;
+
+  /* 轨道居中 */
+  position: absolute;
+  /* 防止太阳遮挡下边文字 */
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.sun-time,
+.moon-time {
+  display: flex;
+  align-items: center;
+}
+
+.sun-time-detail {
+  margin-left: 0.5em;
+}
+
+.moon-time-detail {
+  margin-right: 0.5em;
+}
+
+/* 太阳和月亮 */
+.sun-container,
+.moon-container {
+  position: absolute;
+  width: var(--curve-height);
+  height: var(--sun-diameter);
+  bottom: calc(0% - var(--sun-diameter) / 2);
+
+  /* 以底部中心为原点进行旋转 */
+  transform-origin: 100% 50%;
+}
+
+/* 太阳 */
+.sun {
+  background-color: #ffcf00;
+  border-radius: 50%;
+  width: var(--sun-diameter);
+  height: var(--sun-diameter);
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+/* 太阳光辉 */
+.sun-light {
+  width: var(--sun-diameter);
+  height: var(--sun-diameter);
+  background-color: #ffb55a;
+  position: absolute;
+  z-index: -1;
+}
+
+.sun-light:nth-of-type(2) {
+  transform: translateX(-50%);
+}
+
+.sun-light:nth-of-type(3) {
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* 月亮 */
+.moon {
+  width: var(--moon-diameter);
+  height: var(--moon-diameter);
+  background-color: #d8d8d8;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  position: relative;
+}
+
+.moon::after,
+.moon::before {
+  content: '';
+  background-color: #979797;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.moon::after {
+  width: 15%;
+  height: 15%;
+  left: 60%;
+  top: 15%;
+}
+
+.moon::before {
+  width: 30%;
+  height: 30%;
+  left: 40%;
+  top: 40%;
+}

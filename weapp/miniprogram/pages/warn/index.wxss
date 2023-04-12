@@ -1,0 +1,41 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 0 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.warn {
+  font-weight: bold;
+  font-size: 1.5em;
+  margin: 1em 0;
+}
+
+.waring-container {
+  border-radius: 10px;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 400px;
+}
+
+
+button[class="btn-remind"]:after{
+  border: 0;
+}
+
+.btn-remind {
+  margin-top: 3em;
+  font-size: 1em;
+}
+
+.share-img-canvas {
+  position: absolute;
+  top: -100%;
+}

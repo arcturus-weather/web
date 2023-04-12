@@ -1,0 +1,45 @@
+.like-container {
+  box-sizing: border-box;
+  position: relative;
+  padding: 0 1em;
+  height: 100vh;
+}
+
+/* 添加按钮 */
+.add-btn {
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 10;
+  bottom: 2em;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0;
+  padding-right: 0;
+  border: 2px solid #e4e7ed;
+}
+
+.add-btn::after {
+  content: none;
+}
+
+/* 搜索按钮 */
+.search-btn-container {
+  padding-top: 0.5em;
+}
+
+.search-btn {
+  background-color: #f2f6fc;
+  display: flex;
+  align-items: center;
+  padding: 0.5em 1em;
+  border-radius: 10px;
+  color: #909399;
+}
+
+.search-text {
+  margin-left: 0.5em;
+}
