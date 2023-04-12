@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
+	<circle fill="#CCCCCC" cx="323.4" cy="168.2" r="37.3"/>
+	<circle fill="#EEEEEE" cx="265.7" cy="254.8" r="25"/>
+	<circle fill="#999999" cx="323.6" cy="385" r="16.9"/>
+	<circle fill="#CCCCCC" cx="176.7" cy="141.4" r="64.2"/>
+	<circle fill="#E6E6E6" cx="352.8" cy="291.7" r="37.3"/>
+	<circle fill="#EEEEEE" cx="409.3" cy="382.6" r="19.7"/>
+	<ellipse transform="matrix(0.1602 -0.9871 0.9871 0.1602 -163.4041 534.9002)" fill="#B3B3B3" cx="232.6" cy="363.5" rx="25" ry="25"/>
+	<circle fill="#CCCCCC" cx="279.9" cy="309.2" r="14.5"/>
+	<circle fill="#666666" cx="167.6" cy="282.9" r="11.7"/>
+</svg>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
+	<rect x="128.9" y="129" fill="#FFB55A" width="242.2" height="242.2"/>
+	<rect x="128.9" y="128.9" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -103.553 249.9962)"  fill="#FFB55A" width="242.2" height="242.2"/>
+	<circle fill="#FFCF00" cx="249.9" cy="250.1" r="121.1"/>
+</svg>
