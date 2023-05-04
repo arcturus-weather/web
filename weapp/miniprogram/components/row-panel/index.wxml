@@ -1,7 +1,0 @@
-<view class="panel-container panel-class">
-  <!-- 这是一个横向排列的数据详情面板 -->
-  <view class="panel" wx:for="{{options}}" wx:key="index">
-    <view class="panel-value">{{item.value}}<span class="unit">{{item.unit}}</span></view>
-    <view class="panel-name">{{item.name}}</view>
-  </view>
-</view>

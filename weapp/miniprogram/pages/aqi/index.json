@@ -1,7 +1,0 @@
-{
-    "usingComponents": {
-        "semicircle-progress": "/components/charts/semicircle-progress/index",
-        "block-progress": "/components/charts/block-progress/index",
-        "slide-bar": "/components/charts/slide-bar-chart/index"
-    }
-}

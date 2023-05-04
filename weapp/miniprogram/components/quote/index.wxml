@@ -1,4 +1,0 @@
-<view class="quote-container quote-class">
-  <text class="quote-text">{{text}}</text>
-  <common name="{{icon}}" class="mini" color="rgba(0, 0, 0, 0.2)" size="25" />
-</view>
